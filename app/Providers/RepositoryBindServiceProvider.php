@@ -100,6 +100,11 @@ class RepositoryBindServiceProvider extends ServiceProvider {
             \App\Repositories\OauthRefreshTokenRepositoryInterface::class,
             \App\Repositories\Eloquent\OauthRefreshTokenRepository::class
         );
+        $this->app->singleton(
+            \App\Repositories\BoxRepositoryInterface::class,
+            \App\Repositories\Eloquent\BoxRepository::class
+        );
+
         /* NEW BINDING */
     }
 }
