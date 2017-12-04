@@ -31,7 +31,14 @@ class BoxRequest extends BaseRequest
      */
     public function rules()
     {
-        return $this->boxRepository->rules();
+        $id = ($this->method() == 'PUT') ? $this->route('boxes') : 0;
+
+        $rules = [
+            'imei'   => 'required|string|unique:boxes,imei,' . $id,
+            'serial' => 'required|string|unique:boxes,serial,' . $id
+        ];
+
+        return $rules;
     }
 
     public function messages()
