@@ -48,6 +48,7 @@ KaraOta
                 <th style="width: 10px">{!! \PaginationHelper::sort('id', 'ID') !!}</th>
                 <th>{!! \PaginationHelper::sort('os_version', trans('admin.pages.kara-ota.columns.os_version')) !!}</th>
                 <th>{!! \PaginationHelper::sort('box_version', trans('admin.pages.kara-ota.columns.box_version')) !!}</th>
+                <th>{!! \PaginationHelper::sort('box_version', trans('admin.pages.kara-ota.columns.kara_version_id')) !!}</th>
 
                 <th style="width: 40px">@lang('admin.pages.common.label.actions')</th>
             </tr>
@@ -56,6 +57,14 @@ KaraOta
                     <td>{{ $karaOta->id }}</td>
                     <td>{{ $karaOta->os_version }}</td>
                     <td>{{ $karaOta->box_version }}</td>
+
+                    <td>
+                        @if( isset($karaOta->karaVersion->version) )
+                            <a href="{{action('Admin\KaraVersionController@show', [$karaOta->karaVersion->id])}}">{{$karaOta->karaVersion->version}}</a>
+                        @else
+                            Unknown
+                        @endif
+                    </td>
 
                     <td>
                         <a href="{!! action('Admin\KaraOtaController@show', $karaOta->id) !!}"
