@@ -13,7 +13,8 @@
 
 $factory->define(
     App\Models\User::class,
-    function (Faker\Generator $faker) {
+    function (Faker\Generator $faker)
+    {
         return [
             'name'                 => $faker->name,
             'email'                => $faker->email,
@@ -34,7 +35,8 @@ $factory->define(
 
 $factory->define(
     App\Models\AdminUser::class,
-    function (Faker\Generator $faker) {
+    function (Faker\Generator $faker)
+    {
         return [
             'name'                 => $faker->name,
             'email'                => $faker->email,
@@ -50,7 +52,8 @@ $factory->define(
 
 $factory->define(
     App\Models\AdminUserRole::class,
-    function (Faker\Generator $faker) {
+    function (Faker\Generator $faker)
+    {
         return [
             'admin_user_id' => $faker->randomNumber(),
             'role'          => 'supper_user'
@@ -60,7 +63,8 @@ $factory->define(
 
 $factory->define(
     App\Models\SiteConfiguration::class,
-    function (Faker\Generator $faker) {
+    function (Faker\Generator $faker)
+    {
         return [
             'locale'                => 'ja',
             'name'                  => $faker->name,
@@ -75,7 +79,8 @@ $factory->define(
 
 $factory->define(
     App\Models\Image::class,
-    function (Faker\Generator $faker) {
+    function (Faker\Generator $faker)
+    {
         return [
             'url'                => $faker->imageUrl(),
             'title'              => $faker->sentence,
@@ -99,7 +104,8 @@ $factory->define(
 
 $factory->define(
     App\Models\Article::class,
-    function (Faker\Generator $faker) {
+    function (Faker\Generator $faker)
+    {
         return [
             'slug'               => $faker->word,
             'title'              => $faker->sentence,
@@ -117,7 +123,8 @@ $factory->define(
 
 $factory->define(
     App\Models\UserNotification::class,
-    function (Faker\Generator $faker) {
+    function (Faker\Generator $faker)
+    {
         return [
             'user_id'       => \App\Models\UserNotification::BROADCAST_USER_ID,
             'category_type' => \App\Models\UserNotification::CATEGORY_TYPE_SYSTEM_MESSAGE,
@@ -133,7 +140,8 @@ $factory->define(
 
 $factory->define(
     App\Models\AdminUserNotification::class,
-    function (Faker\Generator $faker) {
+    function (Faker\Generator $faker)
+    {
         return [
             'user_id'       => \App\Models\AdminUserNotification::BROADCAST_USER_ID,
             'category_type' => \App\Models\AdminUserNotification::CATEGORY_TYPE_SYSTEM_MESSAGE,
@@ -146,5 +154,36 @@ $factory->define(
         ];
     }
 );
+
+$factory->define(App\Models\Box::class, function (Faker\Generator $faker)
+{
+    return [
+        'imei'            => $faker->unique()->bankAccountNumber,
+        'serial'          => $faker->unique()->creditCardNumber,
+        'model'           => $faker->word,
+        'os_version'      => '1.0.0',
+        'is_activated'    => true,
+        'activation_date' => $faker->dateTime,
+    ];
+});
+
+$factory->define(App\Models\KaraVersion::class, function (Faker\Generator $faker)
+{
+    return [
+        'version'     => '1.0.0',
+        'name'        => $faker->word,
+        'description' => $faker->sentences(5, true),
+        'apk_url'     => $faker->url,
+    ];
+});
+
+$factory->define(App\Models\KaraOta::class, function (Faker\Generator $faker)
+{
+    return [
+        'os_version'      => '1.0.0',
+        'box_version'     => $faker->word,
+        'kara_version_id' => 0,
+    ];
+});
 
 /* NEW MODEL FACTORY */
