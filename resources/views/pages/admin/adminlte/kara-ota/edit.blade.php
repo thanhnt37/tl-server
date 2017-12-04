@@ -62,16 +62,26 @@
                     <div class="col-md-4">
                         <div class="form-group @if ($errors->has('os_version')) has-error @endif">
                             <label for="os_version">@lang('admin.pages.kara-ota.columns.os_version')</label>
-                            <input type="text" class="form-control" id="os_version" name="os_version" required
-                                   value="{{ old('os_version') ? old('os_version') : $karaOta->os_version }}">
+                            <select class="form-control" name="os_version" id="os_version" required>
+                                @foreach( config('karaoke.os_version') as $osVersion )
+                                    <option value="{!! $osVersion !!}" @if( (old('os_version') && old('os_version') == $osVersion) || ( $karaOta->os_version == $osVersion) ) selected @endif >
+                                        {{ $osVersion }}
+                                    </option>
+                                @endforeach
+                            </select>
                         </div>
                     </div>
 
                     <div class="col-md-4">
                         <div class="form-group @if ($errors->has('box_version')) has-error @endif">
                             <label for="box_version">@lang('admin.pages.kara-ota.columns.box_version')</label>
-                            <input type="text" class="form-control" id="box_version" name="box_version" required
-                                   value="{{ old('box_version') ? old('box_version') : $karaOta->box_version }}">
+                            <select class="form-control" name="box_version" id="box_version" required>
+                                @foreach( config('karaoke.box_version') as $boxVersion )
+                                    <option value="{!! $boxVersion !!}" @if( (old('box_version') && old('box_version') == $boxVersion) || ( $karaOta->box_version == $boxVersion) ) selected @endif >
+                                        {{ $boxVersion }}
+                                    </option>
+                                @endforeach
+                            </select>
                         </div>
                     </div>
 

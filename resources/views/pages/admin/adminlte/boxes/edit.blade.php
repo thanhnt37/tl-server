@@ -81,16 +81,26 @@
                     <div class="col-md-6">
                         <div class="form-group @if ($errors->has('model')) has-error @endif">
                             <label for="model">@lang('admin.pages.boxes.columns.model')</label>
-                            <input type="text" class="form-control" id="model" name="model" required
-                                   value="{{ old('model') ? old('model') : $box->model }}">
+                            <select class="form-control" name="model" id="model" required>
+                                @foreach( config('karaoke.box_version') as $boxVersion )
+                                    <option value="{!! $boxVersion !!}" @if( (old('model') && old('model') == $boxVersion) || ( $box->model == $boxVersion) ) selected @endif >
+                                        {{ $boxVersion }}
+                                    </option>
+                                @endforeach
+                            </select>
                         </div>
                     </div>
 
                     <div class="col-md-6">
                         <div class="form-group @if ($errors->has('os_version')) has-error @endif">
                             <label for="os_version">@lang('admin.pages.boxes.columns.os_version')</label>
-                            <input type="text" class="form-control" id="os_version" name="os_version" required
-                                   value="{{ old('os_version') ? old('os_version') : $box->os_version }}">
+                            <select class="form-control" name="os_version" id="os_version" required>
+                                @foreach( config('karaoke.os_version') as $osVersion )
+                                    <option value="{!! $osVersion !!}" @if( (old('os_version') && old('os_version') == $osVersion) || ( $box->os_version == $osVersion) ) selected @endif >
+                                        {{ $osVersion }}
+                                    </option>
+                                @endforeach
+                            </select>
                         </div>
                     </div>
                 </div>
