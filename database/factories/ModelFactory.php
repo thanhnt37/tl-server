@@ -170,7 +170,7 @@ $factory->define(App\Models\Box::class, function (Faker\Generator $faker)
 $factory->define(App\Models\KaraVersion::class, function (Faker\Generator $faker)
 {
     return [
-        'version'     => '1.0.0',
+        'version'     => $faker->unique()->regexify("^(\d+\.)?(\d+\.)?(\d+)$"),
         'name'        => $faker->word,
         'description' => $faker->sentences(5, true),
         'apk_url'     => $faker->url,
@@ -180,7 +180,7 @@ $factory->define(App\Models\KaraVersion::class, function (Faker\Generator $faker
 $factory->define(App\Models\KaraOta::class, function (Faker\Generator $faker)
 {
     return [
-        'os_version'      => '1.0.0',
+        'os_version'      => $faker->regexify("^(\d+\.)?(\d+\.)?(\d+)$"),
         'box_version'     => $faker->word,
         'kara_version_id' => 0,
     ];
