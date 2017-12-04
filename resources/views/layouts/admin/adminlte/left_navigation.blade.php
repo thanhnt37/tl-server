@@ -28,6 +28,8 @@
 
             <li @if( $menu=='dashboard') class="active" @endif ><a href="{!! \URL::action('Admin\IndexController@index') !!}"><i class="fa fa-dashboard"></i> <span>@lang('admin.menu.dashboard')</span></a></li>
             <li @if( $menu=='boxes') class="active" @endif ><a href="{!! \URL::action('Admin\BoxController@index') !!}"><i class="fa fa-square-o"></i> <span>Boxes</span></a></li>
+            <li @if( $menu=='kara_ota') class="active" @endif ><a href="{!! \URL::action('Admin\KaraOtaController@index') !!}"><i class="fa fa-object-ungroup"></i> <span>Kara OTA</span></a></li>
+            <li @if( $menu=='kara_versions') class="active" @endif ><a href="{!! \URL::action('Admin\KaraVersionController@index') !!}"><i class="fa fa-code-fork"></i> <span>Kara Versions</span></a></li>
 
             @if( $authUser->hasRole(\App\Models\AdminUserRole::ROLE_ADMIN) )
                 <li @if( $menu=='admin_users') class="active" @endif ><a href="{!! \URL::action('Admin\AdminUserController@index') !!}"><i class="fa fa-user-secret"></i> <span>@lang('admin.menu.admin_users')</span></a></li>
@@ -42,7 +44,6 @@
                 {{--<li @if( $menu=='images') class="active" @endif ><a href="{!! \URL::action('Admin\ImageController@index') !!}"><i class="fa fa-file-image-o"></i> <span>@lang('admin.menu.images')</span></a></li>--}}
                 {{--<li @if( $menu=='articles') class="active" @endif ><a href="{!! \URL::action('Admin\ArticleController@index') !!}"><i class="fa fa-file-word-o"></i> <span>@lang('admin.menu.articles')</span></a></li>--}}
             @endif
-            <li @if( $menu=='kara_versions') class="active" @endif ><a href="{!! \URL::action('Admin\KaraVersionController@index') !!}"><i class="fa fa-users"></i> <span>KaraVersions</span></a></li>
             <!-- %%SIDEMENU%% -->
         </ul>
     </section>

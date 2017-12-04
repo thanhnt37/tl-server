@@ -230,6 +230,13 @@ return [
                 'apk_url'     => 'APK Url',
             ],
         ],
+        'kara-ota'                 => [
+            'columns' => [
+                'os_version'      => 'OS Version',
+                'box_version'     => 'Box Version',
+                'kara_version_id' => 'Kara Version',
+            ],
+        ],
         /* NEW PAGE STRINGS */
     ],
     'roles'      => [

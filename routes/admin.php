@@ -49,6 +49,7 @@
 
         \Route::resource('boxes', 'Admin\BoxController');
         \Route::resource('kara-versions', 'Admin\KaraVersionController');
+        \Route::resource('kara-ota', 'Admin\KaraOtaController');
         /* NEW ADMIN RESOURCE ROUTE */
 
     });
