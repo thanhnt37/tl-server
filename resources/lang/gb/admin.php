@@ -222,6 +222,14 @@ return [
                 'deactivate'      => 'Deactivate',
             ],
         ],
+        'kara-versions'            => [
+            'columns' => [
+                'version'     => 'Version',
+                'name'        => 'Name',
+                'description' => 'Description',
+                'apk_url'     => 'APK Url',
+            ],
+        ],
         /* NEW PAGE STRINGS */
     ],
     'roles'      => [

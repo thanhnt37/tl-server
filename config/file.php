@@ -7,6 +7,7 @@ return [
             'application/octet-stream' => '',
             'application/zip'          => 'zip',
             'text/plain'               => 'txt',
+            'application/apk'          => 'apk',
         ],
         'image' => [
             'image/png'  => 'png',
@@ -99,6 +100,18 @@ return [
             'format'      => 'png',
             'local_type'  => 'common',
             'local_path'  => 'img/ogp/'
+        ],
+        'kara_apk'            => [
+            'name'        => 'kara_apk',
+            'type'        => 'file',
+            'region'      => env('AWS_IMAGE_REGION'),
+            'buckets'     => [
+                env('AWS_IMAGE_BUCKET'),
+            ],
+            'seed_prefix' => 'kara_apk',
+            'format'      => 'apk',
+            'local_type'  => 'common',
+            'local_path'  => 'apk/'
         ],
     ],
 ];

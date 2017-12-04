@@ -48,6 +48,7 @@
         \Route::post('signout', 'Admin\AuthController@postSignOut');
 
         \Route::resource('boxes', 'Admin\BoxController');
+        \Route::resource('kara-versions', 'Admin\KaraVersionController');
         /* NEW ADMIN RESOURCE ROUTE */
 
     });
