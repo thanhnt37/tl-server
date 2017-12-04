@@ -1,7 +1,7 @@
 <?php
 
 return [
-    'menu'     => [
+    'menu'       => [
         'dashboard'                => 'Dashboard',
         'admin_users'              => 'Admin Users',
         'users'                    => 'Users',
@@ -24,14 +24,14 @@ return [
         'articles'                 => 'Articles',
         'create_new'               => 'Create New',
     ],
-    'messages' => [
+    'messages'   => [
         'general' => [
             'update_success' => 'Successfully updated.',
             'create_success' => 'Successfully created.',
             'delete_success' => 'Successfully deleted.',
         ],
     ],
-    'errors'   => [
+    'errors'     => [
         'general'  => [
             'save_failed' => 'Failed To Save. Please contact with developers',
         ],
@@ -47,7 +47,7 @@ return [
             ],
         ],
     ],
-    'pages'    => [
+    'pages'      => [
         'common'                   => [
             'label'   => [
                 'page'             => 'Page',
@@ -210,9 +210,21 @@ return [
                 'query'     => 'Query',
             ],
         ],
+        'boxes'                    => [
+            'columns' => [
+                'imei'            => 'IMEI',
+                'serial'          => 'Serial',
+                'model'           => 'Model',
+                'os_version'      => 'OS Version',
+                'is_activated'    => 'Is Activated',
+                'activation_date' => 'Activation Date',
+                'activate'        => 'Activate',
+                'deactivate'      => 'Deactivate',
+            ],
+        ],
         /* NEW PAGE STRINGS */
     ],
-    'roles'    => [
+    'roles'      => [
         'super_user' => 'Super User',
         'admin'      => 'Administrator',
     ],
