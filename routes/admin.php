@@ -14,19 +14,19 @@
     \Route::group(['middleware' => ['admin.auth']], function () {
 
         \Route::group(['middleware' => ['admin.has_role.super_user']], function () {
-            \Route::resource('users', 'Admin\UserController');
-            \Route::resource('user-notifications', 'Admin\UserNotificationController');
+//            \Route::resource('users', 'Admin\UserController');
+//            \Route::resource('user-notifications', 'Admin\UserNotificationController');
 
-            \Route::resource('site-configurations', 'Admin\SiteConfigurationController');
+//            \Route::resource('site-configurations', 'Admin\SiteConfigurationController');
 
-            \Route::resource('articles', 'Admin\ArticleController');
-            \Route::post('articles/preview', 'Admin\ArticleController@preview');
-            \Route::get('articles/images', 'Admin\ArticleController@getImages');
-            \Route::post('articles/images', 'Admin\ArticleController@postImage');
-            \Route::delete('articles/images', 'Admin\ArticleController@deleteImage');
+//            \Route::resource('articles', 'Admin\ArticleController');
+//            \Route::post('articles/preview', 'Admin\ArticleController@preview');
+//            \Route::get('articles/images', 'Admin\ArticleController@getImages');
+//            \Route::post('articles/images', 'Admin\ArticleController@postImage');
+//            \Route::delete('articles/images', 'Admin\ArticleController@deleteImage');
 
-            \Route::delete('images/delete', 'Admin\ImageController@deleteByUrl');
-            \Route::resource('images', 'Admin\ImageController');
+//            \Route::delete('images/delete', 'Admin\ImageController@deleteByUrl');
+//            \Route::resource('images', 'Admin\ImageController');
 
             \Route::resource('logs', 'Admin\LogController');
 
@@ -47,6 +47,7 @@
 
         \Route::post('signout', 'Admin\AuthController@postSignOut');
 
+        \Route::resource('boxes', 'Admin\BoxController');
         /* NEW ADMIN RESOURCE ROUTE */
 
     });
