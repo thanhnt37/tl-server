@@ -18,8 +18,8 @@ class CreatekaraVersionsTable extends Migration
             $table->string('version')->unique();
             $table->string('name');
 
-            $table->string('description')->nullable()->default('');
-            $table->string('apk_url');
+            $table->text('description')->nullable()->default('');
+            $table->bigInteger('apk_package_id')->nullable()->default(0);
 
             $table->timestamps();
         });

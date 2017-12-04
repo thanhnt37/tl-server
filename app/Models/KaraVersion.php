@@ -21,7 +21,7 @@ class KaraVersion extends Base
         'version',
         'name',
         'description',
-        'apk_url',
+        'apk_package_id',
     ];
 
     /**
@@ -42,6 +42,10 @@ class KaraVersion extends Base
     }
 
     // Relations
+    public function apkPackage()
+    {
+        return $this->hasOne(\App\Models\File::class, 'id', 'apk_package_id');
+    }
 
 
     // Utility Functions
@@ -56,7 +60,7 @@ class KaraVersion extends Base
             'version'     => $this->version,
             'name'        => $this->name,
             'description' => $this->description,
-            'apk_url'     => $this->apk_url,
+            'apk_package_id'     => $this->apk_package_id,
         ];
     }
 
