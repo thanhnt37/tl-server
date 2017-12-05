@@ -109,6 +109,11 @@ class ServiceBindServiceProvider extends ServiceProvider
             \App\Services\Production\APIUserService::class
         );
         
+        $this->app->singleton(
+            \App\Services\BoxServiceInterface::class,
+            \App\Services\Production\BoxService::class
+        );
+
         /* NEW BINDING */
     }
 }
