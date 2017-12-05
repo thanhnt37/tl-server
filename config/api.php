@@ -5,9 +5,9 @@ return [
         'message'        => 'Success !!!',
         'httpStatusCode' => 200
     ],
-    204 => [
+    20004 => [
         'message'        => 'Sorry, No data matching !!!',
-        'httpStatusCode' => 204
+        'httpStatusCode' => 200
     ],
     40001 => [
         'message'        => 'Error, Parameter is invalid !!!',

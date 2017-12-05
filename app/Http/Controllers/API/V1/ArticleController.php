@@ -58,7 +58,7 @@ class ArticleController extends Controller
 
         $article = $this->articleRepository->find($id);
         if( empty($article) ) {
-            return Response::response(204);
+            return Response::response(20004);
         }
 
         return Response::response(200, $article->toAPIArray());
@@ -122,7 +122,7 @@ class ArticleController extends Controller
 
         $article = $this->articleRepository->find($id);
         if( empty($article) ) {
-            return Response::response(204);
+            return Response::response(20004);
         }
 
         $data = $request->only(
@@ -181,7 +181,7 @@ class ArticleController extends Controller
 
         $article = $this->articleRepository->find($id);
         if( empty($article) ) {
-            return Response::response(204);
+            return Response::response(20004);
         }
 
         try {
