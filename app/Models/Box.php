@@ -68,13 +68,12 @@ class Box extends AuthenticatableBase
     public function toAPIArray()
     {
         return [
-            'id'              => $this->id,
             'imei'            => $this->imei,
             'serial'          => $this->serial,
             'model'           => $this->model,
             'os_version'      => $this->os_version,
-            'is_activated'    => $this->is_activated,
-            'activation_date' => $this->activation_date,
+            'is_activated'    => $this->is_activated ? true : false,
+            'activation_date' => date_format($this->activation_date, 'Y-m-d H:i:s'),
         ];
     }
 

@@ -13,6 +13,8 @@ Route::group(['prefix' => 'api', 'namespace' => 'API'], function () {
         Route::group(['middleware' => 'api.client'], function () {
             Route::resource('articles', 'ArticleController');
 
+            Route::post('activateDevice', 'BoxController@activateDevice');
+
             Route::post('signout', 'AuthController@postSignOut');
         });
     });
