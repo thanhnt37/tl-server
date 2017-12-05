@@ -1,7 +1,6 @@
 <?php
 namespace App\Http\Middleware\API\V1;
 
-use App\Exceptions\APIErrorException;
 use App\Http\Responses\API\V1\Response;
 use App\Services\APIUserServiceInterface;
 use Closure;

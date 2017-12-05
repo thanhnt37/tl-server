@@ -13,6 +13,8 @@ use App\Repositories\UserRepositoryInterface;
 use League\OAuth2\Server\AuthorizationServer;
 use Zend\Diactoros\Response as Psr7Response;
 use App\Http\Responses\API\V1\Response;
+use App\Repositories\BoxRepositoryInterface;
+use App\Services\BoxServiceInterface;
 
 class AuthController extends Controller
 {
@@ -25,23 +27,32 @@ class AuthController extends Controller
     /** @var AuthorizationServer */
     protected $server;
 
+    /** @var \App\Repositories\BoxRepositoryInterface */
+    protected $boxRepository;
+
+    /** @var \App\Services\BoxServiceInterface */
+    protected $boxService;
+
     public function __construct(
         UserServiceInterface        $userService,
         UserRepositoryInterface     $userRepository,
-        AuthorizationServer         $server
+        AuthorizationServer         $server,
+        BoxRepositoryInterface      $boxRepository,
+        BoxServiceInterface         $boxService
     )
     {
         $this->userService          = $userService;
         $this->userRepository       = $userRepository;
         $this->server               = $server;
+        $this->boxRepository        = $boxRepository;
+        $this->boxService           = $boxService;
     }
 
     public function signIn(SignInRequest $request)
     {
         $data = $request->only(
             [
-                'email',
-                'password',
+                'imei',
                 'grant_type',
                 'client_id',
                 'client_secret'
@@ -53,12 +64,12 @@ class AuthController extends Controller
             return Response::response(40101);
         }
 
-        $user = $this->userService->signIn($data);
+        $box = $this->boxRepository->findByImei($data['imei']);
+        $user = $this->boxService->signInById($box->id);
         if (empty($user)) {
             return Response::response(40101);
         }
 
-        $data['username'] = $data['email'];
         $serverRequest = PsrServerRequest::createFromRequest($request, $data);
 
         return $this->server->respondToAccessTokenRequest($serverRequest, new Psr7Response);
@@ -101,7 +112,7 @@ class AuthController extends Controller
 
     public function refreshToken(RefreshTokenRequest $request)
     {
-        $this->userService->checkClient($request);
+        $this->boxService->checkClient($request);
         $serverRequest = PsrServerRequest::createFromRequest($request);
 
         return $this->server->respondToAccessTokenRequest($serverRequest, new Psr7Response);

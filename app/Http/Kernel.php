@@ -66,5 +66,6 @@ class Kernel extends HttpKernel
         'bindings'                  => \Illuminate\Routing\Middleware\SubstituteBindings::class,
         'api.auth'                  => \App\Http\Middleware\API\V1\Authenticate::class,
         'auth'                      => \Illuminate\Auth\Middleware\Authenticate::class,
+        'api.client'                => \Laravel\Passport\Http\Middleware\CheckClientCredentials::class
     ];
 }

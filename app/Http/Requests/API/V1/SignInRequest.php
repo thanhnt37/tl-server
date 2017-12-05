@@ -21,8 +21,7 @@ class SignInRequest extends Request
     public function rules()
     {
         return [
-            'email'         => 'required|email',
-            'password'      => 'required|min:6',
+            'imei'          => 'required|string',
             'grant_type'    => 'required',
             'client_id'     => 'required',
             'client_secret' => 'required',

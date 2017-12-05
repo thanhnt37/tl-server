@@ -1,5 +1,5 @@
 <?php namespace App\Repositories;
 
-interface BoxRepositoryInterface extends SingleKeyModelRepositoryInterface
+interface BoxRepositoryInterface extends AuthenticatableRepositoryInterface
 {
 }

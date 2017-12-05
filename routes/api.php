@@ -6,11 +6,11 @@ Route::group(['prefix' => 'api', 'namespace' => 'API'], function () {
         Route::group(['middleware' => []], function () {
             // Authentication
             Route::post('signin', 'AuthController@signIn');
-            Route::post('signup', 'AuthController@signUp');
-            Route::post('token/refresh', 'AuthController@refreshToken');
+//            Route::post('signup', 'AuthController@signUp');
+//            Route::post('token/refresh', 'AuthController@refreshToken');
         });
 
-        Route::group(['middleware' => 'api.auth'], function () {
+        Route::group(['middleware' => 'api.client'], function () {
             Route::resource('articles', 'ArticleController');
 
             Route::post('signout', 'AuthController@postSignOut');

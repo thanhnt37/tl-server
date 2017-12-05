@@ -1,11 +1,12 @@
 <?php namespace App\Models;
 
 use Illuminate\Database\Eloquent\SoftDeletes;
+use Laravel\Passport\HasApiTokens;
 
-class Box extends Base
+class Box extends AuthenticatableBase
 {
 
-    use SoftDeletes;
+    use SoftDeletes, HasApiTokens;
 
     /**
      * The database table used by the model.
@@ -43,6 +44,17 @@ class Box extends Base
     {
         parent::boot();
         parent::observe(new \App\Observers\BoxObserver);
+    }
+
+    /**
+     * Find the user identified by the given $identifier.
+     *
+     * @param $identifier email|phone
+     * @return mixed
+     */
+    public function findForPassport($identifier)
+    {
+        return $this->where('imei', $identifier)->first();
     }
 
     // Relations

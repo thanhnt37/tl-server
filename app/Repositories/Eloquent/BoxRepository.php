@@ -3,7 +3,7 @@
 use \App\Repositories\BoxRepositoryInterface;
 use \App\Models\Box;
 
-class BoxRepository extends SingleKeyModelRepository implements BoxRepositoryInterface
+class BoxRepository extends AuthenticatableRepository implements BoxRepositoryInterface
 {
 
     public function getBlankModel()
