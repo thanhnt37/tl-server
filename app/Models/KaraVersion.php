@@ -56,11 +56,9 @@ class KaraVersion extends Base
     public function toAPIArray()
     {
         return [
-            'id'          => $this->id,
             'version'     => $this->version,
             'name'        => $this->name,
             'description' => $this->description,
-            'apk_package_id'     => $this->apk_package_id,
         ];
     }
 

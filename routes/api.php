@@ -14,6 +14,7 @@ Route::group(['prefix' => 'api', 'namespace' => 'API'], function () {
             Route::resource('articles', 'ArticleController');
 
             Route::post('activateDevice', 'BoxController@activateDevice');
+            Route::post('updateOTA', 'OTAController@updateOTA');
 
             Route::post('signout', 'AuthController@postSignOut');
         });

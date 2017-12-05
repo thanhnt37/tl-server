@@ -56,7 +56,6 @@ class KaraOta extends Base
     public function toAPIArray()
     {
         return [
-            'id'              => $this->id,
             'os_version'      => $this->os_version,
             'box_version'     => $this->box_version,
             'kara_version_id' => $this->kara_version_id,
