@@ -8,6 +8,7 @@ use App\Http\Requests\Admin\BoxRequest;
 use App\Http\Requests\PaginationRequest;
 use App\Repositories\OsVersionRepositoryInterface;
 use App\Repositories\SdkVersionRepositoryInterface;
+use App\Repositories\BoxVersionRepositoryInterface;
 
 class BoxController extends Controller
 {
@@ -20,15 +21,20 @@ class BoxController extends Controller
     /** @var \App\Repositories\SdkVersionRepositoryInterface */
     protected $sdkVersionRepository;
 
+    /** @var \App\Repositories\BoxVersionRepositoryInterface */
+    protected $boxVersionRepository;
+
     public function __construct(
         BoxRepositoryInterface          $boxRepository,
         OsVersionRepositoryInterface    $osVersionRepository,
-        SdkVersionRepositoryInterface   $sdkVersionRepository
+        SdkVersionRepositoryInterface   $sdkVersionRepository,
+        BoxVersionRepositoryInterface   $boxVersionRepository
     )
     {
         $this->boxRepository            = $boxRepository;
         $this->osVersionRepository      = $osVersionRepository;
         $this->sdkVersionRepository     = $sdkVersionRepository;
+        $this->boxVersionRepository     = $boxVersionRepository;
     }
 
     /**
@@ -72,6 +78,7 @@ class BoxController extends Controller
                 'box'         => $this->boxRepository->getBlankModel(),
                 'osVersions'  => $this->osVersionRepository->all(),
                 'sdkVersions' => $this->sdkVersionRepository->all(),
+                'boxVersions' => $this->boxVersionRepository->all(),
             ]
         );
     }
@@ -84,7 +91,7 @@ class BoxController extends Controller
      */
     public function store(BoxRequest $request)
     {
-        $input = $request->only(['imei','serial','model','os_version_id','sdk_version_id','activation_date']);
+        $input = $request->only(['imei','serial','model','os_version_id','sdk_version_id','box_version_id','activation_date']);
         $input['is_activated'] = $request->get('is_activated', 0);
 
         $box = $this->boxRepository->create($input);
@@ -117,6 +124,7 @@ class BoxController extends Controller
                 'box'         => $box,
                 'osVersions'  => $this->osVersionRepository->all(),
                 'sdkVersions' => $this->sdkVersionRepository->all(),
+                'boxVersions' => $this->boxVersionRepository->all(),
             ]
         );
     }
@@ -146,7 +154,7 @@ class BoxController extends Controller
         if (empty( $box )) {
             abort(404);
         }
-        $input = $request->only(['imei','serial','model','os_version_id','sdk_version_id','activation_date']);
+        $input = $request->only(['imei','serial','model','os_version_id','sdk_version_id','box_version_id','activation_date']);
         $input['is_activated'] = $request->get('is_activated', 0);
 
         $this->boxRepository->update($box, $input);

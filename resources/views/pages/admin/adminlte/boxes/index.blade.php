@@ -53,7 +53,7 @@ Boxes
                 <th style="width: 10px">{!! \PaginationHelper::sort('id', 'ID') !!}</th>
                 <th>{!! \PaginationHelper::sort('imei', trans('admin.pages.boxes.columns.imei')) !!}</th>
                 <th>{!! \PaginationHelper::sort('serial', trans('admin.pages.boxes.columns.serial')) !!}</th>
-                <th>{!! \PaginationHelper::sort('model', trans('admin.pages.boxes.columns.model')) !!}</th>
+                <th>{!! \PaginationHelper::sort('model', trans('admin.pages.boxes.columns.box_version_id')) !!}</th>
                 <th>{!! \PaginationHelper::sort('os_version', trans('admin.pages.boxes.columns.os_version_id')) !!}</th>
                 <th width="85px">{!! \PaginationHelper::sort('is_activated', trans('admin.pages.boxes.columns.is_activated')) !!}</th>
 
@@ -64,10 +64,16 @@ Boxes
                     <td>{{ $box->id }}</td>
                     <td>{{ $box->imei }}</td>
                     <td>{{ $box->serial }}</td>
-                    <td>{{ $box->model }}</td>
+                    <td>
+                        @if(isset($box->boxVersion->name))
+                            <a href="{!! action('Admin\OsVersionController@show', $box->osVersion->id) !!}">{!! $box->osVersion->name !!}</a>
+                        @else
+                            Unknown
+                        @endif
+                    </td>
                     <td>
                         @if(isset($box->osVersion->name))
-                            <a href="{!! action('Admin\OsVersionController@show', $box->osVersion->id) !!}">{!! $box->osVersion->name !!}</a>
+                            <a href="{!! action('Admin\BoxVersionController@show', $box->boxVersion->id) !!}">{!! $box->boxVersion->name !!}</a>
                         @else
                             Unknown
                         @endif

@@ -77,12 +77,12 @@
                     </div>
 
                     <div class="col-md-4">
-                        <div class="form-group @if ($errors->has('model')) has-error @endif">
-                            <label for="model">@lang('admin.pages.boxes.columns.model')</label>
-                            <select class="form-control" name="model" id="model" required>
-                                @foreach( config('karaoke.box_version') as $boxVersion )
-                                    <option value="{!! $boxVersion !!}" @if( (old('model') && old('model') == $boxVersion) || ( $box->model == $boxVersion) ) selected @endif >
-                                        {{ $boxVersion }}
+                        <div class="form-group @if ($errors->has('box_version_id')) has-error @endif">
+                            <label for="box_version_id">@lang('admin.pages.boxes.columns.box_version_id')</label>
+                            <select class="form-control" name="box_version_id" id="box_version_id" required>
+                                @foreach( $boxVersions as $boxVersion )
+                                    <option value="{!! $boxVersion->id !!}" @if( (old('box_version_id') && old('box_version_id') == $boxVersion->id) || ( $box->box_version_id == $boxVersion->id) ) selected @endif >
+                                        {{ $boxVersion->name }}
                                     </option>
                                 @endforeach
                             </select>
