@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers\API\V1;
 
+use App\Helpers\Production\URLHelper;
 use App\Http\Controllers\Controller;
 use App\Http\Requests\API\V1\OTARequest;
 use App\Http\Responses\API\V1\Response;
@@ -21,10 +22,10 @@ class OTAController extends Controller
     public function updateOTA(OTARequest $request)
     {
         $data = $request->only(
-            ['os_version', 'box_version']
+            ['os_version', 'sdk_version']
         );
 
-        $ota = $this->karaOtaRepository->findByOsVersionAndBoxVersion($data['os_version'], $data['box_version']);
+        $ota = $this->karaOtaRepository->findByOsVersionIdAndSdkVersionId($data['os_version'], $data['sdk_version']);
         if( empty($ota) || !isset($ota->karaVersion) || empty($ota->karaVersion) ) {
             return Response::response(20004);
         }
@@ -34,7 +35,7 @@ class OTAController extends Controller
         if( empty($version->apkPackage) ) {
             return Response::response(20004);
         }
-        $response['apk_url'] = $version->apkPackage->url;
+        $response['apk_url'] = \URLHelper::asset(config('file.categories.kara_apk.local_path') . '/' . $version->apkPackage->url, config('file.categories.kara_apk.local_type'));
 
         return Response::response(200, $response);
     }

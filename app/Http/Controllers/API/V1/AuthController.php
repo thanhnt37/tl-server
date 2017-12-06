@@ -65,6 +65,10 @@ class AuthController extends Controller
         }
 
         $box = $this->boxRepository->findByImei($data['imei']);
+        if( !$box ) {
+            return Response::response(40101);
+        }
+        
         $user = $this->boxService->signInById($box->id);
         if (empty($user)) {
             return Response::response(40101);
