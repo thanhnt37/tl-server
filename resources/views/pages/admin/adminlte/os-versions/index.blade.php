@@ -1,4 +1,4 @@
-@extends('layouts.admin.' . config('view.admin') . '.application', ['menu' => 'kara_ota'] )
+@extends('layouts.admin.' . config('view.admin') . '.application', ['menu' => 'os_versions'] )
 
 @section('metadata')
 @stop
@@ -14,11 +14,11 @@
 @stop
 
 @section('header')
-KaraOta
+OsVersions
 @stop
 
 @section('breadcrumb')
-<li class="active">KaraOta</li>
+<li class="active">OsVersions</li>
 @stop
 
 @section('content')
@@ -29,7 +29,7 @@ KaraOta
             <div class="col-sm-6">
                 <h3 class="box-title">
                     <p class="text-right">
-                        <a href="{!! action('Admin\KaraOtaController@create') !!}" class="btn btn-block btn-primary btn-sm" style="width: 125px;">@lang('admin.pages.common.buttons.create')</a>
+                        <a href="{!! action('Admin\OsVersionController@create') !!}" class="btn btn-block btn-primary btn-sm" style="width: 125px;">@lang('admin.pages.common.buttons.create')</a>
                     </p>
                 </h3>
                 <br>
@@ -46,37 +46,19 @@ KaraOta
         <table class="table table-bordered">
             <tr>
                 <th style="width: 10px">{!! \PaginationHelper::sort('id', 'ID') !!}</th>
-                <th>{!! \PaginationHelper::sort('os_version', trans('admin.pages.kara-ota.columns.os_version')) !!}</th>
-                <th>{!! \PaginationHelper::sort('sdk_version', trans('admin.pages.kara-ota.columns.sdk_version')) !!}</th>
-                <th>{!! trans('admin.pages.kara-ota.columns.kara_version_id') !!}</th>
+                <th>{!! \PaginationHelper::sort('name', trans('admin.pages.os-versions.columns.name')) !!}</th>
 
                 <th style="width: 40px">@lang('admin.pages.common.label.actions')</th>
             </tr>
-            @foreach( $karaOtas as $karaOta )
+            @foreach( $osVersions as $osVersion )
                 <tr>
-                    <td>{{ $karaOta->id }}</td>
+                    <td>{{ $osVersion->id }}</td>
+                    <td>{{ $osVersion->name }}</td>
                     <td>
-                        @if(isset($karaOta->osVersion->name))
-                            <a href="{!! action('Admin\OsVersionController@show', $karaOta->osVersion->id) !!}">{!! $karaOta->osVersion->name !!}</a>
-                        @else
-                            Unknown
-                        @endif
-                    </td>
-                    <td>{{ isset($karaOta->sdkVersion->name) ? $karaOta->sdkVersion->name : 'Unknown' }}</td>
-
-                    <td>
-                        @if( isset($karaOta->karaVersion->version) )
-                            <a href="{{action('Admin\KaraVersionController@show', [$karaOta->karaVersion->id])}}">{{$karaOta->karaVersion->version}}</a>
-                        @else
-                            Unknown
-                        @endif
-                    </td>
-
-                    <td>
-                        <a href="{!! action('Admin\KaraOtaController@show', $karaOta->id) !!}"
+                        <a href="{!! action('Admin\OsVersionController@show', $osVersion->id) !!}"
                            class="btn btn-block btn-primary btn-xs">@lang('admin.pages.common.buttons.edit')</a>
                         <a href="#" class="btn btn-block btn-danger btn-xs delete-button"
-                           data-delete-url="{!! action('Admin\KaraOtaController@destroy', $karaOta->id) !!}">@lang('admin.pages.common.buttons.delete')</a>
+                           data-delete-url="{!! action('Admin\OsVersionController@destroy', $osVersion->id) !!}">@lang('admin.pages.common.buttons.delete')</a>
                     </td>
                 </tr>
             @endforeach

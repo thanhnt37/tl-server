@@ -237,6 +237,11 @@ return [
                 'kara_version_id' => 'Kara Version',
             ],
         ],
+        'os-versions'   => [
+            'columns'  => [
+                'name' => 'Name',
+            ],
+        ],
         /* NEW PAGE STRINGS */
     ],
     'roles'      => [
