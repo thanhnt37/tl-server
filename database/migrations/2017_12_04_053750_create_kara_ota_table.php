@@ -15,11 +15,12 @@ class CreatekaraOtaTable extends Migration
         Schema::create('kara_ota', function (Blueprint $table) {
             $table->bigIncrements('id');
 
-            $table->string('os_version');
-            $table->string('box_version');
+            $table->string('os_version_id');
+            $table->string('sdk_version_id');
             $table->unsignedBigInteger('kara_version_id');
 
             $table->timestamps();
+            $table->softDeletes();
         });
 
         $this->updateTimestampDefaultValue('kara_ota', ['updated_at'], ['created_at']);

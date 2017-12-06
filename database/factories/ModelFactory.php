@@ -180,8 +180,8 @@ $factory->define(App\Models\KaraVersion::class, function (Faker\Generator $faker
 $factory->define(App\Models\KaraOta::class, function (Faker\Generator $faker)
 {
     return [
-        'os_version'      => $faker->regexify("^(\d+\.)?(\d+\.)?(\d+)$"),
-        'box_version'     => $faker->word,
+        'os_version_id'   => 0,
+        'sdk_version_id'  => 0,
         'kara_version_id' => 0,
     ];
 });

@@ -1,9 +1,10 @@
 <?php namespace App\Models;
 
+use Illuminate\Database\Eloquent\SoftDeletes;
 
 class KaraOta extends Base
 {
-
+    use SoftDeletes;
 
     /**
      * The database table used by the model.
@@ -18,8 +19,8 @@ class KaraOta extends Base
      * @var array
      */
     protected $fillable = [
-        'os_version',
-        'box_version',
+        'os_version_id',
+        'sdk_version_id',
         'kara_version_id',
     ];
 
@@ -41,6 +42,14 @@ class KaraOta extends Base
     }
 
     // Relations
+    public function osVersion()
+    {
+        return $this->belongsTo(\App\Models\KaraVersion::class, 'os_version_id', 'id');
+    }
+    public function sdkVersion()
+    {
+        return $this->belongsTo(\App\Models\KaraVersion::class, 'sdk_version_id', 'id');
+    }
     public function karaVersion()
     {
         return $this->belongsTo(\App\Models\KaraVersion::class, 'kara_version_id', 'id');
@@ -56,8 +65,8 @@ class KaraOta extends Base
     public function toAPIArray()
     {
         return [
-            'os_version'      => $this->os_version,
-            'box_version'     => $this->box_version,
+            'os_version_id'   => $this->os_version_id,
+            'sdk_version_id'  => $this->sdk_version_id,
             'kara_version_id' => $this->kara_version_id,
         ];
     }
