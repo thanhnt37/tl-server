@@ -186,4 +186,11 @@ $factory->define(App\Models\KaraOta::class, function (Faker\Generator $faker)
     ];
 });
 
+$factory->define(App\Models\OsVersion::class, function (Faker\Generator $faker)
+{
+    return [
+        'name' => $faker->word,
+    ];
+});
+
 /* NEW MODEL FACTORY */
