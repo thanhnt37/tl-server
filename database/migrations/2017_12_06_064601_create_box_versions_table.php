@@ -18,6 +18,7 @@ class CreateboxVersionsTable extends Migration
             $table->string('name');
 
             $table->timestamps();
+            $table->softDeletes();
         });
 
         $this->updateTimestampDefaultValue('box_versions', ['updated_at'], ['created_at']);

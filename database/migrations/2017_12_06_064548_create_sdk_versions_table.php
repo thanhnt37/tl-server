@@ -18,6 +18,7 @@ class CreatesdkVersionsTable extends Migration
             $table->string('name');
 
             $table->timestamps();
+            $table->softDeletes();
         });
 
         $this->updateTimestampDefaultValue('sdk_versions', ['updated_at'], ['created_at']);

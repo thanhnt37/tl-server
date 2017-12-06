@@ -1,8 +1,10 @@
 <?php namespace App\Models;
 
+use Illuminate\Database\Eloquent\SoftDeletes;
 
 class SdkVersion extends Base
 {
+    use SoftDeletes;
     
     /**
      * The database table used by the model.

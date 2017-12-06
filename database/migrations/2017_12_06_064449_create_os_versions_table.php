@@ -18,6 +18,7 @@ class CreateosVersionsTable extends Migration
             $table->string('name');
 
             $table->timestamps();
+            $table->softDeletes();
         });
 
         $this->updateTimestampDefaultValue('os_versions', ['updated_at'], ['created_at']);
