@@ -52,6 +52,7 @@
         \Route::resource('kara-ota', 'Admin\KaraOtaController');
         \Route::resource('os-versions', 'Admin\OsVersionController');
         \Route::resource('sdk-versions', 'Admin\SdkVersionController');
+        \Route::resource('box-versions', 'Admin\BoxVersionController');
         /* NEW ADMIN RESOURCE ROUTE */
 
     });

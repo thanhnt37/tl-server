@@ -32,6 +32,7 @@
             <li @if( $menu=='kara_versions') class="active" @endif ><a href="{!! \URL::action('Admin\KaraVersionController@index') !!}"><i class="fa fa-code-fork"></i> <span>Kara Versions</span></a></li>
             <li @if( $menu=='os_versions') class="active" @endif ><a href="{!! \URL::action('Admin\OsVersionController@index') !!}"><i class="fa fa-android"></i> <span>OS Versions</span></a></li>
             <li @if( $menu=='sdk_versions') class="active" @endif ><a href="{!! \URL::action('Admin\SdkVersionController@index') !!}"><i class="fa fa-wrench"></i> <span>SDK Versions</span></a></li>
+            <li @if( $menu=='box_versions') class="active" @endif ><a href="{!! \URL::action('Admin\BoxVersionController@index') !!}"><i class="fa fa-archive"></i> <span>Box Versions</span></a></li>
 
             @if( $authUser->hasRole(\App\Models\AdminUserRole::ROLE_ADMIN) )
                 <li @if( $menu=='admin_users') class="active" @endif ><a href="{!! \URL::action('Admin\AdminUserController@index') !!}"><i class="fa fa-user-secret"></i> <span>@lang('admin.menu.admin_users')</span></a></li>

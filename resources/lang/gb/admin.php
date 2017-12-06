@@ -248,6 +248,11 @@ return [
                 'name' => 'Name',
             ],
         ],
+        'box-versions'   => [
+            'columns'  => [
+                'name' => 'Name',
+            ],
+        ],
         /* NEW PAGE STRINGS */
     ],
     'roles'      => [
