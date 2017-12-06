@@ -7,16 +7,22 @@ use App\Http\Controllers\Controller;
 use App\Http\Requests\API\V1\OTARequest;
 use App\Http\Responses\API\V1\Response;
 use App\Repositories\KaraOtaRepositoryInterface;
+use App\Repositories\SdkVersionRepositoryInterface;
 
 class OTAController extends Controller
 {
     /** @var \App\Repositories\KaraOtaRepositoryInterface */
     protected $karaOtaRepository;
 
+    /** @var \App\Repositories\SdkVersionRepositoryInterface */
+    protected $sdkVersionRepository;
+
     public function __construct(
-        KaraOtaRepositoryInterface  $karaOtaRepository
+        KaraOtaRepositoryInterface      $karaOtaRepository,
+        SdkVersionRepositoryInterface   $sdkVersionRepository
     ) {
-        $this->karaOtaRepository    = $karaOtaRepository;
+        $this->karaOtaRepository        = $karaOtaRepository;
+        $this->sdkVersionRepository     = $sdkVersionRepository;
     }
 
     public function updateOTA(OTARequest $request)
@@ -25,7 +31,12 @@ class OTAController extends Controller
             ['sdk_version_id', 'apk_version_id']
         );
 
-        $ota = $this->karaOtaRepository->findBySdkVersionId($data['sdk_version_id']);
+        $sdkVersion = $this->sdkVersionRepository->findByName($data['sdk_version_id']);
+        if( empty($sdkVersion) ) {
+            return Response::response(20004);
+        }
+
+        $ota = $this->karaOtaRepository->findBySdkVersionId($sdkVersion->id);
         if( empty($ota) || !isset($ota->karaVersion) || empty($ota->karaVersion) ) {
             return Response::response(20004);
         }

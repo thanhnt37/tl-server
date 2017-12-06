@@ -86,9 +86,9 @@ class Box extends AuthenticatableBase
         return [
             'imei'            => $this->imei,
             'serial'          => $this->serial,
-            'box_version_id'  => $this->box_version_id,
-            'os_version_id'   => $this->os_version_id,
-            'sdk_version_id'  => $this->sdk_version_id,
+            'box_version_id'  => empty($this->boxVersion) ? null : $this->boxVersion->name,
+            'os_version_id'   => empty($this->osVersion) ? null : $this->osVersion->name,
+            'sdk_version_id'  => empty($this->sdkVersion) ? null : $this->sdkVersion->name,
             'is_activated'    => $this->is_activated ? true : false,
             'activation_date' => date_format($this->activation_date, 'Y-m-d H:i:s'),
         ];
