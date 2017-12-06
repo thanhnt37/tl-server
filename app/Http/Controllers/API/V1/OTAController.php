@@ -22,10 +22,10 @@ class OTAController extends Controller
     public function updateOTA(OTARequest $request)
     {
         $data = $request->only(
-            ['os_version_id', 'sdk_version_id', 'apk_version_id']
+            ['sdk_version_id', 'apk_version_id']
         );
 
-        $ota = $this->karaOtaRepository->findByOsVersionIdAndSdkVersionId($data['os_version_id'], $data['sdk_version_id']);
+        $ota = $this->karaOtaRepository->findBySdkVersionId($data['sdk_version_id']);
         if( empty($ota) || !isset($ota->karaVersion) || empty($ota->karaVersion) ) {
             return Response::response(20004);
         }
