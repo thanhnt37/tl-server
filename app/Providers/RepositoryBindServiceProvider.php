@@ -125,6 +125,11 @@ class RepositoryBindServiceProvider extends ServiceProvider {
             \App\Repositories\Eloquent\SdkVersionRepository::class
         );
 
+        $this->app->singleton(
+            \App\Repositories\BoxVersionRepositoryInterface::class,
+            \App\Repositories\Eloquent\BoxVersionRepository::class
+        );
+
         /* NEW BINDING */
     }
 }
