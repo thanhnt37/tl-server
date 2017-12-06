@@ -28,7 +28,12 @@ class BoxSeeder extends Seeder
         }
 
         foreach(range(50, 100) as $numberBox) {
-            factory(Box::class)->create();
+            factory(Box::class)->create(
+                [
+                    'os_version_id'   => rand(1, 20),
+                    'sdk_version_id'  => rand(1, 20),
+                ]
+            );
         }
     }
 }

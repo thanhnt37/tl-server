@@ -161,7 +161,8 @@ $factory->define(App\Models\Box::class, function (Faker\Generator $faker)
         'imei'            => $faker->unique()->bankAccountNumber,
         'serial'          => $faker->unique()->creditCardNumber,
         'model'           => $faker->word,
-        'os_version'      => '1.0.0',
+        'os_version_id'   => 0,
+        'sdk_version_id'  => 0,
         'is_activated'    => true,
         'activation_date' => $faker->dateTime,
     ];

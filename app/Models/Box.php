@@ -24,7 +24,8 @@ class Box extends AuthenticatableBase
         'imei',
         'serial',
         'model',
-        'os_version',
+        'os_version_id',
+        'sdk_version_id',
         'is_activated',
         'activation_date',
     ];
@@ -50,6 +51,7 @@ class Box extends AuthenticatableBase
      * Find the user identified by the given $identifier.
      *
      * @param $identifier email|phone
+     *
      * @return mixed
      */
     public function findForPassport($identifier)
@@ -58,6 +60,14 @@ class Box extends AuthenticatableBase
     }
 
     // Relations
+    public function osVersion()
+    {
+        return $this->belongsTo(\App\Models\OsVersion::class, 'os_version_id', 'id');
+    }
+    public function sdkVersion()
+    {
+        return $this->belongsTo(\App\Models\SdkVersion::class, 'sdk_version_id', 'id');
+    }
 
 
     // Utility Functions
@@ -71,7 +81,8 @@ class Box extends AuthenticatableBase
             'imei'            => $this->imei,
             'serial'          => $this->serial,
             'model'           => $this->model,
-            'os_version'      => $this->os_version,
+            'os_version_id'   => $this->os_version_id,
+            'sdk_version_id'  => $this->sdk_version_id,
             'is_activated'    => $this->is_activated ? true : false,
             'activation_date' => date_format($this->activation_date, 'Y-m-d H:i:s'),
         ];
