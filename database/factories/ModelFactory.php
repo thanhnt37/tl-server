@@ -193,4 +193,11 @@ $factory->define(App\Models\OsVersion::class, function (Faker\Generator $faker)
     ];
 });
 
+$factory->define(App\Models\SdkVersion::class, function (Faker\Generator $faker)
+{
+    return [
+        'name' => $faker->word,
+    ];
+});
+
 /* NEW MODEL FACTORY */
