@@ -115,6 +115,16 @@ class RepositoryBindServiceProvider extends ServiceProvider {
             \App\Repositories\Eloquent\KaraOtaRepository::class
         );
 
+        $this->app->singleton(
+            \App\Repositories\OsVersionRepositoryInterface::class,
+            \App\Repositories\Eloquent\OsVersionRepository::class
+        );
+
+        $this->app->singleton(
+            \App\Repositories\SdkVersionRepositoryInterface::class,
+            \App\Repositories\Eloquent\SdkVersionRepository::class
+        );
+
         /* NEW BINDING */
     }
 }
