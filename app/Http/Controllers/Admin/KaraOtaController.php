@@ -7,6 +7,8 @@ use App\Repositories\KaraOtaRepositoryInterface;
 use App\Http\Requests\Admin\KaraOtaRequest;
 use App\Http\Requests\PaginationRequest;
 use App\Repositories\KaraVersionRepositoryInterface;
+use App\Repositories\OsVersionRepositoryInterface;
+use App\Repositories\SdkVersionRepositoryInterface;
 
 class KaraOtaController extends Controller
 {
@@ -17,13 +19,23 @@ class KaraOtaController extends Controller
     /** @var \App\Repositories\KaraVersionRepositoryInterface */
     protected $karaVersionRepository;
 
+    /** @var \App\Repositories\OsVersionRepositoryInterface */
+    protected $osVersionRepository;
+
+    /** @var \App\Repositories\SdkVersionRepositoryInterface */
+    protected $sdkVersionRepository;
+
     public function __construct(
         KaraOtaRepositoryInterface      $karaOtaRepository,
-        KaraVersionRepositoryInterface  $karaVersionRepository
+        KaraVersionRepositoryInterface  $karaVersionRepository,
+        OsVersionRepositoryInterface    $osVersionRepository,
+        SdkVersionRepositoryInterface  $sdkVersionRepository
     )
     {
         $this->karaOtaRepository        = $karaOtaRepository;
         $this->karaVersionRepository    = $karaVersionRepository;
+        $this->osVersionRepository      = $osVersionRepository;
+        $this->sdkVersionRepository     = $sdkVersionRepository;
     }
 
     /**
@@ -43,11 +55,14 @@ class KaraOtaController extends Controller
         $count = $this->karaOtaRepository->count();
         $karaOtas = $this->karaOtaRepository->get( $paginate['order'], $paginate['direction'], $paginate['offset'], $paginate['limit'] );
 
-        return view('pages.admin.' . config('view.admin') . '.kara-ota.index', [
-            'karaOtas'    => $karaOtas,
-            'count'         => $count,
-            'paginate'      => $paginate,
-        ]);
+        return view(
+            'pages.admin.' . config('view.admin') . '.kara-ota.index',
+            [
+                'karaOtas' => $karaOtas,
+                'count'    => $count,
+                'paginate' => $paginate,
+            ]
+        );
     }
 
     /**
@@ -62,7 +77,9 @@ class KaraOtaController extends Controller
             [
                 'isNew'        => true,
                 'karaOta'      => $this->karaOtaRepository->getBlankModel(),
-                'karaVersions' => $this->karaVersionRepository->all()
+                'karaVersions' => $this->karaVersionRepository->all(),
+                'osVersions'   => $this->osVersionRepository->all(),
+                'sdkVersions'  => $this->sdkVersionRepository->all(),
             ]
         );
     }
@@ -105,7 +122,9 @@ class KaraOtaController extends Controller
             [
                 'isNew'        => false,
                 'karaOta'      => $karaOta,
-                'karaVersions' => $this->karaVersionRepository->all()
+                'karaVersions' => $this->karaVersionRepository->all(),
+                'osVersions'   => $this->osVersionRepository->all(),
+                'sdkVersions'  => $this->sdkVersionRepository->all(),
             ]
         );
     }

@@ -60,12 +60,12 @@
             <div class="box-body">
                 <div class="row">
                     <div class="col-md-4">
-                        <div class="form-group @if ($errors->has('os_version')) has-error @endif">
-                            <label for="os_version">@lang('admin.pages.kara-ota.columns.os_version')</label>
-                            <select class="form-control" name="os_version" id="os_version" required>
-                                @foreach( config('karaoke.os_version') as $osVersion )
-                                    <option value="{!! $osVersion !!}" @if( (old('os_version') && old('os_version') == $osVersion) || ( $karaOta->os_version == $osVersion) ) selected @endif >
-                                        {{ $osVersion }}
+                        <div class="form-group @if ($errors->has('os_version_id')) has-error @endif">
+                            <label for="os_version_id">@lang('admin.pages.kara-ota.columns.os_version')</label>
+                            <select class="form-control" name="os_version_id" id="os_version_id" required>
+                                @foreach( $osVersions as $osVersion )
+                                    <option value="{!! $osVersion->id !!}" @if( (old('os_version_id') && old('os_version_id') == $osVersion->id) || ( $karaOta->os_version_id == $osVersion->id) ) selected @endif >
+                                        {{ $osVersion->name }}
                                     </option>
                                 @endforeach
                             </select>
@@ -73,12 +73,12 @@
                     </div>
 
                     <div class="col-md-4">
-                        <div class="form-group @if ($errors->has('box_version')) has-error @endif">
-                            <label for="box_version">@lang('admin.pages.kara-ota.columns.box_version')</label>
-                            <select class="form-control" name="box_version" id="box_version" required>
-                                @foreach( config('karaoke.box_version') as $boxVersion )
-                                    <option value="{!! $boxVersion !!}" @if( (old('box_version') && old('box_version') == $boxVersion) || ( $karaOta->box_version == $boxVersion) ) selected @endif >
-                                        {{ $boxVersion }}
+                        <div class="form-group @if ($errors->has('sdk_version_id')) has-error @endif">
+                            <label for="sdk_version_id">@lang('admin.pages.kara-ota.columns.sdk_version')</label>
+                            <select class="form-control" name="sdk_version_id" id="sdk_version_id" required>
+                                @foreach( $sdkVersions as $sdkVersion )
+                                    <option value="{!! $sdkVersion->id !!}" @if( (old('sdk_version_id') && old('sdk_version_id') == $sdkVersion->id) || ( $karaOta->sdk_version_id == $sdkVersion->id) ) selected @endif >
+                                        {{ $sdkVersion->name }}
                                     </option>
                                 @endforeach
                             </select>
@@ -87,7 +87,7 @@
 
                     <div class="col-md-4">
                         <div class="form-group @if ($errors->has('kara_version_id')) has-error @endif">
-                            <label for="box_version">@lang('admin.pages.kara-ota.columns.kara_version_id')</label>
+                            <label for="kara_version_id">@lang('admin.pages.kara-ota.columns.kara_version_id')</label>
                             <select class="form-control" name="kara_version_id" id="kara_version_id" required>
                                 @foreach( $karaVersions as $karaVersion )
                                     <option value="{!! $karaVersion->id !!}" @if( (old('kara_version_id') && old('kara_version_id') == $karaVersion->id) || ( $karaOta->kara_version_id == $karaVersion->id) ) selected @endif >

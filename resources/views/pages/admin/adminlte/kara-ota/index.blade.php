@@ -47,16 +47,16 @@ KaraOta
             <tr>
                 <th style="width: 10px">{!! \PaginationHelper::sort('id', 'ID') !!}</th>
                 <th>{!! \PaginationHelper::sort('os_version', trans('admin.pages.kara-ota.columns.os_version')) !!}</th>
-                <th>{!! \PaginationHelper::sort('box_version', trans('admin.pages.kara-ota.columns.box_version')) !!}</th>
-                <th>{!! \PaginationHelper::sort('box_version', trans('admin.pages.kara-ota.columns.kara_version_id')) !!}</th>
+                <th>{!! \PaginationHelper::sort('sdk_version', trans('admin.pages.kara-ota.columns.sdk_version')) !!}</th>
+                <th>{!! trans('admin.pages.kara-ota.columns.kara_version_id') !!}</th>
 
                 <th style="width: 40px">@lang('admin.pages.common.label.actions')</th>
             </tr>
             @foreach( $karaOtas as $karaOta )
                 <tr>
                     <td>{{ $karaOta->id }}</td>
-                    <td>{{ $karaOta->os_version }}</td>
-                    <td>{{ $karaOta->box_version }}</td>
+                    <td>{{ isset($karaOta->osVersion->name) ? $karaOta->osVersion->name : 'Unknown' }}</td>
+                    <td>{{ isset($karaOta->sdkVersion->name) ? $karaOta->sdkVersion->name : 'Unknown' }}</td>
 
                     <td>
                         @if( isset($karaOta->karaVersion->version) )
