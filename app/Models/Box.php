@@ -23,7 +23,7 @@ class Box extends AuthenticatableBase
     protected $fillable = [
         'imei',
         'serial',
-        'model',
+        'box_version_id',
         'os_version_id',
         'sdk_version_id',
         'is_activated',
@@ -64,9 +64,15 @@ class Box extends AuthenticatableBase
     {
         return $this->belongsTo(\App\Models\OsVersion::class, 'os_version_id', 'id');
     }
+
     public function sdkVersion()
     {
         return $this->belongsTo(\App\Models\SdkVersion::class, 'sdk_version_id', 'id');
+    }
+
+    public function boxVersion()
+    {
+        return $this->belongsTo(\App\Models\BoxVersion::class, 'box_version_id', 'id');
     }
 
 
@@ -80,7 +86,7 @@ class Box extends AuthenticatableBase
         return [
             'imei'            => $this->imei,
             'serial'          => $this->serial,
-            'model'           => $this->model,
+            'box_version_id'  => $this->box_version_id,
             'os_version_id'   => $this->os_version_id,
             'sdk_version_id'  => $this->sdk_version_id,
             'is_activated'    => $this->is_activated ? true : false,

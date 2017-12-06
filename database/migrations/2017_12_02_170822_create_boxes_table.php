@@ -18,9 +18,9 @@ class CreateboxesTable extends Migration
             $table->string('imei')->unique();
             $table->string('serial')->unique();
 
-            $table->string('model')->nullable()->default('');
-            $table->string('os_version_id')->nullable()->default('');
-            $table->string('sdk_version_id')->nullable()->default('');
+            $table->unsignedBigInteger('box_version_id')->nullable()->default(0);
+            $table->unsignedBigInteger('os_version_id')->nullable()->default(0);
+            $table->unsignedBigInteger('sdk_version_id')->nullable()->default(0);
 
             $table->boolean('is_activated')->nullable()->default(true);
             $table->timestamp('activation_date')->nullable()->default('2000-01-01 00:00:00');

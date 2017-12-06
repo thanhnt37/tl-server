@@ -214,7 +214,7 @@ return [
             'columns' => [
                 'imei'            => 'IMEI',
                 'serial'          => 'Serial',
-                'model'           => 'Model',
+                'box_version_id'  => 'Box Version',
                 'os_version_id'   => 'OS Version',
                 'sdk_version_id'  => 'SDK Version',
                 'is_activated'    => 'Is Activated',
@@ -248,8 +248,8 @@ return [
                 'name' => 'Name',
             ],
         ],
-        'box-versions'   => [
-            'columns'  => [
+        'box-versions'             => [
+            'columns' => [
                 'name' => 'Name',
             ],
         ],
