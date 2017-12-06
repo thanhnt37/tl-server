@@ -62,7 +62,13 @@ KaraOta
                             Unknown
                         @endif
                     </td>
-                    <td>{{ isset($karaOta->sdkVersion->name) ? $karaOta->sdkVersion->name : 'Unknown' }}</td>
+                    <td>
+                        @if(isset($karaOta->sdkVersion->name))
+                            <a href="{!! action('Admin\SdkVersionController@show', $karaOta->sdkVersion->id) !!}">{!! $karaOta->sdkVersion->name !!}</a>
+                        @else
+                            Unknown
+                        @endif
+                    </td>
 
                     <td>
                         @if( isset($karaOta->karaVersion->version) )

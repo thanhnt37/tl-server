@@ -237,8 +237,13 @@ return [
                 'kara_version_id' => 'Kara Version',
             ],
         ],
-        'os-versions'   => [
-            'columns'  => [
+        'os-versions'              => [
+            'columns' => [
+                'name' => 'Name',
+            ],
+        ],
+        'sdk-versions'             => [
+            'columns' => [
                 'name' => 'Name',
             ],
         ],
