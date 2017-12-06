@@ -21,8 +21,9 @@ class OTARequest extends Request
     public function rules()
     {
         $rules = [
-            'os_version'  => 'required',
-            'sdk_version' => 'required'
+            'os_version_id'  => 'required|numeric',
+            'sdk_version_id' => 'required|numeric',
+            'apk_version_id' => 'required|numeric'
         ];
 
         return $rules;

@@ -5,6 +5,10 @@ return [
         'message'        => 'Success !!!',
         'httpStatusCode' => 200
     ],
+    20001 => [
+        'message'        => 'Your APK version already up to date !!!',
+        'httpStatusCode' => 200
+    ],
     20004 => [
         'message'        => 'Sorry, No data matching !!!',
         'httpStatusCode' => 200
