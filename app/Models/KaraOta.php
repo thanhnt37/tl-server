@@ -44,11 +44,11 @@ class KaraOta extends Base
     // Relations
     public function osVersion()
     {
-        return $this->belongsTo(\App\Models\KaraVersion::class, 'os_version_id', 'id');
+        return $this->belongsTo(\App\Models\OsVersion::class, 'os_version_id', 'id');
     }
     public function sdkVersion()
     {
-        return $this->belongsTo(\App\Models\KaraVersion::class, 'sdk_version_id', 'id');
+        return $this->belongsTo(\App\Models\SdkVersion::class, 'sdk_version_id', 'id');
     }
     public function karaVersion()
     {

@@ -60,7 +60,7 @@
             <div class="box-body">
 
                 <div class="row">
-                    <div class="col-md-6">
+                    <div class="col-md-4">
                         <div class="form-group @if ($errors->has('imei')) has-error @endif">
                             <label for="imei">@lang('admin.pages.boxes.columns.imei')</label>
                             <input type="text" class="form-control" id="imei" name="imei" required
@@ -68,17 +68,15 @@
                         </div>
                     </div>
 
-                    <div class="col-md-6">
+                    <div class="col-md-4">
                         <div class="form-group @if ($errors->has('serial')) has-error @endif">
                             <label for="serial">@lang('admin.pages.boxes.columns.serial')</label>
                             <input type="text" class="form-control" id="serial" name="serial" required
                                    value="{{ old('serial') ? old('serial') : $box->serial }}">
                         </div>
                     </div>
-                </div>
 
-                <div class="row">
-                    <div class="col-md-6">
+                    <div class="col-md-4">
                         <div class="form-group @if ($errors->has('model')) has-error @endif">
                             <label for="model">@lang('admin.pages.boxes.columns.model')</label>
                             <select class="form-control" name="model" id="model" required>
@@ -90,14 +88,29 @@
                             </select>
                         </div>
                     </div>
+                </div>
+
+                <div class="row">
+                    <div class="col-md-6">
+                        <div class="form-group @if ($errors->has('os_version_id')) has-error @endif">
+                            <label for="os_version_id">@lang('admin.pages.boxes.columns.os_version_id')</label>
+                            <select class="form-control" name="os_version_id" id="os_version_id" required>
+                                @foreach( $osVersions as $osVersion )
+                                    <option value="{!! $osVersion->id !!}" @if( (old('os_version_id') && old('os_version_id') == $osVersion->id) || ( $box->os_version_id == $osVersion->id) ) selected @endif >
+                                        {{ $osVersion->name }}
+                                    </option>
+                                @endforeach
+                            </select>
+                        </div>
+                    </div>
 
                     <div class="col-md-6">
-                        <div class="form-group @if ($errors->has('os_version')) has-error @endif">
-                            <label for="os_version">@lang('admin.pages.boxes.columns.os_version')</label>
-                            <select class="form-control" name="os_version" id="os_version" required>
-                                @foreach( config('karaoke.os_version') as $osVersion )
-                                    <option value="{!! $osVersion !!}" @if( (old('os_version') && old('os_version') == $osVersion) || ( $box->os_version == $osVersion) ) selected @endif >
-                                        {{ $osVersion }}
+                        <div class="form-group @if ($errors->has('sdk_version_id')) has-error @endif">
+                            <label for="sdk_version_id">@lang('admin.pages.boxes.columns.sdk_version_id')</label>
+                            <select class="form-control" name="sdk_version_id" id="sdk_version_id" required>
+                                @foreach( $sdkVersions as $sdkVersion )
+                                    <option value="{!! $sdkVersion->id !!}" @if( (old('sdk_version_id') && old('sdk_version_id') == $sdkVersion->id) || ( $box->sdk_version_id == $sdkVersion->id) ) selected @endif >
+                                        {{ $sdkVersion->name }}
                                     </option>
                                 @endforeach
                             </select>

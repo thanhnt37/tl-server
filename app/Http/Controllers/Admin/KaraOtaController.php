@@ -92,7 +92,7 @@ class KaraOtaController extends Controller
      */
     public function store(KaraOtaRequest $request)
     {
-        $input = $request->only(['os_version','box_version', 'kara_version_id']);
+        $input = $request->only(['os_version_id','sdk_version_id', 'kara_version_id']);
 
         $karaOta = $this->karaOtaRepository->create($input);
 
@@ -154,7 +154,7 @@ class KaraOtaController extends Controller
         if (empty( $karaOta )) {
             abort(404);
         }
-        $input = $request->only(['os_version','box_version', 'kara_version_id']);
+        $input = $request->only(['os_version_id','sdk_version_id', 'kara_version_id']);
 
         $this->karaOtaRepository->update($karaOta, $input);
 

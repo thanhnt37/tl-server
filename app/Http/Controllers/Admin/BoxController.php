@@ -6,19 +6,29 @@ use App\Http\Controllers\Controller;
 use App\Repositories\BoxRepositoryInterface;
 use App\Http\Requests\Admin\BoxRequest;
 use App\Http\Requests\PaginationRequest;
+use App\Repositories\OsVersionRepositoryInterface;
+use App\Repositories\SdkVersionRepositoryInterface;
 
 class BoxController extends Controller
 {
-
     /** @var \App\Repositories\BoxRepositoryInterface */
     protected $boxRepository;
 
+    /** @var \App\Repositories\OsVersionRepositoryInterface */
+    protected $osVersionRepository;
+
+    /** @var \App\Repositories\SdkVersionRepositoryInterface */
+    protected $sdkVersionRepository;
 
     public function __construct(
-        BoxRepositoryInterface $boxRepository
+        BoxRepositoryInterface          $boxRepository,
+        OsVersionRepositoryInterface    $osVersionRepository,
+        SdkVersionRepositoryInterface   $sdkVersionRepository
     )
     {
-        $this->boxRepository = $boxRepository;
+        $this->boxRepository            = $boxRepository;
+        $this->osVersionRepository      = $osVersionRepository;
+        $this->sdkVersionRepository     = $sdkVersionRepository;
     }
 
     /**
@@ -38,7 +48,8 @@ class BoxController extends Controller
         $count = $this->boxRepository->count();
         $boxs = $this->boxRepository->get( $paginate['order'], $paginate['direction'], $paginate['offset'], $paginate['limit'] );
 
-        return view('pages.admin.' . config('view.admin') . '.boxes.index',
+        return view(
+            'pages.admin.' . config('view.admin') . '.boxes.index',
             [
                 'boxs'     => $boxs,
                 'count'    => $count,
@@ -54,10 +65,13 @@ class BoxController extends Controller
      */
     public function create()
     {
-        return view('pages.admin.' . config('view.admin') . '.boxes.edit',
+        return view(
+            'pages.admin.' . config('view.admin') . '.boxes.edit',
             [
-                'isNew' => true,
-                'box'   => $this->boxRepository->getBlankModel(),
+                'isNew'       => true,
+                'box'         => $this->boxRepository->getBlankModel(),
+                'osVersions'  => $this->osVersionRepository->all(),
+                'sdkVersions' => $this->sdkVersionRepository->all(),
             ]
         );
     }
@@ -70,7 +84,7 @@ class BoxController extends Controller
      */
     public function store(BoxRequest $request)
     {
-        $input = $request->only(['imei','serial','model','os_version','activation_date']);
+        $input = $request->only(['imei','serial','model','os_version_id','sdk_version_id','activation_date']);
         $input['is_activated'] = $request->get('is_activated', 0);
 
         $box = $this->boxRepository->create($input);
@@ -96,10 +110,13 @@ class BoxController extends Controller
             abort(404);
         }
 
-        return view('pages.admin.' . config('view.admin') . '.boxes.edit',
+        return view(
+            'pages.admin.' . config('view.admin') . '.boxes.edit',
             [
-                'isNew' => false,
-                'box'   => $box,
+                'isNew'       => false,
+                'box'         => $box,
+                'osVersions'  => $this->osVersionRepository->all(),
+                'sdkVersions' => $this->sdkVersionRepository->all(),
             ]
         );
     }
@@ -129,7 +146,7 @@ class BoxController extends Controller
         if (empty( $box )) {
             abort(404);
         }
-        $input = $request->only(['imei','serial','model','os_version','activation_date']);
+        $input = $request->only(['imei','serial','model','os_version_id','sdk_version_id','activation_date']);
         $input['is_activated'] = $request->get('is_activated', 0);
 
         $this->boxRepository->update($box, $input);

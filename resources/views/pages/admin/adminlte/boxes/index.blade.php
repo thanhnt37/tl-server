@@ -54,7 +54,7 @@ Boxes
                 <th>{!! \PaginationHelper::sort('imei', trans('admin.pages.boxes.columns.imei')) !!}</th>
                 <th>{!! \PaginationHelper::sort('serial', trans('admin.pages.boxes.columns.serial')) !!}</th>
                 <th>{!! \PaginationHelper::sort('model', trans('admin.pages.boxes.columns.model')) !!}</th>
-                <th>{!! \PaginationHelper::sort('os_version', trans('admin.pages.boxes.columns.os_version')) !!}</th>
+                <th>{!! \PaginationHelper::sort('os_version', trans('admin.pages.boxes.columns.os_version_id')) !!}</th>
                 <th width="85px">{!! \PaginationHelper::sort('is_activated', trans('admin.pages.boxes.columns.is_activated')) !!}</th>
 
                 <th style="width: 40px">@lang('admin.pages.common.label.actions')</th>
@@ -65,7 +65,13 @@ Boxes
                     <td>{{ $box->imei }}</td>
                     <td>{{ $box->serial }}</td>
                     <td>{{ $box->model }}</td>
-                    <td>{{ $box->os_version }}</td>
+                    <td>
+                        @if(isset($box->osVersion->name))
+                            <a href="{!! action('Admin\OsVersionController@show', $box->osVersion->id) !!}">{!! $box->osVersion->name !!}</a>
+                        @else
+                            Unknown
+                        @endif
+                    </td>
 
                     <td>
                         @if( $box->is_activated )

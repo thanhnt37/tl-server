@@ -31,7 +31,7 @@ class BoxRequest extends BaseRequest
      */
     public function rules()
     {
-        $id = ($this->method() == 'PUT') ? $this->route('boxes') : 0;
+        $id = ($this->method() == 'PUT') ? $this->route('box') : 0;
 
         $rules = [
             'imei'   => 'required|string|unique:boxes,imei,' . $id,
