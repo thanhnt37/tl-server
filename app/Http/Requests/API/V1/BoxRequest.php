@@ -23,8 +23,7 @@ class BoxRequest extends Request
         $id = ($this->method() == 'PUT') ? $this->route('boxes') : 0;
 
         $rules = [
-            'imei'   => 'required|string',
-            'serial' => 'required|string'
+            'imei'   => 'required|string'
         ];
 
         return $rules;

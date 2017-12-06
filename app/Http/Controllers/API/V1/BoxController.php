@@ -27,10 +27,10 @@ class BoxController extends Controller
     public function activateDevice(BoxRequest $request)
     {
         $data = $request->only(
-            ['imei', 'serial']
+            ['imei']
         );
 
-        $box = $this->boxRepository->findByImeiAndSerial($data['imei'], $data['serial']);
+        $box = $this->boxRepository->findByImei($data['imei']);
         if( empty($box) ) {
             return Response::response(20004);
         }
