@@ -15,5 +15,6 @@ class DatabaseSeeder extends Seeder
     {
          $this->call(BoxSeeder::class);
          $this->call(OTASeeder::class);
+         $this->call(AlbumSeeder::class);
     }
 }

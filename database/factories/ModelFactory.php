@@ -218,7 +218,7 @@ $factory->define(App\Models\Song::class, function (Faker\Generator $faker)
         'link'        => $faker->url,
         'type'        => 'mp4',
         'sub_link'    => $faker->url,
-        'image'       => $faker->image(),
+        'image'       => $faker->imageUrl(),
         'view'        => rand(100, 1000),
         'play'        => rand(50, 500),
         'vote'        => rand(20, 200),
@@ -232,7 +232,7 @@ $factory->define(App\Models\Author::class, function (Faker\Generator $faker)
     return [
         'name'        => $faker->name(),
         'description' => $faker->sentences(10, true),
-        'image'       => $faker->image(),
+        'image'       => $faker->imageUrl(),
     ];
 });
 
@@ -241,7 +241,7 @@ $factory->define(App\Models\Album::class, function (Faker\Generator $faker)
     return [
         'name'        => $faker->sentence,
         'description' => $faker->sentences(10, true),
-        'image'       => $faker->image(),
+        'image'       => $faker->imageUrl(),
         'vote'        => rand(20, 200),
         'publish_at'  => $faker->dateTime,
     ];
@@ -252,7 +252,7 @@ $factory->define(App\Models\Singer::class, function (Faker\Generator $faker)
     return [
         'name'        => $faker->name(),
         'description' => $faker->sentences(10, true),
-        'image'       => $faker->image(),
+        'image'       => $faker->imageUrl(),
     ];
 });
 
@@ -261,7 +261,7 @@ $factory->define(App\Models\Genre::class, function (Faker\Generator $faker)
     return [
         'name'        => $faker->word,
         'description' => $faker->sentences(10, true),
-        'image'       => $faker->image(),
+        'image'       => $faker->imageUrl(),
     ];
 });
 
@@ -270,7 +270,7 @@ $factory->define(App\Models\Topic::class, function (Faker\Generator $faker)
     return [
         'name'        => $faker->word,
         'description' => $faker->sentences(10, true),
-        'image'       => $faker->image(),
+        'image'       => $faker->imageUrl(),
     ];
 });
 
