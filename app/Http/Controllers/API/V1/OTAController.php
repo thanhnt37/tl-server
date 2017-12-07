@@ -8,6 +8,7 @@ use App\Http\Requests\API\V1\OTARequest;
 use App\Http\Responses\API\V1\Response;
 use App\Repositories\KaraOtaRepositoryInterface;
 use App\Repositories\SdkVersionRepositoryInterface;
+use App\Repositories\KaraVersionRepositoryInterface;
 
 class OTAController extends Controller
 {
@@ -17,12 +18,17 @@ class OTAController extends Controller
     /** @var \App\Repositories\SdkVersionRepositoryInterface */
     protected $sdkVersionRepository;
 
+    /** @var \App\Repositories\KaraVersionRepositoryInterface */
+    protected $karaVersionRepository;
+
     public function __construct(
         KaraOtaRepositoryInterface      $karaOtaRepository,
-        SdkVersionRepositoryInterface   $sdkVersionRepository
+        SdkVersionRepositoryInterface   $sdkVersionRepository,
+        KaraVersionRepositoryInterface  $karaVersionRepository
     ) {
         $this->karaOtaRepository        = $karaOtaRepository;
         $this->sdkVersionRepository     = $sdkVersionRepository;
+        $this->karaVersionRepository    = $karaVersionRepository;
     }
 
     public function updateOTA(OTARequest $request)
@@ -41,7 +47,12 @@ class OTAController extends Controller
             return Response::response(20004);
         }
 
-        if( $data['apk_version_id'] >= $ota->kara_version_id ) {
+        $karaVersion = $this->karaVersionRepository->findByVersion($data['apk_version_id']);
+        if( empty($karaVersion) ) {
+            return Response::response(20004);
+        }
+
+        if( $karaVersion->id >= $ota->kara_version_id ) {
             return Response::response(20001);
         }
 
