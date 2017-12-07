@@ -130,6 +130,11 @@ class RepositoryBindServiceProvider extends ServiceProvider {
             \App\Repositories\Eloquent\BoxVersionRepository::class
         );
 
+        $this->app->singleton(
+            \App\Repositories\AlbumRepositoryInterface::class,
+            \App\Repositories\Eloquent\AlbumRepository::class
+        );
+
         /* NEW BINDING */
     }
 }
