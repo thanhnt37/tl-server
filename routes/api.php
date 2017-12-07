@@ -15,6 +15,7 @@ Route::group(['prefix' => 'api', 'namespace' => 'API'], function () {
 
             Route::post('activateDevice', 'BoxController@activateDevice');
             Route::post('updateOTA', 'OTAController@updateOTA');
+            Route::get('getListAlbum', 'AlbumController@getListAlbum');
 
             Route::post('signout', 'AuthController@postSignOut');
         });
