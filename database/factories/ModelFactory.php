@@ -274,4 +274,12 @@ $factory->define(App\Models\Topic::class, function (Faker\Generator $faker)
     ];
 });
 
+$factory->define(App\Models\AlbumSong::class, function (Faker\Generator $faker)
+{
+    return [
+        'album_id' => 0,
+        'song_id'  => 0,
+    ];
+});
+
 /* NEW MODEL FACTORY */
