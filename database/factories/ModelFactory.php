@@ -236,4 +236,15 @@ $factory->define(App\Models\Author::class, function (Faker\Generator $faker)
     ];
 });
 
+$factory->define(App\Models\Album::class, function (Faker\Generator $faker)
+{
+    return [
+        'name'        => $faker->sentence,
+        'description' => $faker->sentences(10, true),
+        'image'       => $faker->image(),
+        'vote'        => rand(20, 200),
+        'publish_at'  => $faker->dateTime,
+    ];
+});
+
 /* NEW MODEL FACTORY */
