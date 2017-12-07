@@ -290,4 +290,12 @@ $factory->define(App\Models\SingerSong::class, function (Faker\Generator $faker)
     ];
 });
 
+$factory->define(App\Models\GenreSong::class, function (Faker\Generator $faker)
+{
+    return [
+        'genre_id' => 0,
+        'song_id'  => 0,
+    ];
+});
+
 /* NEW MODEL FACTORY */
