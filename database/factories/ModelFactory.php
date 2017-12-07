@@ -208,4 +208,23 @@ $factory->define(App\Models\BoxVersion::class, function (Faker\Generator $faker)
     ];
 });
 
+$factory->define(App\Models\Song::class, function (Faker\Generator $faker)
+{
+    return [
+        'code'        => $faker->unique()->bankAccountNumber,
+        'wildcard'    => $faker->unique()->word,
+        'name'        => $faker->sentence,
+        'description' => $faker->sentences(10, true),
+        'link'        => $faker->url,
+        'type'        => 'mp4',
+        'sub_link'    => $faker->url,
+        'image'       => $faker->image(),
+        'view'        => rand(100, 1000),
+        'play'        => rand(50, 500),
+        'vote'        => rand(20, 200),
+        'author_id'   => 0,
+        'publish_at'  => $faker->dateTime,
+    ];
+});
+
 /* NEW MODEL FACTORY */
