@@ -256,4 +256,13 @@ $factory->define(App\Models\Singer::class, function (Faker\Generator $faker)
     ];
 });
 
+$factory->define(App\Models\Genre::class, function (Faker\Generator $faker)
+{
+    return [
+        'name'        => $faker->word,
+        'description' => $faker->sentences(10, true),
+        'image'       => $faker->image(),
+    ];
+});
+
 /* NEW MODEL FACTORY */
