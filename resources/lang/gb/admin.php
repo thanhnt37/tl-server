@@ -264,6 +264,23 @@ return [
                 'revoked'                => 'Revoked',
             ],
         ],
+        'songs'                    => [
+            'columns' => [
+                'code'        => 'Code',
+                'wildcard'    => 'Wildcard',
+                'name'        => 'Name',
+                'description' => 'Description',
+                'link'        => 'Link',
+                'type'        => 'Type',
+                'sub_link'    => 'Sub Link',
+                'image'       => 'Image',
+                'view'        => 'View',
+                'play'        => 'Play',
+                'vote'        => 'Vote',
+                'author_id'   => 'Author',
+                'publish_at'  => 'Publish At',
+            ],
+        ],
         /* NEW PAGE STRINGS */
     ],
     'roles'      => [
