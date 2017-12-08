@@ -47,8 +47,8 @@
 @section('content')
 <div class="container">
     <p class="content">
-        <div class="title">Laravel Boilerplate</div>
-        <p><a href="https://github.com/takaaki-mizuno/laravel-boilerplate/">GitHub</a></p>
+        <div class="title">Truong Lam Karaoke</div>
+        <p><a href="http://truonglam.vn/" style="text-decoration: none;">HomePage</a></p>
     </div>
 </div>
 @stop
