@@ -34,6 +34,26 @@ class AlbumController extends Controller
 
     public function detail($id)
     {
-        
+        $album = $this->albumRepository->find($id);
+        if (empty($album)) {
+            return Response::response(20004);
+        }
+
+        $songs = $album->songs;
+        foreach( $songs as $key => $song ) {
+            $name = isset($song->author->name) ? $song->author->name : 'Unknown';
+            $songs[$key]['author_name'] = $name;
+
+            unset($songs[$key]['author']);
+            unset($songs[$key]['author_id']);
+            unset($songs[$key]['deleted_at']);
+            unset($songs[$key]['updated_at']);
+        }
+
+        unset($album['updated_at']);
+        unset($album['deleted_at']);
+
+        $album['songs'] = $songs;
+        return Response::response(200, $album);
     }
 }
