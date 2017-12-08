@@ -234,7 +234,8 @@
                             <div class="row">
                                 <div class="col-sm-12">
                                     <div class="form-group">
-                                        <label for="new-albums">Add New Album</label>
+                                        <label for="new-albums">Add New Albums</label>
+                                        <a href="{!! action('Admin\AlbumController@create') !!}" title="Create New Album"><i class="fa fa-plus-square-o" aria-hidden="true"></i></a>
                                         <select class="form-control new-albums" name="new-albums[]" required id="new-albums" style="margin-bottom: 15px;" multiple="multiple">
                                             @foreach( $albums as $index => $album )
                                                 <option value="{!! $album->id !!}">
@@ -287,6 +288,7 @@
                                 <div class="col-sm-12">
                                     <div class="form-group">
                                         <label for="new-genres">Add New Genre</label>
+                                        <a href="{!! action('Admin\GenreController@create') !!}" title="Create New Genres"><i class="fa fa-plus-square-o" aria-hidden="true"></i></a>
                                         <select class="form-control new-genres" name="new-genres[]" required id="new-genres" style="margin-bottom: 15px;" multiple="multiple">
                                             @foreach( $genres as $index => $genre )
                                                 <option value="{!! $genre->id !!}">
@@ -341,6 +343,7 @@
                                 <div class="col-sm-12">
                                     <div class="form-group">
                                         <label for="new-singers">Add New Singer</label>
+                                        <a href="{!! action('Admin\SingerController@create') !!}" title="Create New Singers"><i class="fa fa-plus-square-o" aria-hidden="true"></i></a>
                                         <select class="form-control new-singers" name="new-singers[]" required id="new-singers" style="margin-bottom: 15px;" multiple="multiple">
                                             @foreach( $singers as $index => $singer )
                                                 <option value="{!! $singer->id !!}">
