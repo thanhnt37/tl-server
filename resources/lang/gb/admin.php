@@ -253,6 +253,17 @@ return [
                 'name' => 'Name',
             ],
         ],
+        'oauth-clients'            => [
+            'columns' => [
+                'user_id'                => 'User ID',
+                'name'                   => 'Name',
+                'secret'                 => 'Secret',
+                'redirect'               => 'Redirect',
+                'personal_access_client' => 'Personal Access Client',
+                'password_client'        => 'Password Client',
+                'revoked'                => 'Revoked',
+            ],
+        ],
         /* NEW PAGE STRINGS */
     ],
     'roles'      => [

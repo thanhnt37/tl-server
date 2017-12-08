@@ -28,6 +28,7 @@
 //            \Route::delete('images/delete', 'Admin\ImageController@deleteByUrl');
 //            \Route::resource('images', 'Admin\ImageController');
 
+            \Route::resource('oauth-clients', 'Admin\OauthClientController');
             \Route::resource('logs', 'Admin\LogController');
 
         });

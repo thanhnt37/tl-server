@@ -35,6 +35,7 @@
             <li @if( $menu=='box_versions') class="active" @endif ><a href="{!! \URL::action('Admin\BoxVersionController@index') !!}"><i class="fa fa-archive"></i> <span>Box Versions</span></a></li>
 
             @if( $authUser->hasRole(\App\Models\AdminUserRole::ROLE_ADMIN) )
+                <li @if( $menu=='oauth_clients') class="active" @endif ><a href="{!! \URL::action('Admin\OauthClientController@index') !!}"><i class="fa fa-key"></i> <span>Oauth Clients</span></a></li>
                 <li @if( $menu=='admin_users') class="active" @endif ><a href="{!! \URL::action('Admin\AdminUserController@index') !!}"><i class="fa fa-user-secret"></i> <span>@lang('admin.menu.admin_users')</span></a></li>
 {{--                <li @if( $menu=='admin_user_notifications') class="active" @endif ><a href="{!! \URL::action('Admin\AdminUserNotificationController@index') !!}"><i class="fa fa-bell-o"></i> <span>@lang('admin.menu.admin_user_notifications')</span></a></li>--}}
             @endif
