@@ -281,6 +281,15 @@ return [
                 'publish_at'  => 'Publish At',
             ],
         ],
+        'albums'                   => [
+            'columns' => [
+                'name'        => 'Name',
+                'description' => 'Description',
+                'image'       => 'Image',
+                'vote'        => 'Vote',
+                'publish_at'  => 'Publish At',
+            ],
+        ],
         /* NEW PAGE STRINGS */
     ],
     'roles'      => [

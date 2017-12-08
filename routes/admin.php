@@ -55,6 +55,7 @@
         \Route::resource('sdk-versions', 'Admin\SdkVersionController');
         \Route::resource('box-versions', 'Admin\BoxVersionController');
         \Route::resource('songs', 'Admin\SongController');
+        \Route::resource('albums', 'Admin\AlbumController');
         /* NEW ADMIN RESOURCE ROUTE */
 
     });
