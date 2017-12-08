@@ -140,8 +140,12 @@
                     @foreach( $genre->songs as $index => $song )
                         <tr>
                             <td>{{$index}}</td>
-                            <td>{{$song->code}}</td>
-                            <td>{{$song->name}}</td>
+                            <td>
+                                <a href="{!! action('Admin\SongController@show', $song->id) !!}">{{$song->code}}</a>
+                            </td>
+                            <td>
+                                <a href="{!! action('Admin\SongController@show', $song->id) !!}">{{$song->name}}</a>
+                            </td>
                             <td>{{$song->vote}}</td>
                             <td>
                                 <a href="{{ action('Admin\GenreController@deleteSong', [$genre->id, $song->id]) }}" >@lang('admin.pages.common.buttons.delete')</a>
