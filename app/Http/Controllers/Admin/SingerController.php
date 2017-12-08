@@ -6,19 +6,29 @@ use App\Http\Controllers\Controller;
 use App\Repositories\SingerRepositoryInterface;
 use App\Http\Requests\Admin\SingerRequest;
 use App\Http\Requests\PaginationRequest;
+use App\Repositories\SingerSongRepositoryInterface;
+use App\Repositories\SongRepositoryInterface;
 
 class SingerController extends Controller
 {
-
     /** @var \App\Repositories\SingerRepositoryInterface */
     protected $singerRepository;
 
+    /** @var \App\Repositories\SingerSongRepositoryInterface */
+    protected $singerSongRepository;
+
+    /** @var \App\Repositories\SongRepositoryInterface */
+    protected $songRepository;
 
     public function __construct(
-        SingerRepositoryInterface $singerRepository
+        SingerRepositoryInterface       $singerRepository,
+        SingerSongRepositoryInterface   $singerSongRepository,
+        SongRepositoryInterface         $songRepository
     )
     {
-        $this->singerRepository = $singerRepository;
+        $this->singerRepository         = $singerRepository;
+        $this->singerSongRepository     = $singerSongRepository;
+        $this->songRepository           = $songRepository;
     }
 
     /**
@@ -97,11 +107,15 @@ class SingerController extends Controller
             abort(404);
         }
 
+        $exceptSongs = $this->singerSongRepository->getBySingerId($id)->pluck('singer_id');
+        $songs = $this->songRepository->getBlankModel()->whereNotIn('id', $exceptSongs)->get();
+
         return view(
             'pages.admin.' . config('view.admin') . '.singers.edit',
             [
                 'isNew'  => false,
                 'singer' => $singer,
+                'songs'  => $songs
             ]
         );
     }
@@ -158,4 +172,44 @@ class SingerController extends Controller
                     ->with('message-success', trans('admin.messages.general.delete_success'));
     }
 
+    /**
+     * Remove the specified resource from storage.
+     *
+     * @param  int $id
+     * @return \Response
+     */
+    public function deleteSong($singerId, $songId)
+    {
+        /** @var \App\Models\AlbumSong $albumSong */
+        $singerSong = $this->singerSongRepository->findBySingerIdAndSongId($singerId, $songId);
+        if (empty( $singerSong )) {
+            abort(404);
+        }
+        $this->singerSongRepository->delete($singerSong);
+
+        return redirect()->back()->with('message-success', trans('admin.messages.general.delete_success'));
+    }
+
+    public function addNewSong($id, SingerRequest $request)
+    {
+        $singer = $this->singerRepository->find($id);
+        if (empty( $singer )) {
+            abort(404);
+        }
+
+        $songs = $request->get('new-songs', []);
+        foreach( $songs as $songId ) {
+            $check = $this->singerSongRepository->findBySingerIdAndSongId($singer->id, $songId);
+            if( empty($check) ) {
+                $this->singerSongRepository->create(
+                    [
+                        'singer_id' => $singer->id,
+                        'song_id'   => $songId
+                    ]
+                );
+            }
+        }
+
+        return redirect()->action('Admin\SingerController@show', [$id])->with('message-success', trans('admin.messages.general.update_success'));
+    }
 }

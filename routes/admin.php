@@ -34,16 +34,19 @@
             \Route::resource('box-versions', 'Admin\BoxVersionController');
 
             \Route::resource('songs', 'Admin\SongController');
-            \Route::resource('singers', 'Admin\SingerController');
             \Route::resource('authors', 'Admin\AuthorController');
+
+            \Route::resource('singers', 'Admin\SingerController');
+            \Route::get('singer-songs/{singer_id}/{song_id}', 'Admin\SingerController@deleteSong');
+            \Route::post('singer-songs/{singer_id}', 'Admin\SingerController@addNewSong');
 
             \Route::resource('albums', 'Admin\AlbumController');
             \Route::get('album-songs/{album_id}/{song_id}', 'Admin\AlbumController@deleteSong');
             \Route::post('album-songs/{album_id}', 'Admin\AlbumController@addNewSong');
 
             \Route::resource('genres', 'Admin\GenreController');
-            \Route::get('genre-songs/{album_id}/{song_id}', 'Admin\GenreController@deleteSong');
-            \Route::post('genre-songs/{album_id}', 'Admin\GenreController@addNewSong');
+            \Route::get('genre-songs/{genre_id}/{song_id}', 'Admin\GenreController@deleteSong');
+            \Route::post('genre-songs/{genre_id}', 'Admin\GenreController@addNewSong');
         });
 
         \Route::get('/', 'Admin\IndexController@index');
