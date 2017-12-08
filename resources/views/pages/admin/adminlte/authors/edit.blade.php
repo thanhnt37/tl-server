@@ -59,20 +59,36 @@
             </div>
             <div class="box-body">
                 <div class="row">
-                    <div class="col-md-12">
-                        <div class="form-group @if ($errors->has('name')) has-error @endif">
-                            <label for="name">@lang('admin.pages.authors.columns.name')</label>
-                            <input type="text" class="form-control" id="name" name="name" required value="{{ old('name') ? old('name') : $author->name }}">
+                    <div class="col-lg-5">
+                        <div class="form-group text-center">
+                            @if( !empty($author->image) )
+                                <img id="profile-image-preview" style="max-width: 500px; width: 100%;" src="{!! $author->image !!}" alt="" class="margin"/>
+                            @else
+                                <img id="profile-image-preview" style="max-width: 500px; width: 100%;" src="{!! \URLHelper::asset('img/no_image.jpg', 'common') !!}" alt="" class="margin"/>
+                            @endif
+                            <input type="file" style="display: none;" id="cover-image" name="cover_image">
+                            <p class="help-block" style="font-weight: bolder;">Cover Image </p>
                         </div>
                     </div>
-                </div>
-
-                <div class="row">
-                    <div class="col-md-12">
-                        <div class="form-group @if ($errors->has('image')) has-error @endif">
-                            <label for="image">@lang('admin.pages.authors.columns.image')</label>
-                            <input type="text" class="form-control" id="image" name="image" value="{{ old('image') ? old('image') : $author->image }}">
-                        </div>
+                    <div class="col-lg-7">
+                        <table class="edit-user-profile">
+                            <tr class="@if ($errors->has('name')) has-error @endif">
+                                <td>
+                                    <label for="name">@lang('admin.pages.authors.columns.name')</label>
+                                </td>
+                                <td>
+                                    <input type="text" class="form-control" id="name" name="name" required value="{{ old('name') ? old('name') : $author->name }}">
+                                </td>
+                            </tr>
+                            <tr class="@if ($errors->has('image')) has-error @endif">
+                                <td>
+                                    <label for="image">@lang('admin.pages.authors.columns.image')</label>
+                                </td>
+                                <td>
+                                    <input type="text" class="form-control" id="image" name="image" value="{{ old('image') ? old('image') : $author->image }}" style="margin-top: 15px;">
+                                </td>
+                            </tr>
+                        </table>
                     </div>
                 </div>
 
