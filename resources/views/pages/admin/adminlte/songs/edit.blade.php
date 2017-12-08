@@ -24,6 +24,10 @@
                 placeholder: "Choose new genres for this song",
                 allowClear: true
             });
+            $(".new-singers").select2({
+                placeholder: "Choose new singers for this song",
+                allowClear: true
+            });
         });
     </script>
 @stop
@@ -282,11 +286,65 @@
                             <div class="row">
                                 <div class="col-sm-12">
                                     <div class="form-group">
-                                        <label for="new-genres">Add New Album</label>
+                                        <label for="new-genres">Add New Genre</label>
                                         <select class="form-control new-genres" name="new-genres[]" required id="new-genres" style="margin-bottom: 15px;" multiple="multiple">
                                             @foreach( $genres as $index => $genre )
                                                 <option value="{!! $genre->id !!}">
                                                     {{ $genre->name }}
+                                                </option>
+                                            @endforeach
+                                        </select>
+                                    </div>
+                                </div>
+                            </div>
+
+                            <button type="submit" class="btn btn-primary btn-sm" style="width: 125px;">@lang('admin.pages.common.buttons.save')</button>
+                        </form>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <div class="row">
+            <div class="col-md-12">
+                <div class="box box-primary">
+                    <div class="box-header with-border">
+                        <h3 class="box-title text-center" style="display: block; font-weight: bold">
+                            Singers
+                        </h3>
+                    </div>
+
+                    <div class="box-body">
+                        <table class="table table-bordered album-songs">
+                            <tr>
+                                <th>No.</th>
+                                <th>Name</th>
+                                <th>Actions</th>
+                            </tr>
+                            @foreach( $song->singers as $index => $singer )
+                                <tr>
+                                    <td>{{$index}}</td>
+                                    <td>
+                                        <a href="{!! action('Admin\SingerController@show', $singer->id) !!}">{{$singer->name}}</a>
+                                    </td>
+                                    <td>
+                                        <a href="{{ action('Admin\SingerController@deleteSong', [$singer->id, $song->id]) }}" >@lang('admin.pages.common.buttons.delete')</a>
+                                    </td>
+                                </tr>
+                            @endforeach
+                        </table>
+                    </div>
+                    <div class="box-footer">
+                        <form action="{!! action('Admin\SongController@addNewSinger', $song->id) !!}" method="POST">
+                            {!! csrf_field() !!}
+                            <div class="row">
+                                <div class="col-sm-12">
+                                    <div class="form-group">
+                                        <label for="new-singers">Add New Singer</label>
+                                        <select class="form-control new-singers" name="new-singers[]" required id="new-singers" style="margin-bottom: 15px;" multiple="multiple">
+                                            @foreach( $singers as $index => $singer )
+                                                <option value="{!! $singer->id !!}">
+                                                    {{ $singer->name }}
                                                 </option>
                                             @endforeach
                                         </select>

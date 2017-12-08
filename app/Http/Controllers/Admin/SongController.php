@@ -145,6 +145,9 @@ class SongController extends Controller
         $exceptGenres = $this->genreSongRepository->getBySongId($id)->pluck('genre_id');
         $genres = $this->genreRepository->getBlankModel()->whereNotIn('id', $exceptGenres)->get();
 
+        $exceptSingers = $this->singerSongRepository->getBySongId($id)->pluck('singer_id');
+        $singers = $this->singerRepository->getBlankModel()->whereNotIn('id', $exceptSingers)->get();
+
         return view(
             'pages.admin.' . config('view.admin') . '.songs.edit',
             [
@@ -153,6 +156,7 @@ class SongController extends Controller
                 'authors' => $this->authorRepository->all(),
                 'albums'  => $albums,
                 'genres'  => $genres,
+                'singers' => $singers,
             ]
         );
     }
@@ -247,6 +251,29 @@ class SongController extends Controller
                     [
                         'genre_id' => $genreId,
                         'song_id'  => $id
+                    ]
+                );
+            }
+        }
+
+        return redirect()->action('Admin\SongController@show', [$id])->with('message-success', trans('admin.messages.general.update_success'));
+    }
+
+    public function addNewSinger($id, SongRequest $request)
+    {
+        $song = $this->songRepository->find($id);
+        if (empty( $song )) {
+            abort(404);
+        }
+
+        $singers = $request->get('new-singers', []);
+        foreach( $singers as $singerId ) {
+            $check = $this->singerSongRepository->findBySingerIdAndSongId($singerId, $id);
+            if( empty($check) ) {
+                $this->singerSongRepository->create(
+                    [
+                        'singer_id' => $singerId,
+                        'song_id'   => $id
                     ]
                 );
             }
