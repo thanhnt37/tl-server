@@ -106,4 +106,37 @@
             </div>
         </div>
     </form>
+
+    @if( !$isNew )
+        <div class="box box-primary">
+            <div class="box-header with-border">
+                <h3 class="box-title text-center" style="display: block; font-weight: bold">
+                    Songs
+                </h3>
+            </div>
+
+            <div class="box-body">
+                <table class="table table-bordered album-songs">
+                    <tr>
+                        <th>No.</th>
+                        <th>Code</th>
+                        <th>Name</th>
+                        <th>Vote</th>
+                    </tr>
+                    @foreach( $author->songs as $index => $song )
+                        <tr>
+                            <td>{{$index}}</td>
+                            <td>
+                                <a href="{!! action('Admin\SongController@show', $song->id) !!}">{{$song->code}}</a>
+                            </td>
+                            <td>
+                                <a href="{!! action('Admin\SongController@show', $song->id) !!}">{{$song->name}}</a>
+                            </td>
+                            <td>{{$song->vote}}</td>
+                        </tr>
+                    @endforeach
+                </table>
+            </div>
+        </div>
+    @endif
 @stop

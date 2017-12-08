@@ -43,6 +43,10 @@ class Author extends Base
     }
 
     // Relations
+    public function songs()
+    {
+        return $this->hasMany(\App\Models\Song::class, 'author_id', 'id');
+    }
 
 
     // Utility Functions
