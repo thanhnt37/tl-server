@@ -5,6 +5,7 @@
 
 @section('styles')
     <link rel="stylesheet" href="{!! \URLHelper::asset('libs/datetimepicker/css/bootstrap-datetimepicker.min.css', 'admin') !!}">
+    <link rel="stylesheet" href="{!! \URLHelper::asset('libs/plugins/select2/select2.min.css', 'admin') !!}">
     <style>
         .album-songs tr td:nth-child(5){
             text-align: center;
@@ -15,8 +16,15 @@
 @section('scripts')
     <script src="{{ \URLHelper::asset('libs/moment/moment.min.js', 'admin') }}"></script>
     <script src="{{ \URLHelper::asset('libs/datetimepicker/js/bootstrap-datetimepicker.min.js', 'admin') }}"></script>
+    <script src="{{ \URLHelper::asset('libs/plugins/select2/select2.full.min.js', 'admin') }}"></script>
     <script>
         $('.datetime-field').datetimepicker({'format': 'YYYY-MM-DD HH:mm:ss', 'defaultDate': new Date()});
+        $(document).ready(function () {
+            $(".new-songs").select2({
+                placeholder: "Choose new song to album",
+                allowClear: true
+            });
+        });
     </script>
 @stop
 
@@ -128,7 +136,9 @@
                 <button type="submit" class="btn btn-primary btn-sm" style="width: 125px;">@lang('admin.pages.common.buttons.save')</button>
             </div>
         </div>
+    </form>
 
+    @if( !$isNew )
         <div class="box box-primary">
             <div class="box-header with-border">
                 <h3 class="box-title text-center" style="display: block; font-weight: bold">
@@ -137,6 +147,8 @@
             </div>
 
             <div class="box-body">
+                <button type="button" class="btn btn-default btn-sm" style="width: 125px; margin-bottom: 10px;">Add More</button>
+
                 <table class="table table-bordered album-songs">
                     <tr>
                         <th>No.</th>
@@ -158,6 +170,27 @@
                     @endforeach
                 </table>
             </div>
+            <div class="box-footer">
+                <form action="{!! action('Admin\AlbumController@addNewSong', $album->id) !!}" method="POST">
+                    {!! csrf_field() !!}
+                    <div class="row">
+                        <div class="col-sm-12">
+                            <div class="form-group">
+                                <label for="employee-id">Add New Song</label>
+                                <select class="form-control new-songs" name="new-songs[]" required id="new-songs" style="margin-bottom: 15px;" multiple="multiple">
+                                    @foreach( $songs as $index => $song )
+                                        <option value="{!! $song->id !!}">
+                                            {{ $song->name }}
+                                        </option>
+                                    @endforeach
+                                </select>
+                            </div>
+                        </div>
+                    </div>
+
+                    <button type="submit" class="btn btn-primary btn-sm" style="width: 125px;">@lang('admin.pages.common.buttons.save')</button>
+                </form>
+            </div>
         </div>
-    </form>
+    @endif
 @stop

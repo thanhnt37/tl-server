@@ -57,6 +57,7 @@
         \Route::resource('songs', 'Admin\SongController');
         \Route::resource('albums', 'Admin\AlbumController');
         \Route::get('album-songs/{album_id}/{song_id}', 'Admin\AlbumController@deleteSong');
+        \Route::post('album-songs/{album_id}', 'Admin\AlbumController@addNewSong');
         /* NEW ADMIN RESOURCE ROUTE */
 
     });

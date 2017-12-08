@@ -7,6 +7,7 @@ use App\Repositories\AlbumRepositoryInterface;
 use App\Http\Requests\Admin\AlbumRequest;
 use App\Http\Requests\PaginationRequest;
 use App\Repositories\AlbumSongRepositoryInterface;
+use App\Repositories\SongRepositoryInterface;
 
 class AlbumController extends Controller
 {
@@ -16,13 +17,18 @@ class AlbumController extends Controller
     /** @var \App\Repositories\AlbumSongRepositoryInterface */
     protected $albumSongRepository;
 
+    /** @var \App\Repositories\SongRepositoryInterface */
+    protected $songRepository;
+
     public function __construct(
         AlbumRepositoryInterface        $albumRepository,
-        AlbumSongRepositoryInterface    $albumSongRepository
+        AlbumSongRepositoryInterface    $albumSongRepository,
+        SongRepositoryInterface         $songRepository
     )
     {
         $this->albumRepository      = $albumRepository;
         $this->albumSongRepository  = $albumSongRepository;
+        $this->songRepository       = $songRepository;
     }
 
     /**
@@ -101,11 +107,15 @@ class AlbumController extends Controller
             abort(404);
         }
 
+        $exceptSongs = $this->albumSongRepository->getByAlbumId($id)->pluck('song_id');
+        $songs = $this->songRepository->getBlankModel()->whereNotIn('id', $exceptSongs)->get();
+
         return view(
             'pages.admin.' . config('view.admin') . '.albums.edit',
             [
                 'isNew' => false,
                 'album' => $album,
+                'songs' => $songs
             ]
         );
     }
@@ -178,5 +188,28 @@ class AlbumController extends Controller
         $this->albumSongRepository->delete($albumSong);
 
         return redirect()->back()->with('message-success', trans('admin.messages.general.delete_success'));
+    }
+
+    public function addNewSong($id, AlbumRequest $request)
+    {
+        $album = $this->albumRepository->find($id);
+        if (empty( $album )) {
+            abort(404);
+        }
+
+        $songs = $request->get('new-songs', []);
+        foreach( $songs as $songId ) {
+            $check = $this->albumSongRepository->findByAlbumIdAndSongId($album->id, $songId);
+            if( empty($check) ) {
+                $this->albumSongRepository->create(
+                    [
+                        'album_id' => $album->id,
+                        'song_id'  => $songId
+                    ]
+                );
+            }
+        }
+
+        return redirect()->action('Admin\AlbumController@show', [$id])->with('message-success', trans('admin.messages.general.update_success'));
     }
 }
