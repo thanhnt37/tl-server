@@ -38,6 +38,7 @@
             \Route::get('album-songs/{album_id}/{song_id}', 'Admin\AlbumController@deleteSong');
             \Route::post('album-songs/{album_id}', 'Admin\AlbumController@addNewSong');
             \Route::resource('authors', 'Admin\AuthorController');
+            \Route::resource('genres', 'Admin\GenreController');
         });
 
         \Route::get('/', 'Admin\IndexController@index');

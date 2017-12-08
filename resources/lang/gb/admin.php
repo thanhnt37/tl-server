@@ -297,6 +297,13 @@ return [
                 'image'       => 'Image URL',
             ],
         ],
+        'genres'                   => [
+            'columns' => [
+                'name'        => 'Name',
+                'description' => 'Description',
+                'image'       => 'Image URL',
+            ],
+        ],
         /* NEW PAGE STRINGS */
     ],
     'roles'      => [

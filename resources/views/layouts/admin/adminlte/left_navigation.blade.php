@@ -42,6 +42,7 @@
                 <li class="header">Media Data</li>
                 <li @if( $menu=='songs') class="active" @endif ><a href="{!! \URL::action('Admin\SongController@index') !!}"><i class="fa fa-music"></i> <span>Songs</span></a></li>
                 <li @if( $menu=='albums') class="active" @endif ><a href="{!! \URL::action('Admin\AlbumController@index') !!}"><i class="fa fa-braille"></i> <span>Albums</span></a></li>
+                <li @if( $menu=='genres') class="active" @endif ><a href="{!! \URL::action('Admin\GenreController@index') !!}"><i class="fa fa-transgender-alt"></i> <span>Genres</span></a></li>
                 <li @if( $menu=='authors') class="active" @endif ><a href="{!! \URL::action('Admin\AuthorController@index') !!}"><i class="fa fa-user-o"></i> <span>Authors</span></a></li>
             @endif
 
