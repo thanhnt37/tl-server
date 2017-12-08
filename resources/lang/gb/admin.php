@@ -285,7 +285,7 @@ return [
             'columns' => [
                 'name'        => 'Name',
                 'description' => 'Description',
-                'image'       => 'Image',
+                'image'       => 'Image URL',
                 'vote'        => 'Vote',
                 'publish_at'  => 'Publish At',
             ],

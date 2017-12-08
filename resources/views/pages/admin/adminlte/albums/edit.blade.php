@@ -12,10 +12,6 @@
     <script src="{{ \URLHelper::asset('libs/datetimepicker/js/bootstrap-datetimepicker.min.js', 'admin') }}"></script>
     <script>
         $('.datetime-field').datetimepicker({'format': 'YYYY-MM-DD HH:mm:ss', 'defaultDate': new Date()});
-
-        $(document).ready(function () {
-            
-        });
     </script>
 @stop
 
@@ -59,12 +55,57 @@
             </div>
             <div class="box-body">
                 <div class="row">
-                    <div class="col-md-12">
-                        <div class="form-group @if ($errors->has('name')) has-error @endif">
-                            <label for="name">@lang('admin.pages.albums.columns.name')</label>
-                            <input type="text" class="form-control" id="name" name="name" required
-                                   value="{{ old('name') ? old('name') : $album->name }}">
+                    <div class="col-lg-5">
+                        <div class="form-group text-center">
+                            @if( !empty($album->image) )
+                                <img id="profile-image-preview" style="max-width: 500px; width: 100%;" src="{!! $album->image !!}" alt="" class="margin"/>
+                            @else
+                                <img id="profile-image-preview" style="max-width: 500px; width: 100%;" src="{!! \URLHelper::asset('img/no_image.jpg', 'common') !!}" alt="" class="margin"/>
+                            @endif
+                            <input type="file" style="display: none;" id="cover-image" name="cover_image">
+                            <p class="help-block" style="font-weight: bolder;">Cover Image </p>
                         </div>
+                    </div>
+                    <div class="col-lg-7">
+                        <table class="edit-user-profile">
+                            <tr class="@if ($errors->has('name')) has-error @endif">
+                                <td>
+                                    <label for="name">@lang('admin.pages.albums.columns.name')</label>
+                                </td>
+                                <td>
+                                    <input type="text" class="form-control" id="name" name="name" required value="{{ old('name') ? old('name') : $album->name }}">
+                                </td>
+                            </tr>
+                            <tr class="@if ($errors->has('vote')) has-error @endif">
+                                <td>
+                                    <label for="vote">@lang('admin.pages.albums.columns.vote')</label>
+                                </td>
+                                <td>
+                                    <input type="number" min="0" class="form-control" id="vote" name="vote" value="{{ old('vote') ? old('vote') : $album->vote }}">
+                                </td>
+                            </tr>
+                            <tr class="@if ($errors->has('publish_at')) has-error @endif">
+                                <td>
+                                    <label for="publish_at">@lang('admin.pages.albums.columns.publish_at')</label>
+                                </td>
+                                <td>
+                                    <div class="input-group date datetime-field">
+                                        <input type="text" class="form-control" id="publish_at" name="publish_at" value="{{ old('publish_at') ? old('publish_at') : $album->publish_at }}" style="margin-bottom: 0">
+                                        <span class="input-group-addon">
+                                            <span class="glyphicon glyphicon-calendar"></span>
+                                        </span>
+                                    </div>
+                                </td>
+                            </tr>
+                            <tr class="@if ($errors->has('image')) has-error @endif">
+                                <td>
+                                    <label for="image">@lang('admin.pages.albums.columns.image')</label>
+                                </td>
+                                <td>
+                                    <input type="text" class="form-control" id="image" name="image" value="{{ old('image') ? old('image') : $album->image }}" style="margin-top: 15px;">
+                                </td>
+                            </tr>
+                        </table>
                     </div>
                 </div>
 
@@ -74,41 +115,6 @@
                             <label for="description">@lang('admin.pages.albums.columns.description')</label>
                             <textarea name="description" class="form-control" rows="5" required
                                       placeholder="@lang('admin.pages.albums.columns.description')">{{ old('description') ? old('description') : $album->description }}</textarea>
-                        </div>
-                    </div>
-                </div>
-
-                <div class="row">
-                    <div class="col-md-12">
-                        <div class="form-group @if ($errors->has('image')) has-error @endif">
-                            <label for="image">@lang('admin.pages.albums.columns.image')</label>
-                            <input type="text" class="form-control" id="image" name="image" required
-                                   value="{{ old('image') ? old('image') : $album->image }}">
-                        </div>
-                    </div>
-                </div>
-
-                <div class="row">
-                    <div class="col-md-12">
-                        <div class="form-group @if ($errors->has('vote')) has-error @endif">
-                            <label for="vote">@lang('admin.pages.albums.columns.vote')</label>
-                            <input type="text" class="form-control" id="vote" name="vote" required
-                                   value="{{ old('vote') ? old('vote') : $album->vote }}">
-                        </div>
-                    </div>
-                </div>
-
-                <div class="row">
-                    <div class="col-md-12">
-                        <div class="form-group">
-                            <label for="publish_at">@lang('admin.pages.albums.columns.publish_at')</label>
-                            <div class="input-group date datetime-field">
-                                <input type="text" class="form-control" name="publish_at" required
-                                       value="{{ old('publish_at') ? old('publish_at') : $album->publish_at }}">
-                                    <span class="input-group-addon">
-                                        <span class="glyphicon glyphicon-calendar"></span>
-                                    </span>
-                            </div>
                         </div>
                     </div>
                 </div>
