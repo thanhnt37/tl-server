@@ -5,6 +5,11 @@
 
 @section('styles')
     <link rel="stylesheet" href="{!! \URLHelper::asset('libs/datetimepicker/css/bootstrap-datetimepicker.min.css', 'admin') !!}">
+    <style>
+        .album-songs tr td:nth-child(5){
+            text-align: center;
+        }
+    </style>
 @stop
 
 @section('scripts')
@@ -121,6 +126,35 @@
             </div>
             <div class="box-footer">
                 <button type="submit" class="btn btn-primary btn-sm" style="width: 125px;">@lang('admin.pages.common.buttons.save')</button>
+            </div>
+        </div>
+
+        <div class="box box-primary">
+            <div class="box-header with-border">
+                <h3 class="box-title text-center" style="display: block; font-weight: bold">
+                    Songs
+                </h3>
+            </div>
+
+            <div class="box-body">
+                <table class="table table-bordered album-songs">
+                    <tr>
+                        <th>No.</th>
+                        <th>Code</th>
+                        <th>Name</th>
+                        <th>Vote</th>
+                        <th>Actions</th>
+                    </tr>
+                    @foreach( $album->songs as $index => $song )
+                        <tr>
+                            <td>{{$index}}</td>
+                            <td>{{$song->code}}</td>
+                            <td>{{$song->name}}</td>
+                            <td>{{$song->vote}}</td>
+                            <td>Delete</td>
+                        </tr>
+                    @endforeach
+                </table>
             </div>
         </div>
     </form>
