@@ -147,8 +147,6 @@
             </div>
 
             <div class="box-body">
-                <button type="button" class="btn btn-default btn-sm" style="width: 125px; margin-bottom: 10px;">Add More</button>
-
                 <table class="table table-bordered album-songs">
                     <tr>
                         <th>No.</th>

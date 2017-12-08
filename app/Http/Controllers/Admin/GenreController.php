@@ -6,6 +6,8 @@ use App\Http\Controllers\Controller;
 use App\Repositories\GenreRepositoryInterface;
 use App\Http\Requests\Admin\GenreRequest;
 use App\Http\Requests\PaginationRequest;
+use App\Repositories\GenreSongRepositoryInterface;
+use App\Repositories\SongRepositoryInterface;
 
 class GenreController extends Controller
 {
@@ -13,12 +15,21 @@ class GenreController extends Controller
     /** @var \App\Repositories\GenreRepositoryInterface */
     protected $genreRepository;
 
+    /** @var \App\Repositories\GenreSongRepositoryInterface */
+    protected $genreSongRepository;
+
+    /** @var \App\Repositories\SongRepositoryInterface */
+    protected $songRepository;
 
     public function __construct(
-        GenreRepositoryInterface $genreRepository
+        GenreRepositoryInterface        $genreRepository,
+        GenreSongRepositoryInterface    $genreSongRepository,
+        SongRepositoryInterface         $songRepository
     )
     {
-        $this->genreRepository = $genreRepository;
+        $this->genreRepository          = $genreRepository;
+        $this->genreSongRepository      = $genreSongRepository;
+        $this->songRepository           = $songRepository;
     }
 
     /**
@@ -97,11 +108,15 @@ class GenreController extends Controller
             abort(404);
         }
 
+        $exceptSongs = $this->genreSongRepository->getByGenreId($id)->pluck('song_id');
+        $songs = $this->songRepository->getBlankModel()->whereNotIn('id', $exceptSongs)->get();
+
         return view(
             'pages.admin.' . config('view.admin') . '.genres.edit',
             [
                 'isNew' => false,
                 'genre' => $genre,
+                'songs' => $songs
             ]
         );
     }
@@ -158,4 +173,45 @@ class GenreController extends Controller
                     ->with('message-success', trans('admin.messages.general.delete_success'));
     }
 
+    /**
+     * Remove the specified resource from storage.
+     *
+     * @param  int $id
+     * @return \Response
+     */
+    public function deleteSong($genreId, $songId)
+    {
+        /** @var \App\Models\AlbumSong $albumSong */
+        $genreSong = $this->genreSongRepository->findByGenreIdAndSongId($genreId, $songId);
+        if (empty( $genreSong )) {
+            abort(404);
+        }
+        $this->genreSongRepository->delete($genreSong);
+
+        return redirect()->back()->with('message-success', trans('admin.messages.general.delete_success'));
+    }
+
+    public function addNewSong($id, GenreRequest $request)
+    {
+        $genre = $this->genreRepository->find($id);
+        if (empty( $genre )) {
+            dd($genre);
+            abort(404);
+        }
+
+        $songs = $request->get('new-songs', []);
+        foreach( $songs as $songId ) {
+            $check = $this->genreSongRepository->findByGenreIdAndSongId($genre->id, $songId);
+            if( empty($check) ) {
+                $this->genreSongRepository->create(
+                    [
+                        'genre_id' => $genre->id,
+                        'song_id'  => $songId
+                    ]
+                );
+            }
+        }
+
+        return redirect()->action('Admin\GenreController@show', [$id])->with('message-success', trans('admin.messages.general.update_success'));
+    }
 }

@@ -34,12 +34,16 @@
             \Route::resource('box-versions', 'Admin\BoxVersionController');
 
             \Route::resource('songs', 'Admin\SongController');
+            \Route::resource('singers', 'Admin\SingerController');
+            \Route::resource('authors', 'Admin\AuthorController');
+
             \Route::resource('albums', 'Admin\AlbumController');
             \Route::get('album-songs/{album_id}/{song_id}', 'Admin\AlbumController@deleteSong');
             \Route::post('album-songs/{album_id}', 'Admin\AlbumController@addNewSong');
-            \Route::resource('authors', 'Admin\AuthorController');
+
             \Route::resource('genres', 'Admin\GenreController');
-            \Route::resource('singers', 'Admin\SingerController');
+            \Route::get('genre-songs/{album_id}/{song_id}', 'Admin\GenreController@deleteSong');
+            \Route::post('genre-songs/{album_id}', 'Admin\GenreController@addNewSong');
         });
 
         \Route::get('/', 'Admin\IndexController@index');
