@@ -98,8 +98,7 @@
                         <div class="col-md-12">
                             <div class="form-group @if ($errors->has('description')) has-error @endif">
                                 <label for="description">@lang('admin.pages.genres.columns.description')</label>
-                                <textarea name="description" class="form-control" rows="5" required
-                                          placeholder="@lang('admin.pages.genres.columns.description')">{{ old('description') ? old('description') : $genre->description }}</textarea>
+                                <textarea name="description" class="form-control" rows="5" placeholder="@lang('admin.pages.genres.columns.description')">{{ old('description') ? old('description') : $genre->description }}</textarea>
                             </div>
                         </div>
                     </div>

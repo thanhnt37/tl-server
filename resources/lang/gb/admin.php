@@ -304,6 +304,13 @@ return [
                 'image'       => 'Image URL',
             ],
         ],
+        'singers'                  => [
+            'columns' => [
+                'name'        => 'Name',
+                'description' => 'Description',
+                'image'       => 'Image',
+            ],
+        ],
         /* NEW PAGE STRINGS */
     ],
     'roles'      => [
