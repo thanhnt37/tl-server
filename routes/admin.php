@@ -36,6 +36,7 @@
             \Route::resource('authors', 'Admin\AuthorController');
             \Route::resource('songs', 'Admin\SongController');
             \Route::post('song-albums/{song_id}', 'Admin\SongController@addNewAlbum');
+            \Route::post('song-genres/{song_id}', 'Admin\SongController@addNewGenre');
 
 
             \Route::resource('singers', 'Admin\SingerController');

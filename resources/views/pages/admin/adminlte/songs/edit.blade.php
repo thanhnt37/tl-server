@@ -20,6 +20,10 @@
                 placeholder: "Choose new albums for this song",
                 allowClear: true
             });
+            $(".new-genres").select2({
+                placeholder: "Choose new genres for this song",
+                allowClear: true
+            });
         });
     </script>
 @stop
@@ -189,55 +193,111 @@
 
     {{-- album --}}
     @if( !$isNew )
-        <div class="box box-primary">
-            <div class="box-header with-border">
-                <h3 class="box-title text-center" style="display: block; font-weight: bold">
-                    Albums
-                </h3>
-            </div>
-
-            <div class="box-body">
-                <table class="table table-bordered album-songs">
-                    <tr>
-                        <th>No.</th>
-                        <th>Name</th>
-                        <th>Vote</th>
-                        <th>Actions</th>
-                    </tr>
-                    @foreach( $song->albums as $index => $album )
-                        <tr>
-                            <td>{{$index}}</td>
-                            <td>
-                                <a href="{!! action('Admin\AlbumController@show', $album->id) !!}">{{$album->name}}</a>
-                            </td>
-                            <td>{{$album->vote}}</td>
-                            <td>
-                                <a href="{{ action('Admin\AlbumController@deleteSong', [$album->id, $song->id]) }}" >@lang('admin.pages.common.buttons.delete')</a>
-                            </td>
-                        </tr>
-                    @endforeach
-                </table>
-            </div>
-            <div class="box-footer">
-                <form action="{!! action('Admin\SongController@addNewAlbum', $song->id) !!}" method="POST">
-                    {!! csrf_field() !!}
-                    <div class="row">
-                        <div class="col-sm-12">
-                            <div class="form-group">
-                                <label for="new-albums">Add New Album</label>
-                                <select class="form-control new-albums" name="new-albums[]" required id="new-albums" style="margin-bottom: 15px;" multiple="multiple">
-                                    @foreach( $albums as $index => $album )
-                                        <option value="{!! $album->id !!}">
-                                            {{ $album->name }}
-                                        </option>
-                                    @endforeach
-                                </select>
-                            </div>
-                        </div>
+        <div class="row">
+            <div class="col-md-6">
+                <div class="box box-primary">
+                    <div class="box-header with-border">
+                        <h3 class="box-title text-center" style="display: block; font-weight: bold">
+                            Albums
+                        </h3>
                     </div>
 
-                    <button type="submit" class="btn btn-primary btn-sm" style="width: 125px;">@lang('admin.pages.common.buttons.save')</button>
-                </form>
+                    <div class="box-body">
+                        <table class="table table-bordered album-songs">
+                            <tr>
+                                <th>No.</th>
+                                <th>Name</th>
+                                <th>Vote</th>
+                                <th>Actions</th>
+                            </tr>
+                            @foreach( $song->albums as $index => $album )
+                                <tr>
+                                    <td>{{$index}}</td>
+                                    <td>
+                                        <a href="{!! action('Admin\AlbumController@show', $album->id) !!}">{{$album->name}}</a>
+                                    </td>
+                                    <td>{{$album->vote}}</td>
+                                    <td>
+                                        <a href="{{ action('Admin\AlbumController@deleteSong', [$album->id, $song->id]) }}" >@lang('admin.pages.common.buttons.delete')</a>
+                                    </td>
+                                </tr>
+                            @endforeach
+                        </table>
+                    </div>
+                    <div class="box-footer">
+                        <form action="{!! action('Admin\SongController@addNewAlbum', $song->id) !!}" method="POST">
+                            {!! csrf_field() !!}
+                            <div class="row">
+                                <div class="col-sm-12">
+                                    <div class="form-group">
+                                        <label for="new-albums">Add New Album</label>
+                                        <select class="form-control new-albums" name="new-albums[]" required id="new-albums" style="margin-bottom: 15px;" multiple="multiple">
+                                            @foreach( $albums as $index => $album )
+                                                <option value="{!! $album->id !!}">
+                                                    {{ $album->name }}
+                                                </option>
+                                            @endforeach
+                                        </select>
+                                    </div>
+                                </div>
+                            </div>
+
+                            <button type="submit" class="btn btn-primary btn-sm" style="width: 125px;">@lang('admin.pages.common.buttons.save')</button>
+                        </form>
+                    </div>
+                </div>
+            </div>
+
+            <div class="col-md-6">
+                <div class="box box-primary">
+                    <div class="box-header with-border">
+                        <h3 class="box-title text-center" style="display: block; font-weight: bold">
+                            Genres
+                        </h3>
+                    </div>
+
+                    <div class="box-body">
+                        <table class="table table-bordered album-songs">
+                            <tr>
+                                <th>No.</th>
+                                <th>Name</th>
+                                <th>Actions</th>
+                            </tr>
+                            @foreach( $song->genres as $index => $genre )
+                                <tr>
+                                    <td>{{$index}}</td>
+                                    <td>
+                                        <a href="{!! action('Admin\GenreController@show', $genre->id) !!}">{{$genre->name}}</a>
+                                    </td>
+                                    <td>
+                                        <a href="{{ action('Admin\GenreController@deleteSong', [$genre->id, $song->id]) }}" >@lang('admin.pages.common.buttons.delete')</a>
+                                    </td>
+                                </tr>
+                            @endforeach
+                        </table>
+                    </div>
+                    <div class="box-footer">
+                        <form action="{!! action('Admin\SongController@addNewGenre', $song->id) !!}" method="POST">
+                            {!! csrf_field() !!}
+                            <div class="row">
+                                <div class="col-sm-12">
+                                    <div class="form-group">
+                                        <label for="new-genres">Add New Album</label>
+                                        <select class="form-control new-genres" name="new-genres[]" required id="new-genres" style="margin-bottom: 15px;" multiple="multiple">
+                                            @foreach( $genres as $index => $genre )
+                                                <option value="{!! $genre->id !!}">
+                                                    {{ $genre->name }}
+                                                </option>
+                                            @endforeach
+                                        </select>
+                                    </div>
+                                </div>
+                            </div>
+
+                            <button type="submit" class="btn btn-primary btn-sm" style="width: 125px;">@lang('admin.pages.common.buttons.save')</button>
+                        </form>
+                    </div>
+                </div>
             </div>
         </div>
     @endif

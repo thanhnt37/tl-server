@@ -142,13 +142,17 @@ class SongController extends Controller
         $exceptAlbums = $this->albumSongRepository->getBySongId($id)->pluck('album_id');
         $albums = $this->albumRepository->getBlankModel()->whereNotIn('id', $exceptAlbums)->get();
 
+        $exceptGenres = $this->genreSongRepository->getBySongId($id)->pluck('genre_id');
+        $genres = $this->genreRepository->getBlankModel()->whereNotIn('id', $exceptGenres)->get();
+
         return view(
             'pages.admin.' . config('view.admin') . '.songs.edit',
             [
                 'isNew'   => false,
                 'song'    => $song,
                 'authors' => $this->authorRepository->all(),
-                'albums'  => $albums
+                'albums'  => $albums,
+                'genres'  => $genres,
             ]
         );
     }
@@ -219,6 +223,29 @@ class SongController extends Controller
                 $this->albumSongRepository->create(
                     [
                         'album_id' => $albumId,
+                        'song_id'  => $id
+                    ]
+                );
+            }
+        }
+
+        return redirect()->action('Admin\SongController@show', [$id])->with('message-success', trans('admin.messages.general.update_success'));
+    }
+
+    public function addNewGenre($id, SongRequest $request)
+    {
+        $song = $this->songRepository->find($id);
+        if (empty( $song )) {
+            abort(404);
+        }
+
+        $genres = $request->get('new-genres', []);
+        foreach( $genres as $genreId ) {
+            $check = $this->genreSongRepository->findByGenreIdAndSongId($genreId, $id);
+            if( empty($check) ) {
+                $this->genreSongRepository->create(
+                    [
+                        'genre_id' => $genreId,
                         'song_id'  => $id
                     ]
                 );
