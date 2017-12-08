@@ -91,21 +91,36 @@
                 </div>
 
                 <div class="row">
-                    <div class="col-md-4">
+                    <div class="col-md-6">
                         <div class="form-group @if ($errors->has('sub_link')) has-error @endif">
                             <label for="sub_link">@lang('admin.pages.songs.columns.sub_link')</label>
                             <input type="text" class="form-control" id="sub_link" name="sub_link" value="{{ old('sub_link') ? old('sub_link') : $song->sub_link }}">
                         </div>
                     </div>
 
-                    <div class="col-md-4">
+                    <div class="col-md-6">
                         <div class="form-group @if ($errors->has('type')) has-error @endif">
                             <label for="type">@lang('admin.pages.songs.columns.type')</label>
                             <input type="text" class="form-control" id="type" name="type" value="{{ old('type') ? old('type') : $song->type }}">
                         </div>
                     </div>
+                </div>
 
-                    <div class="col-md-4">
+                <div class="row">
+                    <div class="col-md-6">
+                        <div class="form-group @if ($errors->has('author_id')) has-error @endif">
+                            <label for="author_id">@lang('admin.pages.songs.columns.author_id')</label>
+                            <select class="form-control" name="os_version_id" id="os_version_id" required>
+                                @foreach( $authors as $author )
+                                    <option value="{!! $author->id !!}" @if( (old('author_id') && old('author_id') == $author->id) || ( $song->author_id == $author->id) ) selected @endif >
+                                        {{ $author->name }}
+                                    </option>
+                                @endforeach
+                            </select>
+                        </div>
+                    </div>
+
+                    <div class="col-md-6">
                         <div class="form-group">
                             <label for="publish_at">@lang('admin.pages.songs.columns.publish_at')</label>
                             <div class="input-group date datetime-field">

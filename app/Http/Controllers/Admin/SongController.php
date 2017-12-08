@@ -6,6 +6,7 @@ use App\Http\Controllers\Controller;
 use App\Repositories\SongRepositoryInterface;
 use App\Http\Requests\Admin\SongRequest;
 use App\Http\Requests\PaginationRequest;
+use App\Repositories\AuthorRepositoryInterface;
 
 class SongController extends Controller
 {
@@ -13,12 +14,16 @@ class SongController extends Controller
     /** @var \App\Repositories\SongRepositoryInterface */
     protected $songRepository;
 
+    /** @var \App\Repositories\AuthorRepositoryInterface */
+    protected $authorRepository;
 
     public function __construct(
-        SongRepositoryInterface $songRepository
+        SongRepositoryInterface     $songRepository,
+        AuthorRepositoryInterface   $authorRepository
     )
     {
-        $this->songRepository = $songRepository;
+        $this->songRepository       = $songRepository;
+        $this->authorRepository     = $authorRepository;
     }
 
     /**
@@ -58,8 +63,9 @@ class SongController extends Controller
         return view(
             'pages.admin.' . config('view.admin') . '.songs.edit',
             [
-                'isNew' => true,
-                'song'  => $this->songRepository->getBlankModel(),
+                'isNew'   => true,
+                'song'    => $this->songRepository->getBlankModel(),
+                'authors' => $this->authorRepository->all()
             ]
         );
     }
@@ -72,7 +78,7 @@ class SongController extends Controller
      */
     public function store(SongRequest $request)
     {
-        $input = $request->only(['code','wildcard','name','description','link','type','sub_link','image','view','play','vote','publish_at']);
+        $input = $request->only(['code','wildcard','name','description','author_id','link','type','sub_link','image','view','play','vote','publish_at']);
 
         $song = $this->songRepository->create($input);
 
@@ -100,8 +106,9 @@ class SongController extends Controller
         return view(
             'pages.admin.' . config('view.admin') . '.songs.edit',
             [
-                'isNew' => false,
-                'song'  => $song,
+                'isNew'   => false,
+                'song'    => $song,
+                'authors' => $this->authorRepository->all()
             ]
         );
     }
@@ -131,8 +138,8 @@ class SongController extends Controller
         if (empty( $song )) {
             abort(404);
         }
-        $input = $request->only(['code','wildcard','name','description','link','type','sub_link','image','view','play','vote','publish_at']);
-        
+        $input = $request->only(['code','wildcard','name','description','author_id','link','type','sub_link','image','view','play','vote','publish_at']);
+
         $this->songRepository->update($song, $input);
 
         return redirect()->action('Admin\SongController@show', [$id])
