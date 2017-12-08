@@ -56,6 +56,7 @@
         \Route::resource('box-versions', 'Admin\BoxVersionController');
         \Route::resource('songs', 'Admin\SongController');
         \Route::resource('albums', 'Admin\AlbumController');
+        \Route::get('album-songs/{album_id}/{song_id}', 'Admin\AlbumController@deleteSong');
         /* NEW ADMIN RESOURCE ROUTE */
 
     });

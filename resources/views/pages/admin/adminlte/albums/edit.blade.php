@@ -151,7 +151,9 @@
                             <td>{{$song->code}}</td>
                             <td>{{$song->name}}</td>
                             <td>{{$song->vote}}</td>
-                            <td>Delete</td>
+                            <td>
+                                <a href="{{ action('Admin\AlbumController@deleteSong', [$album->id, $song->id]) }}" >@lang('admin.pages.common.buttons.delete')</a>
+                            </td>
                         </tr>
                     @endforeach
                 </table>

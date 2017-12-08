@@ -6,19 +6,23 @@ use App\Http\Controllers\Controller;
 use App\Repositories\AlbumRepositoryInterface;
 use App\Http\Requests\Admin\AlbumRequest;
 use App\Http\Requests\PaginationRequest;
+use App\Repositories\AlbumSongRepositoryInterface;
 
 class AlbumController extends Controller
 {
-
     /** @var \App\Repositories\AlbumRepositoryInterface */
     protected $albumRepository;
 
+    /** @var \App\Repositories\AlbumSongRepositoryInterface */
+    protected $albumSongRepository;
 
     public function __construct(
-        AlbumRepositoryInterface $albumRepository
+        AlbumRepositoryInterface        $albumRepository,
+        AlbumSongRepositoryInterface    $albumSongRepository
     )
     {
-        $this->albumRepository = $albumRepository;
+        $this->albumRepository      = $albumRepository;
+        $this->albumSongRepository  = $albumSongRepository;
     }
 
     /**
@@ -158,4 +162,21 @@ class AlbumController extends Controller
                     ->with('message-success', trans('admin.messages.general.delete_success'));
     }
 
+    /**
+     * Remove the specified resource from storage.
+     *
+     * @param  int $id
+     * @return \Response
+     */
+    public function deleteSong($albumId, $songId)
+    {
+        /** @var \App\Models\AlbumSong $albumSong */
+        $albumSong = $this->albumSongRepository->findByAlbumIdAndSongId($albumId, $songId);
+        if (empty( $albumSong )) {
+            abort(404);
+        }
+        $this->albumSongRepository->delete($albumSong);
+
+        return redirect()->back()->with('message-success', trans('admin.messages.general.delete_success'));
+    }
 }
