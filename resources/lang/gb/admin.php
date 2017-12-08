@@ -290,6 +290,13 @@ return [
                 'publish_at'  => 'Publish At',
             ],
         ],
+        'authors'                  => [
+            'columns' => [
+                'name'        => 'Name',
+                'description' => 'Description',
+                'image'       => 'Image URL',
+            ],
+        ],
         /* NEW PAGE STRINGS */
     ],
     'roles'      => [

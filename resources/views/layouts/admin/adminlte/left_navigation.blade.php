@@ -50,6 +50,7 @@
             @endif
             <li @if( $menu=='songs') class="active" @endif ><a href="{!! \URL::action('Admin\SongController@index') !!}"><i class="fa fa-users"></i> <span>Songs</span></a></li>
             <li @if( $menu=='albums') class="active" @endif ><a href="{!! \URL::action('Admin\AlbumController@index') !!}"><i class="fa fa-users"></i> <span>Albums</span></a></li>
+            <li @if( $menu=='authors') class="active" @endif ><a href="{!! \URL::action('Admin\AuthorController@index') !!}"><i class="fa fa-users"></i> <span>Authors</span></a></li>
             <!-- %%SIDEMENU%% -->
         </ul>
     </section>
