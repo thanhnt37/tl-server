@@ -58,6 +58,11 @@ class Song extends Base
         return $this->belongsTo(\App\Models\Author::class, 'author_id', 'id');
     }
 
+    public function albums()
+    {
+        return $this->belongsToMany(\App\Models\Album::class, AlbumSong::getTableName(), 'song_id', 'album_id');
+    }
+
 
 
     // Utility Functions

@@ -5,16 +5,21 @@
 
 @section('styles')
     <link rel="stylesheet" href="{!! \URLHelper::asset('libs/datetimepicker/css/bootstrap-datetimepicker.min.css', 'admin') !!}">
+    <link rel="stylesheet" href="{!! \URLHelper::asset('libs/plugins/select2/select2.min.css', 'admin') !!}">
 @stop
 
 @section('scripts')
     <script src="{{ \URLHelper::asset('libs/moment/moment.min.js', 'admin') }}"></script>
     <script src="{{ \URLHelper::asset('libs/datetimepicker/js/bootstrap-datetimepicker.min.js', 'admin') }}"></script>
+    <script src="{{ \URLHelper::asset('libs/plugins/select2/select2.full.min.js', 'admin') }}"></script>
     <script>
         $('.datetime-field').datetimepicker({'format': 'YYYY-MM-DD HH:mm:ss', 'defaultDate': new Date()});
 
         $(document).ready(function () {
-            
+            $(".new-albums").select2({
+                placeholder: "Choose new albums for this song",
+                allowClear: true
+            });
         });
     </script>
 @stop
@@ -181,4 +186,59 @@
             </div>
         </div>
     </form>
+
+    {{-- album --}}
+    @if( !$isNew )
+        <div class="box box-primary">
+            <div class="box-header with-border">
+                <h3 class="box-title text-center" style="display: block; font-weight: bold">
+                    Albums
+                </h3>
+            </div>
+
+            <div class="box-body">
+                <table class="table table-bordered album-songs">
+                    <tr>
+                        <th>No.</th>
+                        <th>Name</th>
+                        <th>Vote</th>
+                        <th>Actions</th>
+                    </tr>
+                    @foreach( $song->albums as $index => $album )
+                        <tr>
+                            <td>{{$index}}</td>
+                            <td>
+                                <a href="{!! action('Admin\AlbumController@show', $album->id) !!}">{{$album->name}}</a>
+                            </td>
+                            <td>{{$album->vote}}</td>
+                            <td>
+                                <a href="{{ action('Admin\AlbumController@deleteSong', [$album->id, $song->id]) }}" >@lang('admin.pages.common.buttons.delete')</a>
+                            </td>
+                        </tr>
+                    @endforeach
+                </table>
+            </div>
+            <div class="box-footer">
+                <form action="{!! action('Admin\SongController@addNewAlbum', $song->id) !!}" method="POST">
+                    {!! csrf_field() !!}
+                    <div class="row">
+                        <div class="col-sm-12">
+                            <div class="form-group">
+                                <label for="new-albums">Add New Album</label>
+                                <select class="form-control new-albums" name="new-albums[]" required id="new-albums" style="margin-bottom: 15px;" multiple="multiple">
+                                    @foreach( $albums as $index => $album )
+                                        <option value="{!! $album->id !!}">
+                                            {{ $album->name }}
+                                        </option>
+                                    @endforeach
+                                </select>
+                            </div>
+                        </div>
+                    </div>
+
+                    <button type="submit" class="btn btn-primary btn-sm" style="width: 125px;">@lang('admin.pages.common.buttons.save')</button>
+                </form>
+            </div>
+        </div>
+    @endif
 @stop

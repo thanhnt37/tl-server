@@ -33,8 +33,10 @@
             \Route::resource('sdk-versions', 'Admin\SdkVersionController');
             \Route::resource('box-versions', 'Admin\BoxVersionController');
 
-            \Route::resource('songs', 'Admin\SongController');
             \Route::resource('authors', 'Admin\AuthorController');
+            \Route::resource('songs', 'Admin\SongController');
+            \Route::post('song-albums/{song_id}', 'Admin\SongController@addNewAlbum');
+
 
             \Route::resource('singers', 'Admin\SingerController');
             \Route::get('singer-songs/{singer_id}/{song_id}', 'Admin\SingerController@deleteSong');

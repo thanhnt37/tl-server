@@ -7,6 +7,12 @@ use App\Repositories\SongRepositoryInterface;
 use App\Http\Requests\Admin\SongRequest;
 use App\Http\Requests\PaginationRequest;
 use App\Repositories\AuthorRepositoryInterface;
+use App\Repositories\AlbumSongRepositoryInterface;
+use App\Repositories\GenreSongRepositoryInterface;
+use App\Repositories\SingerSongRepositoryInterface;
+use App\Repositories\AlbumRepositoryInterface;
+use App\Repositories\GenreRepositoryInterface;
+use App\Repositories\SingerRepositoryInterface;
 
 class SongController extends Controller
 {
@@ -17,13 +23,43 @@ class SongController extends Controller
     /** @var \App\Repositories\AuthorRepositoryInterface */
     protected $authorRepository;
 
+    /** @var \App\Repositories\AlbumSongRepositoryInterface */
+    protected $albumSongRepository;
+
+    /** @var \App\Repositories\GenreSongRepositoryInterface */
+    protected $genreSongRepository;
+
+    /** @var \App\Repositories\SingerSongRepositoryInterface */
+    protected $singerSongRepository;
+
+    /** @var \App\Repositories\AlbumRepositoryInterface */
+    protected $albumRepository;
+
+    /** @var \App\Repositories\GenreRepositoryInterface */
+    protected $genreRepository;
+
+    /** @var \App\Repositories\SingerRepositoryInterface */
+    protected $singerRepository;
+
     public function __construct(
-        SongRepositoryInterface     $songRepository,
-        AuthorRepositoryInterface   $authorRepository
+        SongRepositoryInterface         $songRepository,
+        AuthorRepositoryInterface       $authorRepository,
+        AlbumSongRepositoryInterface    $albumSongRepository,
+        GenreSongRepositoryInterface    $genreSongRepository,
+        SingerSongRepositoryInterface   $singerSongRepository,
+        AlbumRepositoryInterface        $albumRepository,
+        GenreRepositoryInterface        $genreRepository,
+        SingerRepositoryInterface       $singerRepository
     )
     {
-        $this->songRepository       = $songRepository;
-        $this->authorRepository     = $authorRepository;
+        $this->songRepository           = $songRepository;
+        $this->authorRepository         = $authorRepository;
+        $this->albumSongRepository      = $albumSongRepository;
+        $this->genreSongRepository      = $genreSongRepository;
+        $this->singerSongRepository     = $singerSongRepository;
+        $this->albumRepository          = $albumRepository;
+        $this->genreRepository          = $genreRepository;
+        $this->singerRepository         = $singerRepository;
     }
 
     /**
@@ -103,12 +139,16 @@ class SongController extends Controller
             abort(404);
         }
 
+        $exceptAlbums = $this->albumSongRepository->getBySongId($id)->pluck('album_id');
+        $albums = $this->albumRepository->getBlankModel()->whereNotIn('id', $exceptAlbums)->get();
+
         return view(
             'pages.admin.' . config('view.admin') . '.songs.edit',
             [
                 'isNew'   => false,
                 'song'    => $song,
-                'authors' => $this->authorRepository->all()
+                'authors' => $this->authorRepository->all(),
+                'albums'  => $albums
             ]
         );
     }
@@ -165,4 +205,26 @@ class SongController extends Controller
                     ->with('message-success', trans('admin.messages.general.delete_success'));
     }
 
+    public function addNewAlbum($id, SongRequest $request)
+    {
+        $song = $this->songRepository->find($id);
+        if (empty( $song )) {
+            abort(404);
+        }
+
+        $albums = $request->get('new-albums', []);
+        foreach( $albums as $albumId ) {
+            $check = $this->albumSongRepository->findByAlbumIdAndSongId($albumId, $id);
+            if( empty($check) ) {
+                $this->albumSongRepository->create(
+                    [
+                        'album_id' => $albumId,
+                        'song_id'  => $id
+                    ]
+                );
+            }
+        }
+
+        return redirect()->action('Admin\SongController@show', [$id])->with('message-success', trans('admin.messages.general.update_success'));
+    }
 }
