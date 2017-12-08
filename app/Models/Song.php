@@ -80,7 +80,7 @@ class Song extends Base
             'view'        => $this->view,
             'play'        => $this->play,
             'vote'        => $this->vote,
-            'author_id'   => $this->author_id,
+            'author'      => isset($this->author->name) ? $this->author->name : 'Unknown',
             'publish_at'  => date_format($this->publish_at, 'Y-m-d H:i:s'),
         ];
     }

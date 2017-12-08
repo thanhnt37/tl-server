@@ -22,15 +22,9 @@ class SongController extends Controller
     {
         $timestamp = $request->get('timestamp', time());
         $songs = $this->songRepository->getAllSongByTimestamp($timestamp, 'vote', 'desc');
-
+        
         foreach( $songs as $key => $song ) {
-            $name = isset($song->author->name) ? $song->author->name : 'Unknown';
-            $songs[$key]['author_name'] = $name;
-
-            unset($songs[$key]['author']);
-            unset($songs[$key]['author_id']);
-            unset($songs[$key]['deleted_at']);
-            unset($songs[$key]['updated_at']);
+            $songs[$key] = $song->toAPIArray();
         }
         
         return Response::response(200, $songs);

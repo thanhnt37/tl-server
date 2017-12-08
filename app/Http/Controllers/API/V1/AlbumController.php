@@ -25,9 +25,7 @@ class AlbumController extends Controller
 
         $albums = $this->albumRepository->get('vote', 'desc', 0, $limit);
         foreach( $albums as $key => $album ) {
-            unset($albums[$key]['deleted_at']);
-            unset($albums[$key]['created_at']);
-            unset($albums[$key]['updated_at']);
+            $albums[$key] = $album->toAPIArray();
         }
         return Response::response(200, $albums);
     }
@@ -41,13 +39,7 @@ class AlbumController extends Controller
 
         $songs = $album->songs;
         foreach( $songs as $key => $song ) {
-            $name = isset($song->author->name) ? $song->author->name : 'Unknown';
-            $songs[$key]['author_name'] = $name;
-
-            unset($songs[$key]['author']);
-            unset($songs[$key]['author_id']);
-            unset($songs[$key]['deleted_at']);
-            unset($songs[$key]['updated_at']);
+            $songs[$key] = $song->toAPIArray();
         }
 
         unset($album['updated_at']);
