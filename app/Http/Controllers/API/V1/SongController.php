@@ -22,7 +22,7 @@ class SongController extends Controller
     {
         $timestamp = $request->get('timestamp', time());
         $songs = $this->songRepository->getAllSongByTimestamp($timestamp, 'vote', 'desc');
-        
+
         foreach( $songs as $key => $song ) {
             $songs[$key] = $song->toAPIArray();
         }
@@ -32,6 +32,16 @@ class SongController extends Controller
 
     public function detail($id)
     {
+        $song = $this->songRepository->find($id);
+        if (empty($song)) {
+            return Response::response(20004);
+        }
 
+        $view = $song->view;
+        $view = is_numeric($view) ? $view : 0;
+        $song->view = $view + 1;
+        $this->songRepository->save($song);
+
+        return Response::response(200, $song->toAPIArray());
     }
 }
