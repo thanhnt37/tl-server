@@ -23,4 +23,14 @@ class BoxRepository extends AuthenticatableRepository implements BoxRepositoryIn
         ];
     }
 
+    /**
+     * find box activated by imei
+     * @params  $imei
+     * @return  \App\Models\Box
+     * */
+    public function findActivatedBoxByImei($imei)
+    {
+        $box = $this->findByImei($imei);
+        return $box->is_activated ? $box : null;
+    }
 }

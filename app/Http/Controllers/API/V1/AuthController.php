@@ -64,7 +64,7 @@ class AuthController extends Controller
             return Response::response(40101);
         }
 
-        $box = $this->boxRepository->findByImei($data['imei']);
+        $box = $this->boxRepository->findActivatedBoxByImei($data['imei']);
         if( !$box ) {
             return Response::response(40101);
         }
