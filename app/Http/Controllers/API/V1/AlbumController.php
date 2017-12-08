@@ -18,7 +18,7 @@ class AlbumController extends Controller
         $this->albumRepository      = $albumRepository;
     }
 
-    public function getListAlbum(BaseRequest $request)
+    public function lists(BaseRequest $request)
     {
         $limit = $request->get('limit', 10);
         $limit = is_numeric($limit) ? $limit : 10;
@@ -30,5 +30,10 @@ class AlbumController extends Controller
             unset($albums[$key]['updated_at']);
         }
         return Response::response(200, $albums);
+    }
+
+    public function detail($id)
+    {
+        
     }
 }

@@ -18,7 +18,7 @@ class SongController extends Controller
         $this->songRepository       = $songRepository;
     }
 
-    public function getAllSongs(BaseRequest $request)
+    public function all(BaseRequest $request)
     {
         $timestamp = $request->get('timestamp', time());
         $songs = $this->songRepository->getAllSongByTimestamp($timestamp, 'vote', 'desc');
@@ -34,5 +34,10 @@ class SongController extends Controller
         }
         
         return Response::response(200, $songs);
+    }
+
+    public function detail($id)
+    {
+
     }
 }

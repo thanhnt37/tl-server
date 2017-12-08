@@ -15,8 +15,10 @@ Route::group(['prefix' => 'api', 'namespace' => 'API'], function () {
 
             Route::post('activateDevice', 'BoxController@activateDevice');
             Route::post('updateOTA', 'OTAController@updateOTA');
-            Route::get('getListAlbum', 'AlbumController@getListAlbum');
-            Route::get('getAllSongs', 'SongController@getAllSongs');
+            Route::get('album/lists', 'AlbumController@lists');
+            Route::get('album/detail/{id}', 'AlbumController@detail');
+            Route::get('song/all', 'SongController@all');
+            Route::get('song/detail/{id}', 'SongController@detail');
 
             Route::post('signout', 'AuthController@postSignOut');
         });
