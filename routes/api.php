@@ -8,12 +8,13 @@ Route::group(['prefix' => 'api', 'namespace' => 'API'], function () {
             Route::post('signin', 'AuthController@signIn');
 //            Route::post('signup', 'AuthController@signUp');
 //            Route::post('token/refresh', 'AuthController@refreshToken');
+            
+            Route::post('activateDevice', 'BoxController@activateDevice');
         });
 
         Route::group(['middleware' => 'api.client'], function () {
             Route::resource('articles', 'ArticleController');
 
-            Route::post('activateDevice', 'BoxController@activateDevice');
             Route::post('updateOTA', 'OTAController@updateOTA');
             Route::get('album/lists', 'AlbumController@lists');
             Route::get('album/detail/{id}', 'AlbumController@detail');
