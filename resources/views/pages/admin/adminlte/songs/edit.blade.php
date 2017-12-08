@@ -110,6 +110,8 @@
                     <div class="col-md-6">
                         <div class="form-group @if ($errors->has('author_id')) has-error @endif">
                             <label for="author_id">@lang('admin.pages.songs.columns.author_id')</label>
+                            <a href="{!! action('Admin\AuthorController@create') !!}" title="Create New Author"><i class="fa fa-plus-square-o" aria-hidden="true"></i></a>
+
                             <select class="form-control" name="os_version_id" id="os_version_id" required>
                                 @foreach( $authors as $author )
                                     <option value="{!! $author->id !!}" @if( (old('author_id') && old('author_id') == $author->id) || ( $song->author_id == $author->id) ) selected @endif >
