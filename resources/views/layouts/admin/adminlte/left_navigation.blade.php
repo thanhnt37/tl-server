@@ -29,8 +29,8 @@
 
             @if( $authUser->hasRole(\App\Models\AdminUserRole::ROLE_SUPER_USER) )
                 <li @if( $menu=='boxes') class="active" @endif ><a href="{!! \URL::action('Admin\BoxController@index') !!}"><i class="fa fa-square-o"></i> <span>Boxes</span></a></li>
-                <li @if( $menu=='kara_ota') class="active" @endif ><a href="{!! \URL::action('Admin\KaraOtaController@index') !!}"><i class="fa fa-object-ungroup"></i> <span>Kara OTA</span></a></li>
-                <li @if( $menu=='kara_versions') class="active" @endif ><a href="{!! \URL::action('Admin\KaraVersionController@index') !!}"><i class="fa fa-code-fork"></i> <span>Kara Versions</span></a></li>
+                <li @if( $menu=='kara_ota') class="active" @endif ><a href="{!! \URL::action('Admin\KaraOtaController@index') !!}"><i class="fa fa-object-ungroup"></i> <span>OTA Manager</span></a></li>
+                <li @if( $menu=='kara_versions') class="active" @endif ><a href="{!! \URL::action('Admin\KaraVersionController@index') !!}"><i class="fa fa-code-fork"></i> <span>Kara Manager</span></a></li>
             @endif
 
             @if( $authUser->hasRole(\App\Models\AdminUserRole::ROLE_ADMIN) )
