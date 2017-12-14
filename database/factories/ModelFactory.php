@@ -311,4 +311,12 @@ $factory->define(App\Models\Customer::class, function (Faker\Generator $faker)
     ];
 });
 
+$factory->define(App\Models\Sale::class, function (Faker\Generator $faker)
+{
+    return [
+        'customer_id' => 0,
+        'box_id'      => 0,
+    ];
+});
+
 /* NEW MODEL FACTORY */
