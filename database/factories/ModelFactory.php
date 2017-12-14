@@ -299,4 +299,16 @@ $factory->define(App\Models\GenreSong::class, function (Faker\Generator $faker)
     ];
 });
 
+$factory->define(App\Models\Customer::class, function (Faker\Generator $faker)
+{
+    return [
+        'name'      => $faker->name(),
+        'email'     => $faker->email,
+        'address'   => $faker->address,
+        'telephone' => $faker->phoneNumber,
+        'area'      => $faker->address,
+        'agency'    => $faker->address,
+    ];
+});
+
 /* NEW MODEL FACTORY */
