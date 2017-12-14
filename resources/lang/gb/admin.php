@@ -312,6 +312,16 @@ return [
                 'image'       => 'Image',
             ],
         ],
+        'customers'                => [
+            'columns' => [
+                'name'      => 'Name',
+                'email'     => 'Email',
+                'address'   => 'Address',
+                'telephone' => 'Telephone',
+                'area'      => 'Area',
+                'agency'    => 'Agency',
+            ],
+        ],
         /* NEW PAGE STRINGS */
     ],
     'roles'      => [

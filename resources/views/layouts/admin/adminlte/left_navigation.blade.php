@@ -31,6 +31,7 @@
                 <li @if( $menu=='boxes') class="active" @endif ><a href="{!! \URL::action('Admin\BoxController@index') !!}"><i class="fa fa-square-o"></i> <span>Boxes</span></a></li>
                 <li @if( $menu=='kara_ota') class="active" @endif ><a href="{!! \URL::action('Admin\KaraOtaController@index') !!}"><i class="fa fa-object-ungroup"></i> <span>OTA Manager</span></a></li>
                 <li @if( $menu=='kara_versions') class="active" @endif ><a href="{!! \URL::action('Admin\KaraVersionController@index') !!}"><i class="fa fa-code-fork"></i> <span>Kara Manager</span></a></li>
+                <li @if( $menu=='customers') class="active" @endif ><a href="{!! \URL::action('Admin\CustomerController@index') !!}"><i class="fa fa-users"></i> <span>Customers</span></a></li>
             @endif
 
             @if( $authUser->hasRole(\App\Models\AdminUserRole::ROLE_ADMIN) )

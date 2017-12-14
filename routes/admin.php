@@ -17,6 +17,7 @@
             \Route::resource('boxes', 'Admin\BoxController');
             \Route::resource('kara-versions', 'Admin\KaraVersionController');
             \Route::resource('kara-ota', 'Admin\KaraOtaController');
+            \Route::resource('customers', 'Admin\CustomerController');
 
             \Route::resource('admin-users', 'Admin\AdminUserController');
             \Route::resource('admin-user-notifications', 'Admin\AdminUserNotificationController');
