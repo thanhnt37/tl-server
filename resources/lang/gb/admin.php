@@ -322,6 +322,12 @@ return [
                 'agency'    => 'Agency',
             ],
         ],
+        'sales'                    => [
+            'columns' => [
+                'customer_id' => 'Customer ID',
+                'box_id'      => 'Serial',
+            ],
+        ],
         /* NEW PAGE STRINGS */
     ],
     'roles'      => [
