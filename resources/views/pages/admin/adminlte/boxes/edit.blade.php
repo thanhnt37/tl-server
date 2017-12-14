@@ -58,30 +58,39 @@
                 </h3>
             </div>
             <div class="box-body">
-
                 <div class="row">
                     <div class="col-md-4">
-                        <div class="form-group @if ($errors->has('imei')) has-error @endif">
-                            <label for="imei">@lang('admin.pages.boxes.columns.imei')</label>
-                            <input type="text" class="form-control" id="imei" name="imei" required
-                                   value="{{ old('imei') ? old('imei') : $box->imei }}">
+                        <div class="form-group @if ($errors->has('os_version_id')) has-error @endif">
+                            <label for="os_version_id">@lang('admin.pages.boxes.columns.os_version_id')</label>
+                            <select class="form-control" name="os_version_id" id="os_version_id" required>
+                                @foreach( $osVersions as $osVersion )
+                                    <option value="{!! $osVersion->id !!}" @if( (old('os_version_id') && old('os_version_id') == $osVersion->id) || ( $box->os_version_id == $osVersion->id) || ($osVersion->id == \Session::get('os_version_id')) ) selected @endif >
+                                        {{ $osVersion->name }}
+                                    </option>
+                                @endforeach
+                            </select>
                         </div>
                     </div>
 
                     <div class="col-md-4">
-                        <div class="form-group @if ($errors->has('serial')) has-error @endif">
-                            <label for="serial">@lang('admin.pages.boxes.columns.serial')</label>
-                            <input type="text" class="form-control" id="serial" name="serial" required
-                                   value="{{ old('serial') ? old('serial') : $box->serial }}">
+                        <div class="form-group @if ($errors->has('sdk_version_id')) has-error @endif">
+                            <label for="sdk_version_id">@lang('admin.pages.boxes.columns.sdk_version_id')</label>
+                            <select class="form-control" name="sdk_version_id" id="sdk_version_id" required>
+                                @foreach( $sdkVersions as $sdkVersion )
+                                    <option value="{!! $sdkVersion->id !!}" @if( (old('sdk_version_id') && old('sdk_version_id') == $sdkVersion->id) || ( $box->sdk_version_id == $sdkVersion->id) || ($sdkVersion->id == \Session::get('sdk_version_id')) ) selected @endif >
+                                        {{ $sdkVersion->name }}
+                                    </option>
+                                @endforeach
+                            </select>
                         </div>
                     </div>
-
+                    
                     <div class="col-md-4">
                         <div class="form-group @if ($errors->has('box_version_id')) has-error @endif">
                             <label for="box_version_id">@lang('admin.pages.boxes.columns.box_version_id')</label>
                             <select class="form-control" name="box_version_id" id="box_version_id" required>
                                 @foreach( $boxVersions as $boxVersion )
-                                    <option value="{!! $boxVersion->id !!}" @if( (old('box_version_id') && old('box_version_id') == $boxVersion->id) || ( $box->box_version_id == $boxVersion->id) ) selected @endif >
+                                    <option value="{!! $boxVersion->id !!}" @if( (old('box_version_id') && old('box_version_id') == $boxVersion->id) || ( $box->box_version_id == $boxVersion->id) || ($boxVersion->id == \Session::get('box_version_id')) ) selected @endif >
                                         {{ $boxVersion->name }}
                                     </option>
                                 @endforeach
@@ -92,28 +101,18 @@
 
                 <div class="row">
                     <div class="col-md-6">
-                        <div class="form-group @if ($errors->has('os_version_id')) has-error @endif">
-                            <label for="os_version_id">@lang('admin.pages.boxes.columns.os_version_id')</label>
-                            <select class="form-control" name="os_version_id" id="os_version_id" required>
-                                @foreach( $osVersions as $osVersion )
-                                    <option value="{!! $osVersion->id !!}" @if( (old('os_version_id') && old('os_version_id') == $osVersion->id) || ( $box->os_version_id == $osVersion->id) ) selected @endif >
-                                        {{ $osVersion->name }}
-                                    </option>
-                                @endforeach
-                            </select>
+                        <div class="form-group @if ($errors->has('imei')) has-error @endif">
+                            <label for="imei">@lang('admin.pages.boxes.columns.imei')</label>
+                            <input type="text" class="form-control" id="imei" name="imei" autofocus required
+                                   value="{{ old('imei') ? old('imei') : $box->imei }}">
                         </div>
                     </div>
 
                     <div class="col-md-6">
-                        <div class="form-group @if ($errors->has('sdk_version_id')) has-error @endif">
-                            <label for="sdk_version_id">@lang('admin.pages.boxes.columns.sdk_version_id')</label>
-                            <select class="form-control" name="sdk_version_id" id="sdk_version_id" required>
-                                @foreach( $sdkVersions as $sdkVersion )
-                                    <option value="{!! $sdkVersion->id !!}" @if( (old('sdk_version_id') && old('sdk_version_id') == $sdkVersion->id) || ( $box->sdk_version_id == $sdkVersion->id) ) selected @endif >
-                                        {{ $sdkVersion->name }}
-                                    </option>
-                                @endforeach
-                            </select>
+                        <div class="form-group @if ($errors->has('serial')) has-error @endif">
+                            <label for="serial">@lang('admin.pages.boxes.columns.serial')</label>
+                            <input type="text" class="form-control" id="serial" name="serial" required
+                                   value="{{ old('serial') ? old('serial') : $box->serial }}">
                         </div>
                     </div>
                 </div>

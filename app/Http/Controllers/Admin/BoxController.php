@@ -94,13 +94,17 @@ class BoxController extends Controller
         $input = $request->only(['imei','serial','model','os_version_id','sdk_version_id','box_version_id','activation_date']);
         $input['is_activated'] = $request->get('is_activated', 0);
 
+        \Session::put('os_version_id', $input['os_version_id']);
+        \Session::put('sdk_version_id', $input['sdk_version_id']);
+        \Session::put('box_version_id', $input['box_version_id']);
+
         $box = $this->boxRepository->create($input);
 
         if (empty( $box )) {
             return redirect()->back()->withErrors(trans('admin.errors.general.save_failed'));
         }
 
-        return redirect()->action('Admin\BoxController@index')
+        return redirect()->action('Admin\BoxController@create')
             ->with('message-success', trans('admin.messages.general.create_success'));
     }
 
