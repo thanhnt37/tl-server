@@ -59,7 +59,7 @@
             </div>
             <div class="box-body">
                 <div class="row">
-                    <div class="col-md-4">
+                    <div class="col-md-6">
                         <div class="form-group @if ($errors->has('os_version_id')) has-error @endif">
                             <label for="os_version_id">@lang('admin.pages.kara-ota.columns.os_version')</label>
                             <select class="form-control" name="os_version_id" id="os_version_id" required>
@@ -72,7 +72,7 @@
                         </div>
                     </div>
 
-                    <div class="col-md-4">
+                    <div class="col-md-6">
                         <div class="form-group @if ($errors->has('sdk_version_id')) has-error @endif">
                             <label for="sdk_version_id">@lang('admin.pages.kara-ota.columns.sdk_version')</label>
                             <select class="form-control" name="sdk_version_id" id="sdk_version_id" required>
@@ -84,8 +84,23 @@
                             </select>
                         </div>
                     </div>
+                </div>
 
-                    <div class="col-md-4">
+                <div class="row">
+                    <div class="col-md-6">
+                        <div class="form-group @if ($errors->has('box_version_id')) has-error @endif">
+                            <label for="box_version_id">@lang('admin.pages.kara-ota.columns.box_version_id')</label>
+                            <select class="form-control" name="box_version_id" id="box_version_id" required>
+                                @foreach( $boxVersions as $boxVersion )
+                                    <option value="{!! $boxVersion->id !!}" @if( (old('box_version_id') && old('box_version_id') == $boxVersion->id) || ( $karaOta->box_version_id == $boxVersion->id) ) selected @endif >
+                                        {{ $boxVersion->name }}
+                                    </option>
+                                @endforeach
+                            </select>
+                        </div>
+                    </div>
+
+                    <div class="col-md-6">
                         <div class="form-group @if ($errors->has('kara_version_id')) has-error @endif">
                             <label for="kara_version_id">@lang('admin.pages.kara-ota.columns.kara_version_id')</label>
                             <select class="form-control" name="kara_version_id" id="kara_version_id" required>

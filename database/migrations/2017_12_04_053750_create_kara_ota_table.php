@@ -15,8 +15,9 @@ class CreatekaraOtaTable extends Migration
         Schema::create('kara_ota', function (Blueprint $table) {
             $table->bigIncrements('id');
 
-            $table->string('os_version_id');
-            $table->string('sdk_version_id');
+            $table->unsignedBigInteger('os_version_id');
+            $table->unsignedBigInteger('sdk_version_id');
+            $table->unsignedBigInteger('box_version_id');
             $table->unsignedBigInteger('kara_version_id');
 
             $table->timestamps();

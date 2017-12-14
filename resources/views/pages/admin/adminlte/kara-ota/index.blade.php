@@ -46,6 +46,7 @@ KaraOta
         <table class="table table-bordered">
             <tr>
                 <th style="width: 10px">{!! \PaginationHelper::sort('id', 'ID') !!}</th>
+                <th>{!! \PaginationHelper::sort('os_version', trans('admin.pages.kara-ota.columns.box_version_id')) !!}</th>
                 <th>{!! \PaginationHelper::sort('os_version', trans('admin.pages.kara-ota.columns.os_version')) !!}</th>
                 <th>{!! \PaginationHelper::sort('sdk_version', trans('admin.pages.kara-ota.columns.sdk_version')) !!}</th>
                 <th>{!! trans('admin.pages.kara-ota.columns.kara_version_id') !!}</th>
@@ -55,6 +56,13 @@ KaraOta
             @foreach( $karaOtas as $karaOta )
                 <tr>
                     <td>{{ $karaOta->id }}</td>
+                    <td>
+                        @if(isset($karaOta->boxVersion->name))
+                            <a href="{!! action('Admin\BoxVersionController@show', $karaOta->boxVersion->id) !!}">{!! $karaOta->boxVersion->name !!}</a>
+                        @else
+                            Unknown
+                        @endif
+                    </td>
                     <td>
                         @if(isset($karaOta->osVersion->name))
                             <a href="{!! action('Admin\OsVersionController@show', $karaOta->osVersion->id) !!}">{!! $karaOta->osVersion->name !!}</a>

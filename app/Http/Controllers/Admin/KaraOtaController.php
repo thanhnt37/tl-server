@@ -9,6 +9,7 @@ use App\Http\Requests\PaginationRequest;
 use App\Repositories\KaraVersionRepositoryInterface;
 use App\Repositories\OsVersionRepositoryInterface;
 use App\Repositories\SdkVersionRepositoryInterface;
+use App\Repositories\BoxVersionRepositoryInterface;
 
 class KaraOtaController extends Controller
 {
@@ -25,17 +26,22 @@ class KaraOtaController extends Controller
     /** @var \App\Repositories\SdkVersionRepositoryInterface */
     protected $sdkVersionRepository;
 
+    /** @var \App\Repositories\BoxVersionRepositoryInterface */
+    protected $boxVersionRepository;
+
     public function __construct(
         KaraOtaRepositoryInterface      $karaOtaRepository,
         KaraVersionRepositoryInterface  $karaVersionRepository,
         OsVersionRepositoryInterface    $osVersionRepository,
-        SdkVersionRepositoryInterface  $sdkVersionRepository
+        SdkVersionRepositoryInterface   $sdkVersionRepository,
+        BoxVersionRepositoryInterface   $boxVersionRepository
     )
     {
         $this->karaOtaRepository        = $karaOtaRepository;
         $this->karaVersionRepository    = $karaVersionRepository;
         $this->osVersionRepository      = $osVersionRepository;
         $this->sdkVersionRepository     = $sdkVersionRepository;
+        $this->boxVersionRepository     = $boxVersionRepository;
     }
 
     /**
@@ -80,6 +86,7 @@ class KaraOtaController extends Controller
                 'karaVersions' => $this->karaVersionRepository->all(),
                 'osVersions'   => $this->osVersionRepository->all(),
                 'sdkVersions'  => $this->sdkVersionRepository->all(),
+                'boxVersions'  => $this->boxVersionRepository->all(),
             ]
         );
     }
@@ -92,7 +99,7 @@ class KaraOtaController extends Controller
      */
     public function store(KaraOtaRequest $request)
     {
-        $input = $request->only(['os_version_id','sdk_version_id', 'kara_version_id']);
+        $input = $request->only(['os_version_id','sdk_version_id', 'box_version_id', 'kara_version_id']);
 
         $karaOta = $this->karaOtaRepository->create($input);
 
@@ -125,6 +132,7 @@ class KaraOtaController extends Controller
                 'karaVersions' => $this->karaVersionRepository->all(),
                 'osVersions'   => $this->osVersionRepository->all(),
                 'sdkVersions'  => $this->sdkVersionRepository->all(),
+                'boxVersions'  => $this->boxVersionRepository->all(),
             ]
         );
     }
@@ -154,7 +162,7 @@ class KaraOtaController extends Controller
         if (empty( $karaOta )) {
             abort(404);
         }
-        $input = $request->only(['os_version_id','sdk_version_id', 'kara_version_id']);
+        $input = $request->only(['os_version_id','sdk_version_id', 'box_version_id', 'kara_version_id']);
 
         $this->karaOtaRepository->update($karaOta, $input);
 

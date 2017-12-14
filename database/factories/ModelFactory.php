@@ -183,6 +183,7 @@ $factory->define(App\Models\KaraOta::class, function (Faker\Generator $faker)
     return [
         'os_version_id'   => 0,
         'sdk_version_id'  => 0,
+        'box_version_id'  => 0,
         'kara_version_id' => 0,
     ];
 });

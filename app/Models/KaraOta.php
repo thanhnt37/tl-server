@@ -21,6 +21,7 @@ class KaraOta extends Base
     protected $fillable = [
         'os_version_id',
         'sdk_version_id',
+        'box_version_id',
         'kara_version_id',
     ];
 
@@ -54,6 +55,10 @@ class KaraOta extends Base
     {
         return $this->belongsTo(\App\Models\KaraVersion::class, 'kara_version_id', 'id');
     }
+    public function boxVersion()
+    {
+        return $this->belongsTo(\App\Models\BoxVersion::class, 'box_version_id', 'id');
+    }
 
 
 
@@ -67,6 +72,7 @@ class KaraOta extends Base
         return [
             'os_version_id'   => $this->os_version_id,
             'sdk_version_id'  => $this->sdk_version_id,
+            'box_version_id'  => $this->box_version_id,
             'kara_version_id' => $this->kara_version_id,
         ];
     }
