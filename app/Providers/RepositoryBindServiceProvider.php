@@ -170,6 +170,11 @@ class RepositoryBindServiceProvider extends ServiceProvider {
             \App\Repositories\Eloquent\SingerSongRepository::class
         );
 
+        $this->app->singleton(
+            \App\Repositories\CustomerRepositoryInterface::class,
+            \App\Repositories\Eloquent\CustomerRepository::class
+        );
+
         /* NEW BINDING */
     }
 }
