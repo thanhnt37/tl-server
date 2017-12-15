@@ -37,6 +37,6 @@ class SongRepository extends SingleKeyModelRepository implements SongRepositoryI
         $datetime = date('Y-m-d H:i:s', $timestamp);
         $query = $this->getBlankModel();
 
-        return $query->where('created_at', '>', $datetime)->orderBy($order, $direction)->get();
+        return $query->where('updated_at', '>', $datetime)->orderBy($order, $direction)->get();
     }
 }
