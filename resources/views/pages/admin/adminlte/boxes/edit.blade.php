@@ -130,13 +130,23 @@
                         </div>
                     </div>
 
-                    <div class="col-md-6">
+                    <div class="col-md-3">
                         <div class="form-group">
                             <label for="is_activated">@lang('admin.pages.boxes.columns.is_activated')</label>
                             <div class="switch">
                                 <input id="is_activated" name="is_activated" value="1" @if( $box->is_activated) checked
                                        @endif class="cmn-toggle cmn-toggle-round-flat" type="checkbox">
                                 <label for="is_activated"></label>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="col-md-3">
+                        <div class="form-group">
+                            <label for="is_blocked">@lang('admin.pages.boxes.columns.is_blocked')</label>
+                            <div class="switch">
+                                <input id="is_blocked" name="is_blocked" value="1" @if( $box->is_blocked) checked @endif class="cmn-toggle cmn-toggle-round-flat" type="checkbox">
+                                <label for="is_blocked"></label>
                             </div>
                         </div>
                     </div>

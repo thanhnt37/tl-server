@@ -25,6 +25,8 @@ class CreateboxesTable extends Migration
             $table->boolean('is_activated')->nullable()->default(true);
             $table->timestamp('activation_date')->nullable()->default('2000-01-01 00:00:00');
 
+            $table->boolean('is_blocked')->nullable()->default(true);
+
             $table->softDeletes();
             $table->timestamps();
         });

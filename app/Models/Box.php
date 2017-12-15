@@ -28,6 +28,7 @@ class Box extends AuthenticatableBase
         'sdk_version_id',
         'is_activated',
         'activation_date',
+        'is_blocked',
     ];
 
     /**
@@ -91,6 +92,7 @@ class Box extends AuthenticatableBase
             'sdk_version_id'  => empty($this->sdkVersion) ? null : $this->sdkVersion->name,
             'is_activated'    => $this->is_activated ? true : false,
             'activation_date' => date_format($this->activation_date, 'Y-m-d H:i:s'),
+            'is_blocked'      => $this->is_blocked ? true : false,
         ];
     }
 

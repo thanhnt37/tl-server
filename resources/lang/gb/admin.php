@@ -220,6 +220,7 @@ return [
                 'is_activated'    => 'Is Activated',
                 'activation_date' => 'Activation Date',
                 'activate'        => 'Activate',
+                'is_blocked'      => 'is Blocked',
                 'deactivate'      => 'Deactivate',
             ],
         ],

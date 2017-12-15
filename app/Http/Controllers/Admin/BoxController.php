@@ -93,6 +93,7 @@ class BoxController extends Controller
     {
         $input = $request->only(['imei','serial','model','os_version_id','sdk_version_id','box_version_id','activation_date']);
         $input['is_activated'] = $request->get('is_activated', 0);
+        $input['is_blocked']   = $request->get('is_blocked', 0);
 
         \Session::put('os_version_id', $input['os_version_id']);
         \Session::put('sdk_version_id', $input['sdk_version_id']);
@@ -160,6 +161,7 @@ class BoxController extends Controller
         }
         $input = $request->only(['imei','serial','model','os_version_id','sdk_version_id','box_version_id','activation_date']);
         $input['is_activated'] = $request->get('is_activated', 0);
+        $input['is_blocked']   = $request->get('is_blocked', 0);
 
         $this->boxRepository->update($box, $input);
 
