@@ -31,6 +31,10 @@ class BoxRepository extends AuthenticatableRepository implements BoxRepositoryIn
     public function findActivatedBoxByImei($imei)
     {
         $box = $this->findByImei($imei);
+        if( empty($box) || $box->is_blocked ) {
+            return null;
+        }
+        
         return $box->is_activated ? $box : null;
     }
 }
