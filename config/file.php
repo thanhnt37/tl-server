@@ -7,7 +7,7 @@ return [
             'application/octet-stream' => '',
             'application/zip'          => 'zip',
             'text/plain'               => 'txt',
-            'application/apk'          => 'apk',
+            'application/vnd.android.package-archive' => 'apk',
         ],
         'image' => [
             'image/png'  => 'png',
