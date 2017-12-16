@@ -188,4 +188,38 @@ class BoxController extends Controller
                     ->with('message-success', trans('admin.messages.general.delete_success'));
     }
 
+    public function confirmUploadImei(Requests\BaseRequest $request)
+    {
+        if ($request->hasFile('file-upload')) {
+            $file = $request->file('file-upload');
+            $extension = $file->clientExtension();
+            if( $extension != 'xlsx' ) {
+                return redirect()->action('Admin\BoxController@index')->withErrors('Error, The system only accepts xlsx files !!!');
+            }
+
+            $boxes = \Excel::load($file->path(), function($reader) {})->get();
+
+            if( empty($boxes) || empty($boxes[0]) ) {
+                return redirect()->action('Admin\BoxController@index')->withErrors('Error, File input with empty data !!!');
+            }
+
+            return view(
+                'pages.admin.' . config('view.admin') . '.boxes.confirm-upload',
+                [
+                    'boxes'     => $boxes[0],
+                ]
+            );
+        }
+
+        return redirect()->action('Admin\BoxController@index')->withErrors('Error, File input is invalid !!!');
+    }
+
+    public function completeUploadImei(Requests\BaseRequest $request)
+    {
+        $boxes = $request->get('boxes', []);
+
+        \App\Models\Box::insert($boxes);
+
+        return redirect()->action('Admin\BoxController@index')->with('message-success', trans('admin.messages.general.create_success'));
+    }
 }

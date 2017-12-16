@@ -34,9 +34,15 @@ Boxes
             <div class="col-sm-6">
                 <h3 class="box-title">
                     <p class="text-right">
-                        <a href="{!! action('Admin\BoxController@create') !!}" class="btn btn-block btn-primary btn-sm" style="width: 125px;">@lang('admin.pages.common.buttons.create')</a>
+                        <a href="{!! action('Admin\BoxController@create') !!}" class="btn btn-primary btn-sm" style="width: 125px;">@lang('admin.pages.common.buttons.create')</a>
+                        <label for="file-upload" class="btn btn-success btn-sm" style="width: 125px;">Import List</label>
                     </p>
                 </h3>
+
+                <form action="{{ action('Admin\BoxController@confirmUploadImei') }}" method="POST" enctype="multipart/form-data">
+                    {{ csrf_field() }}
+                    <input type="file" name="file-upload" id="file-upload" style="display: none;" onchange="this.form.submit()">
+                </form>
                 <br>
                 <p style="display: inline-block;">@lang('admin.pages.common.label.search_results', ['count' => $count])</p>
             </div>
@@ -66,14 +72,14 @@ Boxes
                     <td>{{ $box->serial }}</td>
                     <td>
                         @if(isset($box->boxVersion->name))
-                            <a href="{!! action('Admin\OsVersionController@show', $box->osVersion->id) !!}">{!! $box->osVersion->name !!}</a>
+                            <a href="{!! action('Admin\BoxVersionController@show', $box->boxVersion->id) !!}">{!! $box->boxVersion->name !!}</a>
                         @else
                             Unknown
                         @endif
                     </td>
                     <td>
                         @if(isset($box->osVersion->name))
-                            <a href="{!! action('Admin\BoxVersionController@show', $box->boxVersion->id) !!}">{!! $box->boxVersion->name !!}</a>
+                            <a href="{!! action('Admin\OsVersionController@show', $box->osVersion->id) !!}">{!! $box->osVersion->name !!}</a>
                         @else
                             Unknown
                         @endif
