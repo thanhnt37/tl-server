@@ -63,7 +63,7 @@ class Album extends Base
             'name'        => $this->name,
             'description' => $this->description,
             'image'       => $this->image,
-            'vote'        => $this->vote,
+            'vote'        => intval($this->vote),
             'publish_at'  => date_format($this->publish_at, 'Y-m-d H:i:s'),
         ];
     }
