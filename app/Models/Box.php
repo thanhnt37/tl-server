@@ -1,11 +1,12 @@
 <?php namespace App\Models;
 
 use Illuminate\Database\Eloquent\SoftDeletes;
+use Laravel\Passport\HasApiTokens;
 
-class Box extends Base
+class Box extends AuthenticatableBase
 {
 
-    use SoftDeletes;
+    use SoftDeletes, HasApiTokens;
 
     /**
      * The database table used by the model.
