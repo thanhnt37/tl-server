@@ -96,6 +96,7 @@ class Song extends Base
             'play'        => intval($this->play),
             'vote'        => intval($this->vote),
             'author'      => isset($this->author->name) ? $this->author->name : 'Unknown',
+            'singers'     => empty($this->singers) ? [] : $this->singers->pluck('name'),
             'publish_at'  => date_format($this->publish_at, 'Y-m-d H:i:s'),
         ];
     }
