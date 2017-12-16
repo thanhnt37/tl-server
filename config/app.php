@@ -195,6 +195,8 @@ return [
         App\Providers\ServiceBindServiceProvider::class,
         App\Providers\HelperBindServiceProvider::class,
 
+        Maatwebsite\Excel\ExcelServiceProvider::class,
+
     ], $additionalProviders),
 
     /*
@@ -253,6 +255,7 @@ return [
         'TypeHelper'             => App\Facades\TypeHelper::class,
         'RedirectHelper'         => App\Facades\RedirectHelper::class,
         'CacheHelper'            => App\Facades\CacheHelper::class,
+        'Excel'                  => Maatwebsite\Excel\Facades\Excel::class,
         /* NEW FACADE */
     ],
 

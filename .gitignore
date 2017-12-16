@@ -32,3 +32,4 @@ ingore.php
 
 public/static/swagger-ui
 /public/static/common/apk/
+composer.lock
