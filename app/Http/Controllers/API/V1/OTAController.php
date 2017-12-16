@@ -9,6 +9,7 @@ use App\Http\Responses\API\V1\Response;
 use App\Repositories\KaraOtaRepositoryInterface;
 use App\Repositories\SdkVersionRepositoryInterface;
 use App\Repositories\KaraVersionRepositoryInterface;
+use App\Repositories\BoxRepositoryInterface;
 
 class OTAController extends Controller
 {
@@ -21,28 +22,38 @@ class OTAController extends Controller
     /** @var \App\Repositories\KaraVersionRepositoryInterface */
     protected $karaVersionRepository;
 
+    /** @var \App\Repositories\BoxRepositoryInterface */
+    protected $boxRepository;
+
     public function __construct(
         KaraOtaRepositoryInterface      $karaOtaRepository,
         SdkVersionRepositoryInterface   $sdkVersionRepository,
-        KaraVersionRepositoryInterface  $karaVersionRepository
+        KaraVersionRepositoryInterface  $karaVersionRepository,
+        BoxRepositoryInterface          $boxRepository
     ) {
         $this->karaOtaRepository        = $karaOtaRepository;
         $this->sdkVersionRepository     = $sdkVersionRepository;
         $this->karaVersionRepository    = $karaVersionRepository;
+        $this->boxRepository            = $boxRepository;
     }
 
     public function updateOTA(OTARequest $request)
     {
         $data = $request->only(
-            ['sdk_version_id', 'apk_version_id']
+            ['imei', 'sdk_version_id', 'apk_version_id']
         );
+
+        $box = $this->boxRepository->findByImei($data['imei']);
+        if( empty($box) ) {
+            return Response::response(20004);
+        }
 
         $sdkVersion = $this->sdkVersionRepository->findByName($data['sdk_version_id']);
         if( empty($sdkVersion) ) {
             return Response::response(20004);
         }
 
-        $ota = $this->karaOtaRepository->findBySdkVersionId($sdkVersion->id);
+        $ota = $this->karaOtaRepository->findByBoxVersionIdAndSdkVersionId($box->box_version_id, $sdkVersion->id);
         if( empty($ota) || !isset($ota->karaVersion) || empty($ota->karaVersion) ) {
             return Response::response(20004);
         }
