@@ -8,8 +8,19 @@ interface SongRepositoryInterface extends SingleKeyModelRepositoryInterface
      * @param   $timestamp
      *          $order
      *          $direction
+     *          $offset
+     *          $limit
      *
      * @return  mixed
      * */
-    public function getAllSongByTimestamp($timestamp, $order = 'vote', $direction = 'desc');
+    public function getByTimestamp($timestamp, $order = 'vote', $direction = 'desc', $offset = 0, $limit = 100);
+
+    /**
+     * get newest song use timestamp
+     *
+     * @param   $timestamp
+     *
+     * @return  mixed
+     * */
+    public function countByTimestamp($timestamp);
 }

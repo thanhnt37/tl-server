@@ -24,19 +24,34 @@ class SongRepository extends SingleKeyModelRepository implements SongRepositoryI
     }
 
     /**
+     * count newest song use timestamp
+     *
+     * @param   $timestamp
+     * 
+     * @return  int
+     * */
+    public function countByTimestamp($timestamp)
+    {
+        $datetime = date('Y-m-d H:i:s', $timestamp);
+        $query = $this->getBlankModel();
+
+        return $query->where('updated_at', '>', $datetime)->count();
+    }
+
+    /**
      * get newest song use timestamp
      *
      * @param   $timestamp
      *          $order
      *          $direction
-     * 
+     *
      * @return  mixed
      * */
-    public function getAllSongByTimestamp($timestamp, $order = 'vote', $direction = 'desc')
+    public function getByTimestamp($timestamp, $order = 'vote', $direction = 'desc', $offset = 0, $limit = 100)
     {
         $datetime = date('Y-m-d H:i:s', $timestamp);
         $query = $this->getBlankModel();
 
-        return $query->where('updated_at', '>', $datetime)->orderBy($order, $direction)->get();
+        return $query->where('updated_at', '>', $datetime)->orderBy($order, $direction)->offset($offset)->limit($limit)->get();
     }
 }

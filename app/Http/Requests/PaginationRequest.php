@@ -6,7 +6,7 @@ class PaginationRequest extends BaseRequest
 {
     public $offset = 0;
 
-    public $limit = 15;
+    public $limit = 50;
 
     public $order = 'id';
 
@@ -59,16 +59,16 @@ class PaginationRequest extends BaseRequest
         return $this->limit;
     }
 
-    public function order()
+    public function order($default = 'id')
     {
-        $order = $this->get('order', $this->order);
+        $order = $this->get('order', $default);
 
         return $order;
     }
 
-    public function direction()
+    public function direction($default = 'desc')
     {
-        $direction = strtolower($this->get('direction', $this->direction));
+        $direction = strtolower($this->get('direction', $default));
         if (!in_array($direction, ['asc', 'desc'])) {
             $direction = 'desc';
         }
