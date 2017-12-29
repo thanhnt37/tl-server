@@ -74,6 +74,36 @@ class Song extends Base
         return $this->belongsToMany(\App\Models\Singer::class, SingerSong::getTableName(), 'song_id', 'singer_id');
     }
 
+    public function getUrl()
+    {
+        $songName = $this->file_name;
+        $songID = substr($songName, 0, -4);
+
+        //vi co 2 o HDD chua du lieu bai hat, moi id lai nam tren HDD khac nhau nen phai co doan code nay
+        if ($songID <= 8899)
+            $path = '/data2/'.$songName;
+
+        if ($songID >= 8900 and $songID <= 9999)
+            $path = '/'.$songName;
+
+        if ($songID >= 10000 and $songID <= 20630)
+            $path = '/data2/'.$songName;
+
+        if ($songID >= 20631)
+            $path = '/'.$songName;
+        
+        //lay link bai hat
+        $secret = '123host'; // Khoa bao mat
+        $url_base = 'http://103.255.239.200';
+
+        $expire = time() +  10*60*1000;
+        $md5 = base64_encode(md5($secret . $path . $expire, true));
+        $md5 = strtr($md5, '+/', '-_');
+        $md5 = str_replace('=', '', $md5);
+
+        return $url_base.$path."?key=".$md5."&e=".$expire;
+    }
+
 
 
     // Utility Functions
@@ -88,7 +118,7 @@ class Song extends Base
             'wildcard'    => $this->wildcard,
             'name'        => $this->name,
             'description' => $this->description,
-            'link'        => $this->link,
+            'link'        => $this->getUrl(),
             'type'        => $this->type,
             'sub_link'    => $this->sub_link,
             'image'       => $this->image,
@@ -96,7 +126,7 @@ class Song extends Base
             'play'        => intval($this->play),
             'vote'        => intval($this->vote),
             'author'      => isset($this->author->name) ? $this->author->name : 'Unknown',
-            'singers'     => empty($this->singers) ? '' : $this->singers[0]['name'],
+            'singers'     => isset($this->singers[0]['name']) ? $this->singers[0]['name'] : '',
             'publish_at'  => date_format($this->publish_at, 'Y-m-d H:i:s'),
         ];
     }
