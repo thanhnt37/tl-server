@@ -24,6 +24,7 @@ class Song extends Base
         'wildcard',
         'name',
         'description',
+        'file_name',
         'link',
         'type',
         'sub_link',
@@ -83,7 +84,6 @@ class Song extends Base
     public function toAPIArray()
     {
         return [
-            'id'          => $this->id,
             'code'        => $this->code,
             'wildcard'    => $this->wildcard,
             'name'        => $this->name,
@@ -96,7 +96,7 @@ class Song extends Base
             'play'        => intval($this->play),
             'vote'        => intval($this->vote),
             'author'      => isset($this->author->name) ? $this->author->name : 'Unknown',
-            'singers'     => empty($this->singers) ? [] : $this->singers->pluck('name'),
+            'singers'     => empty($this->singers) ? '' : $this->singers[0]['name'],
             'publish_at'  => date_format($this->publish_at, 'Y-m-d H:i:s'),
         ];
     }

@@ -15,12 +15,13 @@ class CreatesongsTable extends Migration
         Schema::create('songs', function (Blueprint $table) {
             $table->bigIncrements('id');
 
-            $table->string('code')->unique();
-            $table->string('wildcard')->unique();
+            $table->string('code')->nullable();
+            $table->string('wildcard')->nullable();
             $table->string('name');
             $table->text('description')->nullable();
 
-            $table->string('link');
+            $table->string('file_name')->nullable();
+            $table->string('link')->nullable();
             $table->string('type')->nullable()->default('mp4');
             $table->string('sub_link')->nullable()->default(null);
 

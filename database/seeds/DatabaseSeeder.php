@@ -12,7 +12,10 @@ class DatabaseSeeder extends Seeder
     {
         Model::unguard();
 
-        $this->call('AdminUserTableSeeder');
+        $this->call(AdminUserTableSeeder::class);
+        $this->call(SongTableSeeder::class);
+        $this->call(SingerTableSeeder::class);
+        $this->call(SingerSongsTableSeeder::class);
 
         if (\App::environment() === 'testing') {
             // Add More Seed For Testing

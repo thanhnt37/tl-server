@@ -21,6 +21,7 @@ class Singer extends Base
      */
     protected $fillable = [
         'name',
+        'slug_name',
         'description',
         'image',
     ];
