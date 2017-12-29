@@ -23,6 +23,7 @@ class CreatesongsTable extends Migration
             $table->string('file_name')->nullable();
             $table->string('link')->nullable();
             $table->string('type')->nullable()->default('mp4');
+            $table->tinyInteger('mode_play')->nullable()->default(0);
             $table->string('sub_link')->nullable()->default(null);
 
             $table->string('image')->nullable();
