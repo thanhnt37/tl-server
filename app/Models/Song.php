@@ -115,12 +115,13 @@ class Song extends Base
     public function toAPIArray()
     {
         return [
+            'id'          => $this->id,
             'code'        => $this->code,
             'wildcard'    => $this->wildcard,
             'name'        => $this->name,
             'description' => $this->description,
             'link'        => $this->getUrl(),
-            'type'        => $this->type,
+            'type'        => pathinfo($this->file_name, PATHINFO_EXTENSION),
             'mode_play'   => intval($this->mode_play),
             'sub_link'    => $this->sub_link,
             'image'       => $this->image,
