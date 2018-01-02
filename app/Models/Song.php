@@ -77,6 +77,10 @@ class Song extends Base
 
     public function getUrl()
     {
+        if( empty($this->file_name) || $this->file_name == '' ) {
+            return '';
+        }
+
         $songName = $this->file_name;
         $songID = substr($songName, 0, -4);
 
