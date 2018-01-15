@@ -104,7 +104,7 @@ class SaleController extends Controller
             return redirect()->back()->withErrors(trans('admin.errors.general.save_failed'));
         }
 
-        return redirect()->action('Admin\SaleController@index')
+        return redirect()->action('Admin\SaleController@create')
             ->with('message-success', trans('admin.messages.general.create_success'));
     }
 
