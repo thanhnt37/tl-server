@@ -26,7 +26,7 @@ class CreatesongsTable extends Migration
             $table->tinyInteger('mode_play')->nullable()->default(0);
             $table->string('sub_link')->nullable()->default(null);
 
-            $table->string('image')->nullable();
+            $table->unsignedBigInteger('cover_image_id')->nullable()->default(0);
             $table->unsignedBigInteger('view')->nullable()->default(0);
             $table->unsignedBigInteger('play')->nullable()->default(0);
             $table->unsignedBigInteger('vote')->nullable()->default(0);

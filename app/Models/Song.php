@@ -29,7 +29,7 @@ class Song extends Base
         'type',
         'mode_play',
         'sub_link',
-        'image',
+        'cover_image_id',
         'view',
         'play',
         'vote',
@@ -55,6 +55,11 @@ class Song extends Base
     }
 
     // Relations
+    public function coverImage()
+    {
+        return $this->hasOne(\App\Models\Image::class, 'cover_image_id', 'id');
+    }
+
     public function author()
     {
         return $this->belongsTo(\App\Models\Author::class, 'author_id', 'id');
@@ -128,7 +133,7 @@ class Song extends Base
             'type'        => pathinfo($this->file_name, PATHINFO_EXTENSION),
             'mode_play'   => intval($this->mode_play),
             'sub_link'    => $this->sub_link,
-            'image'       => $this->image,
+            'cover_image' => isset($this->coverImage->url) ? $this->coverImage->url : 'http://placehold.it/100x100?text=No%20Image',
             'view'        => intval($this->view),
             'play'        => intval($this->play),
             'vote'        => intval($this->vote),
