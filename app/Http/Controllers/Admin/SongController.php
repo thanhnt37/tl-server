@@ -13,6 +13,9 @@ use App\Repositories\SingerSongRepositoryInterface;
 use App\Repositories\AlbumRepositoryInterface;
 use App\Repositories\GenreRepositoryInterface;
 use App\Repositories\SingerRepositoryInterface;
+use App\Services\FileUploadServiceInterface;
+use App\Services\ImageServiceInterface;
+use App\Repositories\ImageRepositoryInterface;
 
 class SongController extends Controller
 {
@@ -41,6 +44,15 @@ class SongController extends Controller
     /** @var \App\Repositories\SingerRepositoryInterface */
     protected $singerRepository;
 
+    /** @var \App\Services\FileUploadServiceInterface */
+    protected $fileUploadService;
+
+    /** @var  \App\Services\ImageServiceInterface */
+    protected $imageService;
+
+    /** @var  \App\Repositories\ImageRepositoryInterface */
+    protected $imageRepository;
+
     public function __construct(
         SongRepositoryInterface         $songRepository,
         AuthorRepositoryInterface       $authorRepository,
@@ -49,7 +61,10 @@ class SongController extends Controller
         SingerSongRepositoryInterface   $singerSongRepository,
         AlbumRepositoryInterface        $albumRepository,
         GenreRepositoryInterface        $genreRepository,
-        SingerRepositoryInterface       $singerRepository
+        SingerRepositoryInterface       $singerRepository,
+        FileUploadServiceInterface      $fileUploadService,
+        ImageServiceInterface           $imageService,
+        ImageRepositoryInterface        $imageRepository
     )
     {
         $this->songRepository           = $songRepository;
@@ -60,6 +75,9 @@ class SongController extends Controller
         $this->albumRepository          = $albumRepository;
         $this->genreRepository          = $genreRepository;
         $this->singerRepository         = $singerRepository;
+        $this->fileUploadService        = $fileUploadService;
+        $this->imageService             = $imageService;
+        $this->imageRepository          = $imageRepository;
     }
 
     /**
@@ -114,9 +132,48 @@ class SongController extends Controller
      */
     public function store(SongRequest $request)
     {
-        $input = $request->only(['code','wildcard','name','description','author_id','link','type','sub_link','image','view','play','vote','publish_at']);
+        $input = $request->only(
+            [
+                'code','wildcard','name',
+                'description','author_id',
+                'link','type','sub_link','image',
+                'view','play','vote','publish_at'
+            ]
+        );
 
         $song = $this->songRepository->create($input);
+
+        if ($request->hasFile('cover_image')) {
+            $file = $request->file('cover_image');
+
+            $newImage = $this->fileUploadService->upload(
+                'song_cover_image',
+                $file,
+                [
+                    'entity_type' => 'song_cover_image',
+                    'entity_id'   => $song->id,
+                    'title'       => $request->input('name', ''),
+                ]
+            );
+
+            if (!empty($newImage)) {
+                $this->songRepository->update($song, ['cover_image_id' => $newImage->id]);
+            }
+        } else {
+            $imageUrl = $request->get('image_url', '');
+            if( $imageUrl != '' ) {
+                $newImage = $this->imageRepository->create(
+                    [
+                        'url'      => $imageUrl,
+                        'is_local' => false
+                    ]
+                );
+
+                if (!empty($newImage)) {
+                    $this->songRepository->update($song, ['cover_image_id' => $newImage->id]);
+                }
+            }
+        }
 
         if (empty( $song )) {
             return redirect()->back()->withErrors(trans('admin.errors.general.save_failed'));
@@ -186,7 +243,59 @@ class SongController extends Controller
         if (empty( $song )) {
             abort(404);
         }
-        $input = $request->only(['code','wildcard','name','description','author_id','link','type','sub_link','image','view','play','vote','publish_at']);
+        $input = $request->only(
+            [
+                'code','wildcard','name',
+                'description','author_id','link',
+                'type','sub_link',
+                'view','play','vote','publish_at'
+            ]
+        );
+
+        if ($request->hasFile('cover_image')) {
+            $currentImage = $song->coverImage;
+            $file = $request->file('cover_image');
+
+            $newImage = $this->fileUploadService->upload(
+                'song_cover_image',
+                $file,
+                [
+                    'entity_type' => 'song_cover_image',
+                    'entity_id'   => $song->id,
+                    'title'       => $request->input('name', ''),
+                ]
+            );
+
+            if (!empty($newImage)) {
+                $this->songRepository->update($song, ['cover_image_id' => $newImage->id]);
+
+                if (!empty($currentImage)) {
+                    $this->fileUploadService->delete($currentImage);
+                }
+            }
+        } else {
+            $imageUrl = $request->get('image_url', '');
+            if( $imageUrl != '' ) {
+                $currentImage = $song->coverImage;
+                if( !empty($currentImage) ) {
+                    $this->imageRepository->update(
+                        $currentImage,
+                        [
+                            'url'      => $imageUrl,
+                            'is_local' => false
+                        ]
+                    );
+                } else {
+                    $image = $this->imageRepository->create(
+                        [
+                            'url'      => $imageUrl,
+                            'is_local' => false
+                        ]
+                    );
+                    $input['cover_image_id'] = $image->id;
+                }
+            }
+        }
 
         $this->songRepository->update($song, $input);
 

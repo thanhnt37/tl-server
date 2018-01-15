@@ -57,7 +57,7 @@ class Song extends Base
     // Relations
     public function coverImage()
     {
-        return $this->hasOne(\App\Models\Image::class, 'cover_image_id', 'id');
+        return $this->hasOne(\App\Models\Image::class, 'id', 'cover_image_id');
     }
 
     public function author()
