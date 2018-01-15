@@ -133,7 +133,7 @@ class Song extends Base
             'type'        => pathinfo($this->file_name, PATHINFO_EXTENSION),
             'mode_play'   => intval($this->mode_play),
             'sub_link'    => $this->sub_link,
-            'cover_image' => isset($this->coverImage->url) ? $this->coverImage->url : 'http://placehold.it/100x100?text=No%20Image',
+            'cover_image' => !empty($this->coverImage) ? $this->coverImage->present()->url : 'http://placehold.it/640x480?text=No%20Image',
             'view'        => intval($this->view),
             'play'        => intval($this->play),
             'vote'        => intval($this->vote),
