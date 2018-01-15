@@ -136,7 +136,7 @@ class SongController extends Controller
             [
                 'code','wildcard','name',
                 'description','author_id',
-                'link','type','sub_link','image',
+                'link','type','sub_link','mode_play',
                 'view','play','vote','publish_at'
             ]
         );
@@ -247,7 +247,7 @@ class SongController extends Controller
             [
                 'code','wildcard','name',
                 'description','author_id','link',
-                'type','sub_link',
+                'type','sub_link', 'mode_play',
                 'view','play','vote','publish_at'
             ]
         );
@@ -267,7 +267,7 @@ class SongController extends Controller
             );
 
             if (!empty($newImage)) {
-                $this->songRepository->update($song, ['cover_image_id' => $newImage->id]);
+                $input['cover_image_id'] = $newImage->id;
 
                 if (!empty($currentImage)) {
                     $this->fileUploadService->delete($currentImage);

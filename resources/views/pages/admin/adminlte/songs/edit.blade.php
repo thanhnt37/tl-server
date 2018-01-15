@@ -158,10 +158,21 @@
                 </div>
 
                 <div class="row">
-                    <div class="col-md-6">
+                    <div class="col-md-12">
                         <div class="form-group @if ($errors->has('image_url')) has-error @endif">
                             <label for="image_url">Image URL</label>
                             <input type="text" class="form-control" id="image_url" name="image_url" value="{{ old('image_url') ? old('image_url') : (!empty($song->coverImage) ? $song->coverImage->present()->url : '') }}">
+                        </div>
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="col-md-6">
+                        <div class="form-group @if ($errors->has('mode_play')) has-error @endif">
+                            <label for="mode_play">Mode Play</label>
+                            <select class="form-control" name="mode_play" id="mode_play" required>
+                                <option value="0" @if( (old('mode_play') && old('mode_play') == 0) || ( $song->mode_play == 0) ) selected @endif >Online</option>
+                                <option value="1" @if( (old('mode_play') && old('mode_play') == 1) || ( $song->mode_play == 1) ) selected @endif >Offline</option>
+                            </select>
                         </div>
                     </div>
 
