@@ -22,7 +22,8 @@ class Album extends Base
     protected $fillable = [
         'name',
         'description',
-        'image',
+        'cover_image_id',
+        'background_image_id',
         'vote',
         'publish_at',
     ];
@@ -45,6 +46,16 @@ class Album extends Base
     }
 
     // Relations
+    public function coverImage()
+    {
+        return $this->hasOne(\App\Models\Image::class, 'id', 'cover_image_id');
+    }
+
+    public function backgroundImage()
+    {
+        return $this->hasOne(\App\Models\Image::class, 'id', 'background_image_id');
+    }
+
     public function songs()
     {
         return $this->belongsToMany(\App\Models\Song::class, AlbumSong::getTableName(), 'album_id', 'song_id');
@@ -59,12 +70,13 @@ class Album extends Base
     public function toAPIArray()
     {
         return [
-            'id'          => $this->id,
-            'name'        => $this->name,
-            'description' => $this->description,
-            'image'       => $this->image,
-            'vote'        => intval($this->vote),
-            'publish_at'  => date_format($this->publish_at, 'Y-m-d H:i:s'),
+            'id'               => $this->id,
+            'name'             => $this->name,
+            'description'      => $this->description,
+            'background_image' => !empty($this->backgroundImage) ? $this->backgroundImage->present()->url : 'http://placehold.it/640x480?text=No%20Image',
+            'cover_image'      => !empty($this->coverImage) ? $this->coverImage->present()->url : 'http://placehold.it/640x480?text=No%20Image',
+            'vote'             => intval($this->vote),
+            'publish_at'       => date_format($this->publish_at, 'Y-m-d H:i:s'),
         ];
     }
 

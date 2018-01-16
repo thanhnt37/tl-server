@@ -241,11 +241,12 @@ $factory->define(App\Models\Author::class, function (Faker\Generator $faker)
 $factory->define(App\Models\Album::class, function (Faker\Generator $faker)
 {
     return [
-        'name'        => $faker->sentence,
-        'description' => $faker->sentences(10, true),
-        'image'       => $faker->imageUrl(),
-        'vote'        => rand(20, 200),
-        'publish_at'  => $faker->dateTime,
+        'name'                => $faker->sentence,
+        'description'         => $faker->sentences(10, true),
+        'cover_image_id'      => 0,
+        'background_image_id' => 0,
+        'vote'                => rand(20, 200),
+        'publish_at'          => $faker->dateTime,
     ];
 });
 
