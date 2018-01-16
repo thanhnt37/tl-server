@@ -39,7 +39,8 @@
                             results: data.data
                         };
                     }
-                }
+                },
+                cache: true
             });
         });
     </script>

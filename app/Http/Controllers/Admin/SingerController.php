@@ -108,14 +108,13 @@ class SingerController extends Controller
         }
 
         $exceptSongs = $this->singerSongRepository->getBySingerId($id)->pluck('singer_id');
-        $songs = $this->songRepository->getBlankModel()->whereNotIn('id', $exceptSongs)->get();
+//        $songs = $this->songRepository->getBlankModel()->whereNotIn('id', $exceptSongs)->get();
 
         return view(
             'pages.admin.' . config('view.admin') . '.singers.edit',
             [
                 'isNew'  => false,
                 'singer' => $singer,
-                'songs'  => $songs
             ]
         );
     }

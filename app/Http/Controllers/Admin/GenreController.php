@@ -109,14 +109,13 @@ class GenreController extends Controller
         }
 
         $exceptSongs = $this->genreSongRepository->getByGenreId($id)->pluck('song_id');
-        $songs = $this->songRepository->getBlankModel()->whereNotIn('id', $exceptSongs)->get();
+//        $songs = $this->songRepository->getBlankModel()->whereNotIn('id', $exceptSongs)->get();
 
         return view(
             'pages.admin.' . config('view.admin') . '.genres.edit',
             [
                 'isNew' => false,
                 'genre' => $genre,
-                'songs' => $songs
             ]
         );
     }

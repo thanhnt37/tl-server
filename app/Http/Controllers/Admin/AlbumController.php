@@ -108,14 +108,13 @@ class AlbumController extends Controller
         }
 
         $exceptSongs = $this->albumSongRepository->getByAlbumId($id)->pluck('song_id');
-        $songs = $this->songRepository->getBlankModel()->whereNotIn('id', $exceptSongs)->get();
+//        $songs = $this->songRepository->getBlankModel()->whereNotIn('id', $exceptSongs)->get();
 
         return view(
             'pages.admin.' . config('view.admin') . '.albums.edit',
             [
                 'isNew' => false,
                 'album' => $album,
-                'songs' => $songs
             ]
         );
     }
