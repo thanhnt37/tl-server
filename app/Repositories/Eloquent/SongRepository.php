@@ -54,4 +54,27 @@ class SongRepository extends SingleKeyModelRepository implements SongRepositoryI
 
         return $query->where('updated_at', '>', $datetime)->orderBy($order, $direction)->offset($offset)->limit($limit)->get();
     }
+
+    /**
+     * Search songs by keyword
+     *
+     * @param   string  $keyword
+     *
+     * @return  mixed
+     * */
+    public function search($keyword)
+    {
+        $songModel = $this->getBlankModel();
+
+        $songModel = $songModel->where(function ($subquery) use ($keyword)
+        {
+            $subquery->where('name', 'like', '%'.$keyword.'%')
+                ->orWhere('wildcard', 'like', '%'.$keyword.'%')
+                ->orWhere('code', 'like', '%'.$keyword.'%')
+                ->orWhere('file_name', 'like', '%'.$keyword.'%')
+                ->orWhere('description', 'like', '%'.$keyword.'%');
+        });
+
+        return $songModel->get();
+    }
 }

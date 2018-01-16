@@ -3,6 +3,7 @@
 use App\Http\Requests;
 use App\Http\Controllers\Controller;
 
+use App\Http\Responses\API\V1\Response;
 use App\Repositories\SongRepositoryInterface;
 use App\Http\Requests\Admin\SongRequest;
 use App\Http\Requests\PaginationRequest;
@@ -389,5 +390,24 @@ class SongController extends Controller
         }
 
         return redirect()->action('Admin\SongController@show', [$id])->with('message-success', trans('admin.messages.general.update_success'));
+    }
+
+    public function search(Requests\BaseRequest $request)
+    {
+        $keyword = $request->get('keyword', '');
+        if( $keyword == '' ) {
+            return Response::response(200);
+        }
+
+        $songs = $this->songRepository->search($keyword);
+        $data = [];
+        foreach( $songs as $song ) {
+            $tmp['id']   = $song->id;
+            $tmp['text'] = $song->name . ( isset($song->singers[0]['name']) ? (' - ' . $song->singers[0]['name']) : '' );
+
+            $data[] = $tmp;
+        }
+
+        return Response::response(200, $data);
     }
 }

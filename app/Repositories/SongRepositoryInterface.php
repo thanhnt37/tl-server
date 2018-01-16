@@ -23,4 +23,13 @@ interface SongRepositoryInterface extends SingleKeyModelRepositoryInterface
      * @return  mixed
      * */
     public function countByTimestamp($timestamp);
+
+    /**
+     * Search songs by keyword
+     *
+     * @param   string  $keyword
+     *
+     * @return  mixed
+     * */
+    public function search($keyword);
 }

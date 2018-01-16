@@ -38,6 +38,7 @@
             \Route::resource('box-versions', 'Admin\BoxVersionController');
 
             \Route::resource('authors', 'Admin\AuthorController');
+            \Route::get('songs/search', 'Admin\SongController@search');
             \Route::resource('songs', 'Admin\SongController');
             \Route::post('song-albums/{song_id}', 'Admin\SongController@addNewAlbum');
             \Route::post('song-genres/{song_id}', 'Admin\SongController@addNewGenre');

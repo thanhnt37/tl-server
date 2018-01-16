@@ -19,10 +19,27 @@
     <script src="{{ \URLHelper::asset('libs/plugins/select2/select2.full.min.js', 'admin') }}"></script>
     <script>
         $('.datetime-field').datetimepicker({'format': 'YYYY-MM-DD HH:mm:ss', 'defaultDate': new Date()});
+
         $(document).ready(function () {
             $(".new-songs").select2({
                 placeholder: "Choose new song to album",
-                allowClear: true
+                allowClear: true,
+                ajax: {
+                    delay: 500,
+                    url: function (params) {
+                        return '{{action('Admin\SongController@search')}}';
+                    },
+                    data: function (params) {
+                        return {
+                            keyword: params.term
+                        };
+                    },
+                    processResults: function (data) {
+                        return {
+                            results: data.data
+                        };
+                    }
+                }
             });
         });
     </script>
@@ -180,11 +197,11 @@
                             <div class="form-group">
                                 <label for="employee-id">Add New Song</label>
                                 <select class="form-control new-songs" name="new-songs[]" required id="new-songs" style="margin-bottom: 15px;" multiple="multiple">
-                                    @foreach( $songs as $index => $song )
-                                        <option value="{!! $song->id !!}">
-                                            {{ $song->name }}
-                                        </option>
-                                    @endforeach
+                                    {{--@foreach( $songs as $index => $song )--}}
+                                        {{--<option value="{!! $song->id !!}">--}}
+                                            {{--{{ $song->name }}--}}
+                                        {{--</option>--}}
+                                    {{--@endforeach--}}
                                 </select>
                             </div>
                         </div>
