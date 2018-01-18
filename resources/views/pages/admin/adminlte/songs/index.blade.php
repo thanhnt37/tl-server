@@ -49,6 +49,7 @@ Songs
                 <th>{!! \PaginationHelper::sort('code', trans('admin.pages.songs.columns.code')) !!}</th>
                 <th>{!! \PaginationHelper::sort('wildcard', trans('admin.pages.songs.columns.wildcard')) !!}</th>
                 <th>{!! \PaginationHelper::sort('name', trans('admin.pages.songs.columns.name')) !!}</th>
+                <th>{!! \PaginationHelper::sort('mode_play', 'Mode Play') !!}</th>
                 <th>{!! \PaginationHelper::sort('vote', trans('admin.pages.songs.columns.vote')) !!}</th>
                 <th>{!! \PaginationHelper::sort('vote', trans('admin.pages.songs.columns.view')) !!}</th>
 
@@ -60,6 +61,13 @@ Songs
                     <td>{{ $song->code }}</td>
                     <td>{{ $song->wildcard }}</td>
                     <td>{{ $song->name }}</td>
+                    <td>
+                        @if($song->mode_play)
+                            Online
+                        @else
+                            Offline
+                        @endif
+                    </td>
                     <td>{{ $song->vote }}</td>
                     <td>{{ $song->view }}</td>
 
