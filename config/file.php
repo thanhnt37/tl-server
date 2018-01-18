@@ -3,10 +3,10 @@
 return [
     'acceptable' => [
         'file'  => [
-            'application/pdf'          => 'pdf',
-            'application/octet-stream' => '',
-            'application/zip'          => 'zip',
-            'text/plain'               => 'txt',
+            'application/pdf'                         => 'pdf',
+            'application/octet-stream'                => '',
+            'application/zip'                         => 'zip',
+            'text/plain'                              => 'txt',
             'application/vnd.android.package-archive' => 'apk',
         ],
         'image' => [
@@ -16,7 +16,7 @@ return [
         ],
     ],
     'categories' => [
-        'article_cover_image' => [
+        'article_cover_image'    => [
             'name'        => 'article_cover_image',
             'type'        => 'image',
             'region'      => env('AWS_IMAGE_REGION'),
@@ -38,7 +38,7 @@ return [
             'local_type'  => 'common',
             'local_path'  => 'img/articles/'
         ],
-        'article_image'       => [
+        'article_image'          => [
             'name'        => 'article_image',
             'type'        => 'image',
             'region'      => env('AWS_IMAGE_REGION'),
@@ -54,7 +54,7 @@ return [
             'local_type'  => 'common',
             'local_path'  => 'img/articles/'
         ],
-        'user_profile_image'  => [
+        'user_profile_image'     => [
             'name'        => 'user_profile_image',
             'type'        => 'image',
             'region'      => env('AWS_IMAGE_REGION'),
@@ -71,7 +71,7 @@ return [
             'local_type'  => 'common',
             'local_path'  => 'img/users/'
         ],
-        'ogp_image'           => [
+        'ogp_image'              => [
             'name'        => 'ogp_image',
             'type'        => 'image',
             'region'      => env('AWS_IMAGE_REGION'),
@@ -86,7 +86,7 @@ return [
             'local_type'  => 'common',
             'local_path'  => 'img/ogp/'
         ],
-        'twitter_card_image'  => [
+        'twitter_card_image'     => [
             'name'        => 'twitter_card_image',
             'type'        => 'image',
             'region'      => env('AWS_IMAGE_REGION'),
@@ -101,7 +101,7 @@ return [
             'local_type'  => 'common',
             'local_path'  => 'img/ogp/'
         ],
-        'kara_apk'            => [
+        'kara_apk'               => [
             'name'        => 'kara_apk',
             'type'        => 'file',
             'region'      => env('AWS_IMAGE_REGION'),
@@ -113,7 +113,7 @@ return [
             'local_type'  => 'common',
             'local_path'  => 'apk/'
         ],
-        'song_cover_image'            => [
+        'song_cover_image'       => [
             'name'        => 'song_cover_image',
             'type'        => 'image',
             'region'      => env('AWS_IMAGE_REGION'),
@@ -126,6 +126,34 @@ return [
             'format'      => 'png',
             'local_type'  => 'common',
             'local_path'  => 'img/songs/'
+        ],
+        'album_cover_image'      => [
+            'name'        => 'album_cover_image',
+            'type'        => 'image',
+            'region'      => env('AWS_IMAGE_REGION'),
+            'buckets'     => [
+                env('AWS_IMAGE_BUCKET'),
+            ],
+            'size'        => [640, 480],
+            'thumbnails'  => [],
+            'seed_prefix' => 'album_cover_image',
+            'format'      => 'png',
+            'local_type'  => 'common',
+            'local_path'  => 'img/albums/'
+        ],
+        'album_background_image' => [
+            'name'        => 'album_background_image',
+            'type'        => 'image',
+            'region'      => env('AWS_IMAGE_REGION'),
+            'buckets'     => [
+                env('AWS_IMAGE_BUCKET'),
+            ],
+            'size'        => [640, 480],
+            'thumbnails'  => [],
+            'seed_prefix' => 'album_background_image',
+            'format'      => 'png',
+            'local_type'  => 'common',
+            'local_path'  => 'img/albums/'
         ],
     ],
 ];

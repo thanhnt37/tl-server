@@ -42,6 +42,13 @@
                 },
                 cache: true
             });
+
+            $('#cover-image').change(function (event) {
+                $('#cover-image-preview').attr('src', URL.createObjectURL(event.target.files[0]));
+            });
+            $('#background-image').change(function (event) {
+                $('#background-image-preview').attr('src', URL.createObjectURL(event.target.files[0]));
+            });
         });
     </script>
 @stop
@@ -86,57 +93,85 @@
             </div>
             <div class="box-body">
                 <div class="row">
-                    <div class="col-lg-5">
+                    <div class="col-lg-6">
+                        <div class="row">
+                            <div class="col-md-12">
+                                <div class="form-group @if ($errors->has('cover_image_url')) has-error @endif">
+                                    <label for="cover_image_url">Cover Image URL</label>
+                                    <input type="text" class="form-control" id="cover_image_url" name="cover_image_url" value="{{ old('cover_image_url') ? old('cover_image_url') : (!empty($album->coverImage) ? $album->coverImage->present()->url : '') }}">
+                                </div>
+                            </div>
+                        </div>
+
                         <div class="form-group text-center">
-                            @if( !empty($album->image) )
-                                <img id="profile-image-preview" style="max-width: 500px; width: 100%;" src="{!! $album->image !!}" alt="" class="margin"/>
+                            @if( !empty($album->coverImage) )
+                                <img id="cover-image-preview" style="max-width: 500px; width: 100%;" src="{!! $album->coverImage->present()->url !!}" alt="" class="margin"/>
                             @else
-                                <img id="profile-image-preview" style="max-width: 500px; width: 100%;" src="{!! \URLHelper::asset('img/no_image.jpg', 'common') !!}" alt="" class="margin"/>
+                                <img id="cover-image-preview" style="max-width: 500px; width: 100%;" src="{!! \URLHelper::asset('img/no_image.jpg', 'common') !!}" alt="" class="margin"/>
                             @endif
+
                             <input type="file" style="display: none;" id="cover-image" name="cover_image">
-                            <p class="help-block" style="font-weight: bolder;">Cover Image </p>
+                            <p class="help-block" style="font-weight: bolder;">
+                                Cover Image
+                                <label for="cover-image" style="font-weight: 100; color: #549cca; margin-left: 10px; cursor: pointer;">@lang('admin.pages.common.buttons.edit')</label>
+                            </p>
                         </div>
                     </div>
-                    <div class="col-lg-7">
-                        <table class="edit-user-profile">
-                            <tr class="@if ($errors->has('name')) has-error @endif">
-                                <td>
-                                    <label for="name">@lang('admin.pages.albums.columns.name')</label>
-                                </td>
-                                <td>
-                                    <input type="text" class="form-control" id="name" name="name" required value="{{ old('name') ? old('name') : $album->name }}">
-                                </td>
-                            </tr>
-                            <tr class="@if ($errors->has('vote')) has-error @endif">
-                                <td>
-                                    <label for="vote">@lang('admin.pages.albums.columns.vote')</label>
-                                </td>
-                                <td>
-                                    <input type="number" min="0" class="form-control" id="vote" name="vote" value="{{ old('vote') ? old('vote') : $album->vote }}">
-                                </td>
-                            </tr>
-                            <tr class="@if ($errors->has('publish_at')) has-error @endif">
-                                <td>
-                                    <label for="publish_at">@lang('admin.pages.albums.columns.publish_at')</label>
-                                </td>
-                                <td>
-                                    <div class="input-group date datetime-field">
-                                        <input type="text" class="form-control" id="publish_at" name="publish_at" value="{{ old('publish_at') ? old('publish_at') : $album->publish_at }}" style="margin-bottom: 0">
-                                        <span class="input-group-addon">
-                                            <span class="glyphicon glyphicon-calendar"></span>
-                                        </span>
-                                    </div>
-                                </td>
-                            </tr>
-                            <tr class="@if ($errors->has('image')) has-error @endif">
-                                <td>
-                                    <label for="image">@lang('admin.pages.albums.columns.image')</label>
-                                </td>
-                                <td>
-                                    <input type="text" class="form-control" id="image" name="image" value="{{ old('image') ? old('image') : $album->image }}" style="margin-top: 15px;">
-                                </td>
-                            </tr>
-                        </table>
+
+                    <div class="col-lg-6">
+                        <div class="row">
+                            <div class="col-md-12">
+                                <div class="form-group @if ($errors->has('background_image_url')) has-error @endif">
+                                    <label for="background_image_url">Background Image URL</label>
+                                    <input type="text" class="form-control" id="background_image_url" name="background_image_url" value="{{ old('background_image_url') ? old('background_image_url') : (!empty($album->backgroundImage) ? $album->backgroundImage->present()->url : '') }}">
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="form-group text-center">
+                            @if( !empty($album->backgroundImage) )
+                                <img id="background-image-preview" style="max-width: 500px; width: 100%;" src="{!! $album->backgroundImage->present()->url !!}" alt="" class="margin"/>
+                            @else
+                                <img id="background-image-preview" style="max-width: 500px; width: 100%;" src="{!! \URLHelper::asset('img/no_image.jpg', 'common') !!}" alt="" class="margin"/>
+                            @endif
+
+                            <input type="file" style="display: none;" id="background-image" name="background_image">
+                            <p class="help-block" style="font-weight: bolder;">
+                                Background Image
+                                <label for="background-image" style="font-weight: 100; color: #549cca; margin-left: 10px; cursor: pointer;">@lang('admin.pages.common.buttons.edit')</label>
+                            </p>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="row">
+                    <div class="col-md-12">
+                        <div class="form-group @if ($errors->has('name')) has-error @endif">
+                            <label for="name">@lang('admin.pages.albums.columns.name')</label>
+                            <input type="text" class="form-control" id="name" name="name" required value="{{ old('name') ? old('name') : $album->name }}">
+                        </div>
+                    </div>
+                </div>
+
+                <div class="row">
+                    <div class="col-md-6">
+                        <div class="form-group @if ($errors->has('publish_at')) has-error @endif">
+                            <label for="publish_at">@lang('admin.pages.albums.columns.publish_at')</label>
+
+                            <div class="input-group date datetime-field">
+                                <input type="text" class="form-control" id="publish_at" name="publish_at" value="{{ old('publish_at') ? old('publish_at') : $album->publish_at }}" style="margin-bottom: 0">
+                                <span class="input-group-addon">
+                                    <span class="glyphicon glyphicon-calendar"></span>
+                                </span>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="col-md-6">
+                        <div class="form-group @if ($errors->has('vote')) has-error @endif">
+                            <label for="vote">@lang('admin.pages.albums.columns.vote')</label>
+                            <input type="number" min="0" class="form-control" id="vote" name="vote" value="{{ old('vote') ? old('vote') : $album->vote }}">
+                        </div>
                     </div>
                 </div>
 

@@ -8,6 +8,9 @@ use App\Http\Requests\Admin\AlbumRequest;
 use App\Http\Requests\PaginationRequest;
 use App\Repositories\AlbumSongRepositoryInterface;
 use App\Repositories\SongRepositoryInterface;
+use App\Services\FileUploadServiceInterface;
+use App\Services\ImageServiceInterface;
+use App\Repositories\ImageRepositoryInterface;
 
 class AlbumController extends Controller
 {
@@ -20,15 +23,30 @@ class AlbumController extends Controller
     /** @var \App\Repositories\SongRepositoryInterface */
     protected $songRepository;
 
+    /** @var \App\Services\FileUploadServiceInterface */
+    protected $fileUploadService;
+
+    /** @var  \App\Services\ImageServiceInterface */
+    protected $imageService;
+
+    /** @var  \App\Repositories\ImageRepositoryInterface */
+    protected $imageRepository;
+
     public function __construct(
         AlbumRepositoryInterface        $albumRepository,
         AlbumSongRepositoryInterface    $albumSongRepository,
-        SongRepositoryInterface         $songRepository
+        SongRepositoryInterface         $songRepository,
+        FileUploadServiceInterface      $fileUploadService,
+        ImageServiceInterface           $imageService,
+        ImageRepositoryInterface        $imageRepository
     )
     {
-        $this->albumRepository      = $albumRepository;
-        $this->albumSongRepository  = $albumSongRepository;
-        $this->songRepository       = $songRepository;
+        $this->albumRepository          = $albumRepository;
+        $this->albumSongRepository      = $albumSongRepository;
+        $this->songRepository           = $songRepository;
+        $this->fileUploadService        = $fileUploadService;
+        $this->imageService             = $imageService;
+        $this->imageRepository          = $imageRepository;
     }
 
     /**
@@ -82,7 +100,7 @@ class AlbumController extends Controller
      */
     public function store(AlbumRequest $request)
     {
-        $input = $request->only(['name','description','image','vote','publish_at']);
+        $input = $request->only(['name','description','vote','publish_at']);
 
         $album = $this->albumRepository->create($input);
 
@@ -90,6 +108,70 @@ class AlbumController extends Controller
             return redirect()->back()->withErrors(trans('admin.errors.general.save_failed'));
         }
 
+        if ($request->hasFile('cover_image')) {
+            $file = $request->file('cover_image');
+
+            $newImage = $this->fileUploadService->upload(
+                'album_cover_image',
+                $file,
+                [
+                    'entity_type' => 'album_cover_image',
+                    'entity_id'   => $album->id,
+                    'title'       => $album->name,
+                ]
+            );
+
+            if (!empty($newImage)) {
+                $this->songRepository->update($album, ['cover_image_id' => $newImage->id]);
+            }
+        } else {
+            $imageUrl = $request->get('cover_image_url', '');
+            if( $imageUrl != '' ) {
+                $newImage = $this->imageRepository->create(
+                    [
+                        'url'      => $imageUrl,
+                        'is_local' => false
+                    ]
+                );
+
+                if (!empty($newImage)) {
+                    $this->songRepository->update($album, ['cover_image_id' => $newImage->id]);
+                }
+            }
+        }
+
+        if ($request->hasFile('background_image')) {
+            $file = $request->file('background_image');
+
+            $newImage = $this->fileUploadService->upload(
+                'album_background_image',
+                $file,
+                [
+                    'entity_type' => 'album_background_image',
+                    'entity_id'   => $album->id,
+                    'title'       => $album->name,
+                ]
+            );
+
+            if (!empty($newImage)) {
+                $this->songRepository->update($album, ['background_image_id' => $newImage->id]);
+            }
+        } else {
+            $imageUrl = $request->get('background_image_url', '');
+            if( $imageUrl != '' ) {
+                $newImage = $this->imageRepository->create(
+                    [
+                        'url'      => $imageUrl,
+                        'is_local' => false
+                    ]
+                );
+
+                if (!empty($newImage)) {
+                    $this->songRepository->update($album, ['background_image_id' => $newImage->id]);
+                }
+            }
+        }
+        
         return redirect()->action('Admin\AlbumController@index')
             ->with('message-success', trans('admin.messages.general.create_success'));
     }
@@ -144,7 +226,98 @@ class AlbumController extends Controller
         if (empty( $album )) {
             abort(404);
         }
-        $input = $request->only(['name','description','image','vote','publish_at']);
+
+        $input = $request->only(['name','description','vote','publish_at']);
+
+        if ($request->hasFile('cover_image')) {
+            $currentImage = $album->coverImage;
+            $file = $request->file('cover_image');
+
+            $newImage = $this->fileUploadService->upload(
+                'album_cover_image',
+                $file,
+                [
+                    'entity_type' => 'album_cover_image',
+                    'entity_id'   => $album->id,
+                    'title'       => $album->name,
+                ]
+            );
+
+            if (!empty($newImage)) {
+                $input['cover_image_id'] = $newImage->id;
+
+                if (!empty($currentImage)) {
+                    $this->fileUploadService->delete($currentImage);
+                }
+            }
+        } else {
+            $imageUrl = $request->get('cover_image_url', '');
+            if( $imageUrl != '' ) {
+                $currentImage = $album->coverImage;
+                if( !empty($currentImage) ) {
+                    $this->imageRepository->update(
+                        $currentImage,
+                        [
+                            'url'      => $imageUrl,
+                            'is_local' => false
+                        ]
+                    );
+                } else {
+                    $image = $this->imageRepository->create(
+                        [
+                            'url'      => $imageUrl,
+                            'is_local' => false
+                        ]
+                    );
+                    $input['cover_image_id'] = $image->id;
+                }
+            }
+        }
+
+        if ($request->hasFile('background_image')) {
+            $currentImage = $album->backgroundImage;
+            $file = $request->file('background_image');
+
+            $newImage = $this->fileUploadService->upload(
+                'album_background_image',
+                $file,
+                [
+                    'entity_type' => 'album_background_image',
+                    'entity_id'   => $album->id,
+                    'title'       => $album->name,
+                ]
+            );
+
+            if (!empty($newImage)) {
+                $input['background_image_id'] = $newImage->id;
+
+                if (!empty($currentImage)) {
+                    $this->fileUploadService->delete($currentImage);
+                }
+            }
+        } else {
+            $imageUrl = $request->get('background_image_url', '');
+            if( $imageUrl != '' ) {
+                $currentImage = $album->backgroundImage;
+                if( !empty($currentImage) ) {
+                    $this->imageRepository->update(
+                        $currentImage,
+                        [
+                            'url'      => $imageUrl,
+                            'is_local' => false
+                        ]
+                    );
+                } else {
+                    $image = $this->imageRepository->create(
+                        [
+                            'url'      => $imageUrl,
+                            'is_local' => false
+                        ]
+                    );
+                    $input['background_image_id'] = $image->id;
+                }
+            }
+        }
         
         $this->albumRepository->update($album, $input);
 
