@@ -7,6 +7,7 @@ use App\Http\Requests\API\V1\BoxRequest;
 use App\Http\Responses\API\V1\Response;
 use App\Repositories\BoxRepositoryInterface;
 use App\Services\BoxServiceInterface;
+use App\Services\UserServiceInterface;
 
 class BoxController extends Controller
 {
@@ -16,23 +17,42 @@ class BoxController extends Controller
     /** @var \App\Services\BoxServiceInterface */
     protected $boxService;
 
+    /** @var \App\Services\UserServiceInterface */
+    protected $userService;
+
     public function __construct(
         BoxServiceInterface         $boxService,
-        BoxRepositoryInterface      $boxRepository
+        BoxRepositoryInterface      $boxRepository,
+        UserServiceInterface        $userService
     ) {
         $this->boxService           = $boxService;
         $this->boxRepository        = $boxRepository;
+        $this->userService          = $userService;
     }
 
     public function activateDevice(BoxRequest $request)
     {
         $data = $request->only(
-            ['imei']
+            [
+                'imei',
+                'grant_type',
+                'client_id',
+                'client_secret'
+            ]
         );
+
+        $check = $this->userService->checkClient($request);
+        if( !$check ) {
+            return Response::response(40101);
+        }
 
         $box = $this->boxRepository->findByImei($data['imei']);
         if( empty($box) ) {
             return Response::response(20004);
+        }
+
+        if( $box->is_blocked ) {
+            return Response::response(40302);
         }
 
         if( !$box->is_activated ) {

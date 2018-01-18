@@ -29,6 +29,10 @@ return [
         'message'        => 'Error, Access was denied !!!',
         'httpStatusCode' => 403
     ],
+    40302 => [
+        'message'        => 'Error, This box has been blocked by Administration !!!',
+        'httpStatusCode' => 403
+    ],
     40401 => [
         'message'        => 'Error, The route is not defined !!!',
         'httpStatusCode' => 404
