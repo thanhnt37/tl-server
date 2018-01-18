@@ -37,6 +37,10 @@
                 },
                 cache: true
             });
+
+            $('#cover-image').change(function (event) {
+                $('#cover-image-preview').attr('src', URL.createObjectURL(event.target.files[0]));
+            });
         });
     </script>
 @stop
@@ -83,17 +87,29 @@
                 <div class="row">
                     <div class="col-lg-5">
                         <div class="form-group text-center">
-                            @if( !empty($singer->image) )
-                                <img id="profile-image-preview" style="max-width: 500px; width: 100%;" src="{!! $singer->image !!}" alt="" class="margin"/>
+                            @if( !empty($singer->coverImage) )
+                                <img id="cover-image-preview" style="max-width: 500px; width: 100%;" src="{!! $singer->coverImage->present()->url !!}" alt="" class="margin"/>
                             @else
-                                <img id="profile-image-preview" style="max-width: 500px; width: 100%;" src="{!! \URLHelper::asset('img/no_image.jpg', 'common') !!}" alt="" class="margin"/>
+                                <img id="cover-image-preview" style="max-width: 500px; width: 100%;" src="{!! \URLHelper::asset('img/no_image.jpg', 'common') !!}" alt="" class="margin"/>
                             @endif
+
                             <input type="file" style="display: none;" id="cover-image" name="cover_image">
-                            <p class="help-block" style="font-weight: bolder;">Cover Image </p>
+                            <p class="help-block" style="font-weight: bolder;">
+                                Cover Image
+                                <label for="cover-image" style="font-weight: 100; color: #549cca; margin-left: 10px; cursor: pointer;">@lang('admin.pages.common.buttons.edit')</label>
+                            </p>
                         </div>
                     </div>
                     <div class="col-lg-7">
                         <table class="edit-user-profile">
+                            <tr class="@if ($errors->has('willcard')) has-error @endif">
+                                <td>
+                                    <label for="wildcard">@lang('admin.pages.songs.columns.wildcard')</label>
+                                </td>
+                                <td>
+                                    <input type="text" class="form-control" id="wildcard" name="wildcard" required value="{{ old('wildcard') ? old('wildcard') : $singer->wildcard }}">
+                                </td>
+                            </tr>
                             <tr class="@if ($errors->has('name')) has-error @endif">
                                 <td>
                                     <label for="name">@lang('admin.pages.genres.columns.name')</label>
@@ -102,12 +118,12 @@
                                     <input type="text" class="form-control" id="name" name="name" required value="{{ old('name') ? old('name') : $singer->name }}">
                                 </td>
                             </tr>
-                            <tr class="@if ($errors->has('image')) has-error @endif">
+                            <tr class="@if ($errors->has('image_url')) has-error @endif">
                                 <td>
-                                    <label for="image">@lang('admin.pages.genres.columns.image')</label>
+                                    <label for="image_url">Image URL</label>
                                 </td>
                                 <td>
-                                    <input type="text" class="form-control" id="image" name="image" value="{{ old('image') ? old('image') : $singer->image }}" style="margin-top: 15px;">
+                                    <input type="text" class="form-control" id="image_url" name="image_url" value="{{ old('image_url') ? old('image_url') : (!empty($song->coverImage) ? $song->coverImage->present()->url : '') }}">
                                 </td>
                             </tr>
                         </table>

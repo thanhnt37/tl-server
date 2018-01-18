@@ -46,12 +46,14 @@ Singers
         <table class="table table-bordered">
             <tr>
                 <th style="width: 10px">{!! \PaginationHelper::sort('id', 'ID') !!}</th>
+                <th>{!! \PaginationHelper::sort('wildcard', 'Wildcard') !!}</th>
                 <th>{!! \PaginationHelper::sort('name', trans('admin.pages.singers.columns.name')) !!}</th>
                 <th style="width: 40px">@lang('admin.pages.common.label.actions')</th>
             </tr>
             @foreach( $singers as $singer )
                 <tr>
                     <td>{{ $singer->id }}</td>
+                    <td>{{ $singer->wildcard }}</td>
                     <td>{{ $singer->name }}</td>
                     <td>
                         <a href="{!! action('Admin\SingerController@show', $singer->id) !!}"

@@ -8,6 +8,9 @@ use App\Http\Requests\Admin\SingerRequest;
 use App\Http\Requests\PaginationRequest;
 use App\Repositories\SingerSongRepositoryInterface;
 use App\Repositories\SongRepositoryInterface;
+use App\Services\FileUploadServiceInterface;
+use App\Services\ImageServiceInterface;
+use App\Repositories\ImageRepositoryInterface;
 
 class SingerController extends Controller
 {
@@ -20,15 +23,30 @@ class SingerController extends Controller
     /** @var \App\Repositories\SongRepositoryInterface */
     protected $songRepository;
 
+    /** @var \App\Services\FileUploadServiceInterface */
+    protected $fileUploadService;
+
+    /** @var  \App\Services\ImageServiceInterface */
+    protected $imageService;
+
+    /** @var  \App\Repositories\ImageRepositoryInterface */
+    protected $imageRepository;
+
     public function __construct(
         SingerRepositoryInterface       $singerRepository,
         SingerSongRepositoryInterface   $singerSongRepository,
-        SongRepositoryInterface         $songRepository
+        SongRepositoryInterface         $songRepository,
+        FileUploadServiceInterface      $fileUploadService,
+        ImageServiceInterface           $imageService,
+        ImageRepositoryInterface        $imageRepository
     )
     {
         $this->singerRepository         = $singerRepository;
         $this->singerSongRepository     = $singerSongRepository;
         $this->songRepository           = $songRepository;
+        $this->fileUploadService        = $fileUploadService;
+        $this->imageService             = $imageService;
+        $this->imageRepository          = $imageRepository;
     }
 
     /**
@@ -82,12 +100,44 @@ class SingerController extends Controller
      */
     public function store(SingerRequest $request)
     {
-        $input = $request->only(['name','description','image']);
+        $input = $request->only(['name','description','wildcard']);
 
         $singer = $this->singerRepository->create($input);
 
         if (empty( $singer )) {
             return redirect()->back()->withErrors(trans('admin.errors.general.save_failed'));
+        }
+
+        if ($request->hasFile('cover_image')) {
+            $file = $request->file('cover_image');
+
+            $newImage = $this->fileUploadService->upload(
+                'singer_cover_image',
+                $file,
+                [
+                    'entity_type' => 'singer_cover_image',
+                    'entity_id'   => $singer->id,
+                    'title'       => $singer->name,
+                ]
+            );
+
+            if (!empty($newImage)) {
+                $this->songRepository->update($singer, ['cover_image_id' => $newImage->id]);
+            }
+        } else {
+            $imageUrl = $request->get('image_url', '');
+            if( $imageUrl != '' ) {
+                $newImage = $this->imageRepository->create(
+                    [
+                        'url'      => $imageUrl,
+                        'is_local' => false
+                    ]
+                );
+
+                if (!empty($newImage)) {
+                    $this->songRepository->update($singer, ['cover_image_id' => $newImage->id]);
+                }
+            }
         }
 
         return redirect()->action('Admin\SingerController@index')
@@ -144,8 +194,54 @@ class SingerController extends Controller
         if (empty( $singer )) {
             abort(404);
         }
-        $input = $request->only(['name','description','image']);
-        
+
+        $input = $request->only(['name','description','wildcard']);
+
+        if ($request->hasFile('cover_image')) {
+            $currentImage = $singer->coverImage;
+            $file = $request->file('cover_image');
+
+            $newImage = $this->fileUploadService->upload(
+                'singer_cover_image',
+                $file,
+                [
+                    'entity_type' => 'singer_cover_image',
+                    'entity_id'   => $singer->id,
+                    'title'       => $singer->name,
+                ]
+            );
+
+            if (!empty($newImage)) {
+                $input['cover_image_id'] = $newImage->id;
+
+                if (!empty($currentImage)) {
+                    $this->fileUploadService->delete($currentImage);
+                }
+            }
+        } else {
+            $imageUrl = $request->get('image_url', '');
+            if( $imageUrl != '' ) {
+                $currentImage = $singer->coverImage;
+                if( !empty($currentImage) ) {
+                    $this->imageRepository->update(
+                        $currentImage,
+                        [
+                            'url'      => $imageUrl,
+                            'is_local' => false
+                        ]
+                    );
+                } else {
+                    $image = $this->imageRepository->create(
+                        [
+                            'url'      => $imageUrl,
+                            'is_local' => false
+                        ]
+                    );
+                    $input['cover_image_id'] = $image->id;
+                }
+            }
+        }
+
         $this->singerRepository->update($singer, $input);
 
         return redirect()->action('Admin\SingerController@show', [$id])
