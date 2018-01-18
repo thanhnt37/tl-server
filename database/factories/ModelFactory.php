@@ -253,9 +253,10 @@ $factory->define(App\Models\Album::class, function (Faker\Generator $faker)
 $factory->define(App\Models\Singer::class, function (Faker\Generator $faker)
 {
     return [
-        'name'        => $faker->name(),
-        'description' => $faker->sentences(10, true),
-        'image'       => $faker->imageUrl(),
+        'wildcard'       => $faker->unique()->word,
+        'name'           => $faker->name(),
+        'description'    => $faker->sentences(10, true),
+        'cover_image_id' => 0,
     ];
 });
 

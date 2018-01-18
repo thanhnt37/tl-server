@@ -20,10 +20,11 @@ class Singer extends Base
      * @var array
      */
     protected $fillable = [
+        'wildcard',
         'name',
         'slug_name',
         'description',
-        'image',
+        'cover_image_id',
     ];
 
     /**
@@ -44,6 +45,11 @@ class Singer extends Base
     }
 
     // Relations
+    public function coverImage()
+    {
+        return $this->hasOne(\App\Models\Image::class, 'id', 'cover_image_id');
+    }
+
     public function songs()
     {
         return $this->belongsToMany(\App\Models\Song::class, SingerSong::getTableName(), 'singer_id', 'song_id');
@@ -59,9 +65,10 @@ class Singer extends Base
     {
         return [
             'id'          => $this->id,
+            'wildcard'    => $this->wildcard,
             'name'        => $this->name,
             'description' => $this->description,
-            'image'       => $this->image,
+            'cover_image' => !empty($this->coverImage) ? $this->coverImage->present()->url : 'http://placehold.it/640x480?text=No%20Image',
         ];
     }
 
