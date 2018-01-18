@@ -108,7 +108,7 @@ class GenreController extends Controller
             abort(404);
         }
 
-        $exceptSongs = $this->genreSongRepository->getByGenreId($id)->pluck('song_id');
+//        $exceptSongs = $this->genreSongRepository->getByGenreId($id)->pluck('song_id');
 //        $songs = $this->songRepository->getBlankModel()->whereNotIn('id', $exceptSongs)->get();
 
         return view(

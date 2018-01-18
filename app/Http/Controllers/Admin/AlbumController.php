@@ -189,7 +189,7 @@ class AlbumController extends Controller
             abort(404);
         }
 
-        $exceptSongs = $this->albumSongRepository->getByAlbumId($id)->pluck('song_id');
+//        $exceptSongs = $this->albumSongRepository->getByAlbumId($id)->pluck('song_id');
 //        $songs = $this->songRepository->getBlankModel()->whereNotIn('id', $exceptSongs)->get();
 
         return view(

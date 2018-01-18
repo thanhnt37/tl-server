@@ -107,7 +107,7 @@ class SingerController extends Controller
             abort(404);
         }
 
-        $exceptSongs = $this->singerSongRepository->getBySingerId($id)->pluck('singer_id');
+//        $exceptSongs = $this->singerSongRepository->getBySingerId($id)->pluck('singer_id');
 //        $songs = $this->songRepository->getBlankModel()->whereNotIn('id', $exceptSongs)->get();
 
         return view(
