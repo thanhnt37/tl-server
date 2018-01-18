@@ -143,6 +143,10 @@ class SongController extends Controller
         );
 
         $song = $this->songRepository->create($input);
+        
+        if (empty( $song )) {
+            return redirect()->back()->withErrors(trans('admin.errors.general.save_failed'));
+        }
 
         if ($request->hasFile('cover_image')) {
             $file = $request->file('cover_image');
@@ -174,10 +178,6 @@ class SongController extends Controller
                     $this->songRepository->update($song, ['cover_image_id' => $newImage->id]);
                 }
             }
-        }
-
-        if (empty( $song )) {
-            return redirect()->back()->withErrors(trans('admin.errors.general.save_failed'));
         }
 
         return redirect()->action('Admin\SongController@index')
