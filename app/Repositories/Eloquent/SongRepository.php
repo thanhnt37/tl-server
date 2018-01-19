@@ -68,11 +68,8 @@ class SongRepository extends SingleKeyModelRepository implements SongRepositoryI
 
         $songModel = $songModel->where(function ($subquery) use ($keyword)
         {
-            $subquery->where('name', 'like', '%'.$keyword.'%')
-                ->orWhere('wildcard', 'like', '%'.$keyword.'%')
-                ->orWhere('code', 'like', '%'.$keyword.'%')
-                ->orWhere('file_name', 'like', '%'.$keyword.'%')
-                ->orWhere('description', 'like', '%'.$keyword.'%');
+            $subquery->where('mode_play', 0)
+                ->where('wildcard', 'like', '%'.$keyword.'%');
         });
 
         return $songModel->get();

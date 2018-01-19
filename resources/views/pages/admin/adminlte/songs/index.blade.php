@@ -63,9 +63,9 @@ Songs
                     <td>{{ $song->name }}</td>
                     <td>
                         @if($song->mode_play)
-                            Online
-                        @else
                             Offline
+                        @else
+                            Online
                         @endif
                     </td>
                     <td>{{ $song->vote }}</td>
