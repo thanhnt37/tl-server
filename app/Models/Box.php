@@ -93,6 +93,7 @@ class Box extends AuthenticatableBase
             'is_activated'    => $this->is_activated ? true : false,
             'activation_date' => date_format($this->activation_date, 'Y-m-d H:i:s'),
             'is_blocked'      => $this->is_blocked ? true : false,
+            'config_launcher' => "http://baohanh.truonglam.vn/configLauncher180118.html"
         ];
     }
 
