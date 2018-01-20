@@ -18,7 +18,7 @@
             \Route::post('boxes/confirm-imei', 'Admin\BoxController@confirmUploadImei');
             \Route::post('boxes/upload-imei', 'Admin\BoxController@completeUploadImei');
             \Route::resource('app-versions', 'Admin\AppVersionController');
-            \Route::resource('app-ota', 'Admin\KaraOtaController');
+            \Route::resource('app-ota', 'Admin\AppOtaController');
             \Route::resource('customers', 'Admin\CustomerController');
             \Route::resource('sales', 'Admin\SaleController');
 

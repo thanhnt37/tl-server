@@ -29,7 +29,7 @@ KaraOta
             <div class="col-sm-6">
                 <h3 class="box-title">
                     <p class="text-right">
-                        <a href="{!! action('Admin\KaraOtaController@create') !!}" class="btn btn-block btn-primary btn-sm" style="width: 125px;">@lang('admin.pages.common.buttons.create')</a>
+                        <a href="{!! action('Admin\AppOtaController@create') !!}" class="btn btn-block btn-primary btn-sm" style="width: 125px;">@lang('admin.pages.common.buttons.create')</a>
                     </p>
                 </h3>
                 <br>
@@ -87,10 +87,10 @@ KaraOta
                     </td>
 
                     <td>
-                        <a href="{!! action('Admin\KaraOtaController@show', $karaOta->id) !!}"
+                        <a href="{!! action('Admin\AppOtaController@show', $karaOta->id) !!}"
                            class="btn btn-block btn-primary btn-xs">@lang('admin.pages.common.buttons.edit')</a>
                         <a href="#" class="btn btn-block btn-danger btn-xs delete-button"
-                           data-delete-url="{!! action('Admin\KaraOtaController@destroy', $karaOta->id) !!}">@lang('admin.pages.common.buttons.delete')</a>
+                           data-delete-url="{!! action('Admin\AppOtaController@destroy', $karaOta->id) !!}">@lang('admin.pages.common.buttons.delete')</a>
                     </td>
                 </tr>
             @endforeach

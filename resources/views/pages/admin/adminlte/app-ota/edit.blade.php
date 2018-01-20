@@ -27,7 +27,7 @@
 @stop
 
 @section('breadcrumb')
-    <li><a href="{!! action('Admin\KaraOtaController@index') !!}"><i class="fa fa-files-o"></i> KaraOta</a></li>
+    <li><a href="{!! action('Admin\AppOtaController@index') !!}"><i class="fa fa-files-o"></i> KaraOta</a></li>
     @if( $isNew )
         <li class="active">New</li>
     @else
@@ -47,14 +47,14 @@
         </div>
     @endif
 
-    <form action="@if($isNew) {!! action('Admin\KaraOtaController@store') !!} @else {!! action('Admin\KaraOtaController@update', [$karaOta->id]) !!} @endif" method="POST" enctype="multipart/form-data">
+    <form action="@if($isNew) {!! action('Admin\AppOtaController@store') !!} @else {!! action('Admin\AppOtaController@update', [$karaOta->id]) !!} @endif" method="POST" enctype="multipart/form-data">
         @if( !$isNew ) <input type="hidden" name="_method" value="PUT"> @endif
         {!! csrf_field() !!}
 
         <div class="box box-primary">
             <div class="box-header with-border">
                 <h3 class="box-title">
-                    <a href="{!! URL::action('Admin\KaraOtaController@index') !!}" class="btn btn-block btn-default btn-sm" style="width: 125px;">@lang('admin.pages.common.buttons.back')</a>
+                    <a href="{!! URL::action('Admin\AppOtaController@index') !!}" class="btn btn-block btn-default btn-sm" style="width: 125px;">@lang('admin.pages.common.buttons.back')</a>
                 </h3>
             </div>
             <div class="box-body">

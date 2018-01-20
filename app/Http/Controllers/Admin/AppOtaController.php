@@ -11,7 +11,7 @@ use App\Repositories\OsVersionRepositoryInterface;
 use App\Repositories\SdkVersionRepositoryInterface;
 use App\Repositories\BoxVersionRepositoryInterface;
 
-class KaraOtaController extends Controller
+class AppOtaController extends Controller
 {
 
     /** @var \App\Repositories\KaraOtaRepositoryInterface */
@@ -56,13 +56,13 @@ class KaraOtaController extends Controller
         $paginate['limit']      = $request->limit();
         $paginate['order']      = $request->order();
         $paginate['direction']  = $request->direction();
-        $paginate['baseUrl']    = action( 'Admin\KaraOtaController@index' );
+        $paginate['baseUrl']    = action( 'Admin\AppOtaController@index' );
 
         $count = $this->karaOtaRepository->count();
         $karaOtas = $this->karaOtaRepository->get( $paginate['order'], $paginate['direction'], $paginate['offset'], $paginate['limit'] );
 
         return view(
-            'pages.admin.' . config('view.admin') . '.kara-ota.index',
+            'pages.admin.' . config('view.admin') . '.app-ota.index',
             [
                 'karaOtas' => $karaOtas,
                 'count'    => $count,
@@ -79,7 +79,7 @@ class KaraOtaController extends Controller
     public function create()
     {
         return view(
-            'pages.admin.' . config('view.admin') . '.kara-ota.edit',
+            'pages.admin.' . config('view.admin') . '.app-ota.edit',
             [
                 'isNew'        => true,
                 'karaOta'      => $this->karaOtaRepository->getBlankModel(),
@@ -107,7 +107,7 @@ class KaraOtaController extends Controller
             return redirect()->back()->withErrors(trans('admin.errors.general.save_failed'));
         }
 
-        return redirect()->action('Admin\KaraOtaController@index')
+        return redirect()->action('Admin\AppOtaController@index')
             ->with('message-success', trans('admin.messages.general.create_success'));
     }
 
@@ -125,7 +125,7 @@ class KaraOtaController extends Controller
         }
 
         return view(
-            'pages.admin.' . config('view.admin') . '.kara-ota.edit',
+            'pages.admin.' . config('view.admin') . '.app-ota.edit',
             [
                 'isNew'        => false,
                 'karaOta'      => $karaOta,
@@ -166,7 +166,7 @@ class KaraOtaController extends Controller
 
         $this->karaOtaRepository->update($karaOta, $input);
 
-        return redirect()->action('Admin\KaraOtaController@show', [$id])
+        return redirect()->action('Admin\AppOtaController@show', [$id])
                     ->with('message-success', trans('admin.messages.general.update_success'));
     }
 
@@ -185,7 +185,7 @@ class KaraOtaController extends Controller
         }
         $this->karaOtaRepository->delete($karaOta);
 
-        return redirect()->action('Admin\KaraOtaController@index')
+        return redirect()->action('Admin\AppOtaController@index')
                     ->with('message-success', trans('admin.messages.general.delete_success'));
     }
 

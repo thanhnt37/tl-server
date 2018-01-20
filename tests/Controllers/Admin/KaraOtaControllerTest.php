@@ -2,15 +2,15 @@
 
 use Tests\TestCase;
 
-class KaraOtaControllerTest extends TestCase
+class AppOtaControllerTest extends TestCase
 {
 
     protected $useDatabase = true;
 
     public function testGetInstance()
     {
-        /** @var  \App\Http\Controllers\Admin\KaraOtaController $controller */
-        $controller = \App::make(\App\Http\Controllers\Admin\KaraOtaController::class);
+        /** @var  \App\Http\Controllers\Admin\AppOtaController $controller */
+        $controller = \App::make(\App\Http\Controllers\Admin\AppOtaController::class);
         $this->assertNotNull($controller);
     }
 
@@ -23,20 +23,20 @@ class KaraOtaControllerTest extends TestCase
 
     public function testGetList()
     {
-        $response = $this->action('GET', 'Admin\KaraOtaController@index');
+        $response = $this->action('GET', 'Admin\AppOtaController@index');
         $this->assertResponseOk();
     }
 
     public function testCreateModel()
     {
-        $this->action('GET', 'Admin\KaraOtaController@create');
+        $this->action('GET', 'Admin\AppOtaController@create');
         $this->assertResponseOk();
     }
 
     public function testStoreModel()
     {
         $karaOta = factory(\App\Models\KaraOta::class)->make();
-        $this->action('POST', 'Admin\KaraOtaController@store', [
+        $this->action('POST', 'Admin\AppOtaController@store', [
                 '_token' => csrf_token(),
             ] + $karaOta->toArray());
         $this->assertResponseStatus(302);
@@ -45,7 +45,7 @@ class KaraOtaControllerTest extends TestCase
     public function testEditModel()
     {
         $karaOta = factory(\App\Models\KaraOta::class)->create();
-        $this->action('GET', 'Admin\KaraOtaController@show', [$karaOta->id]);
+        $this->action('GET', 'Admin\AppOtaController@show', [$karaOta->id]);
         $this->assertResponseOk();
     }
 
@@ -60,7 +60,7 @@ class KaraOtaControllerTest extends TestCase
 
         $karaOta->name = $name;
 
-        $this->action('PUT', 'Admin\KaraOtaController@update', [$id], [
+        $this->action('PUT', 'Admin\AppOtaController@update', [$id], [
                 '_token' => csrf_token(),
             ] + $karaOta->toArray());
         $this->assertResponseStatus(302);
@@ -75,7 +75,7 @@ class KaraOtaControllerTest extends TestCase
 
         $id = $karaOta->id;
 
-        $this->action('DELETE', 'Admin\KaraOtaController@destroy', [$id], [
+        $this->action('DELETE', 'Admin\AppOtaController@destroy', [$id], [
                 '_token' => csrf_token(),
             ]);
         $this->assertResponseStatus(302);
