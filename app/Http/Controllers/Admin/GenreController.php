@@ -43,7 +43,7 @@ class GenreController extends Controller
         $paginate['offset']     = $request->offset();
         $paginate['limit']      = $request->limit();
         $paginate['order']      = $request->order();
-        $paginate['direction']  = $request->direction();
+        $paginate['direction']  = $request->direction('asc');
         $paginate['baseUrl']    = action( 'Admin\GenreController@index' );
 
         $count = $this->genreRepository->count();
