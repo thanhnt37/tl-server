@@ -1,4 +1,4 @@
-@extends('layouts.admin.' . config('view.admin') . '.application', ['menu' => 'kara_ota'] )
+@extends('layouts.admin.' . config('view.admin') . '.application', ['menu' => 'app_ota'] )
 
 @section('metadata')
 @stop
