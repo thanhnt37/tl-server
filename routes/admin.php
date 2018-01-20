@@ -33,6 +33,7 @@
             
             \Route::get('load-notification/{offset}', 'Admin\AdminUserNotificationController@loadNotification');
 
+            \Route::resource('applications', 'Admin\ApplicationController');
             \Route::resource('os-versions', 'Admin\OsVersionController');
             \Route::resource('sdk-versions', 'Admin\SdkVersionController');
             \Route::resource('box-versions', 'Admin\BoxVersionController');

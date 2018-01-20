@@ -329,6 +329,13 @@ return [
                 'box_id'      => 'Serial',
             ],
         ],
+        'applications'             => [
+            'columns' => [
+                'name'       => 'Name',
+                'app_key'    => 'App Key',
+                'is_blocked' => 'Is Blocked',
+            ],
+        ],
         /* NEW PAGE STRINGS */
     ],
     'roles'      => [
