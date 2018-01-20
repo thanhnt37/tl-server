@@ -80,7 +80,7 @@ KaraOta
 
                     <td>
                         @if( isset($karaOta->karaVersion->version) )
-                            <a href="{{action('Admin\KaraVersionController@show', [$karaOta->karaVersion->id])}}">{{$karaOta->karaVersion->version}}</a>
+                            <a href="{{action('Admin\AppVersionController@show', [$karaOta->karaVersion->id])}}">{{$karaOta->karaVersion->version}}</a>
                         @else
                             Unknown
                         @endif

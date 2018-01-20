@@ -8,7 +8,7 @@ use App\Http\Requests\Admin\KaraVersionRequest;
 use App\Http\Requests\PaginationRequest;
 use App\Services\FileUploadServiceInterface;
 
-class KaraVersionController extends Controller
+class AppVersionController extends Controller
 {
 
     /** @var \App\Repositories\KaraVersionRepositoryInterface */
@@ -38,13 +38,13 @@ class KaraVersionController extends Controller
         $paginate['limit']      = $request->limit();
         $paginate['order']      = $request->order();
         $paginate['direction']  = $request->direction();
-        $paginate['baseUrl']    = action( 'Admin\KaraVersionController@index' );
+        $paginate['baseUrl']    = action( 'Admin\AppVersionController@index' );
 
         $count = $this->karaVersionRepository->count();
         $karaVersions = $this->karaVersionRepository->get( $paginate['order'], $paginate['direction'], $paginate['offset'], $paginate['limit'] );
 
         return view(
-            'pages.admin.' . config('view.admin') . '.kara-versions.index',
+            'pages.admin.' . config('view.admin') . '.app-versions.index',
             [
                 'karaVersions' => $karaVersions,
                 'count'        => $count,
@@ -61,7 +61,7 @@ class KaraVersionController extends Controller
     public function create()
     {
         return view(
-            'pages.admin.' . config('view.admin') . '.kara-versions.edit',
+            'pages.admin.' . config('view.admin') . '.app-versions.edit',
             [
                 'isNew'       => true,
                 'karaVersion' => $this->karaVersionRepository->getBlankModel(),
@@ -103,7 +103,7 @@ class KaraVersionController extends Controller
             }
         }
 
-        return redirect()->action('Admin\KaraVersionController@index')
+        return redirect()->action('Admin\AppVersionController@index')
             ->with('message-success', trans('admin.messages.general.create_success'));
     }
 
@@ -121,7 +121,7 @@ class KaraVersionController extends Controller
         }
 
         return view(
-            'pages.admin.' . config('view.admin') . '.kara-versions.edit',
+            'pages.admin.' . config('view.admin') . '.app-versions.edit',
             [
                 'isNew'       => false,
                 'karaVersion' => $karaVersion,
@@ -181,7 +181,7 @@ class KaraVersionController extends Controller
             }
         }
 
-        return redirect()->action('Admin\KaraVersionController@show', [$id])
+        return redirect()->action('Admin\AppVersionController@show', [$id])
                     ->with('message-success', trans('admin.messages.general.update_success'));
     }
 
@@ -200,7 +200,7 @@ class KaraVersionController extends Controller
         }
         $this->karaVersionRepository->delete($karaVersion);
 
-        return redirect()->action('Admin\KaraVersionController@index')
+        return redirect()->action('Admin\AppVersionController@index')
                     ->with('message-success', trans('admin.messages.general.delete_success'));
     }
 

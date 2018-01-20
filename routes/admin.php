@@ -17,8 +17,8 @@
             \Route::resource('boxes', 'Admin\BoxController');
             \Route::post('boxes/confirm-imei', 'Admin\BoxController@confirmUploadImei');
             \Route::post('boxes/upload-imei', 'Admin\BoxController@completeUploadImei');
-            \Route::resource('kara-versions', 'Admin\KaraVersionController');
-            \Route::resource('kara-ota', 'Admin\KaraOtaController');
+            \Route::resource('app-versions', 'Admin\AppVersionController');
+            \Route::resource('app-ota', 'Admin\KaraOtaController');
             \Route::resource('customers', 'Admin\CustomerController');
             \Route::resource('sales', 'Admin\SaleController');
 

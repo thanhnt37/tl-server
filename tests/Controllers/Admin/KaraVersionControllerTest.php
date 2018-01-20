@@ -2,15 +2,15 @@
 
 use Tests\TestCase;
 
-class KaraVersionControllerTest extends TestCase
+class AppVersionControllerTest extends TestCase
 {
 
     protected $useDatabase = true;
 
     public function testGetInstance()
     {
-        /** @var  \App\Http\Controllers\Admin\KaraVersionController $controller */
-        $controller = \App::make(\App\Http\Controllers\Admin\KaraVersionController::class);
+        /** @var  \App\Http\Controllers\Admin\AppVersionController $controller */
+        $controller = \App::make(\App\Http\Controllers\Admin\AppVersionController::class);
         $this->assertNotNull($controller);
     }
 
@@ -23,20 +23,20 @@ class KaraVersionControllerTest extends TestCase
 
     public function testGetList()
     {
-        $response = $this->action('GET', 'Admin\KaraVersionController@index');
+        $response = $this->action('GET', 'Admin\AppVersionController@index');
         $this->assertResponseOk();
     }
 
     public function testCreateModel()
     {
-        $this->action('GET', 'Admin\KaraVersionController@create');
+        $this->action('GET', 'Admin\AppVersionController@create');
         $this->assertResponseOk();
     }
 
     public function testStoreModel()
     {
         $karaVersion = factory(\App\Models\KaraVersion::class)->make();
-        $this->action('POST', 'Admin\KaraVersionController@store', [
+        $this->action('POST', 'Admin\AppVersionController@store', [
                 '_token' => csrf_token(),
             ] + $karaVersion->toArray());
         $this->assertResponseStatus(302);
@@ -45,7 +45,7 @@ class KaraVersionControllerTest extends TestCase
     public function testEditModel()
     {
         $karaVersion = factory(\App\Models\KaraVersion::class)->create();
-        $this->action('GET', 'Admin\KaraVersionController@show', [$karaVersion->id]);
+        $this->action('GET', 'Admin\AppVersionController@show', [$karaVersion->id]);
         $this->assertResponseOk();
     }
 
@@ -60,7 +60,7 @@ class KaraVersionControllerTest extends TestCase
 
         $karaVersion->name = $name;
 
-        $this->action('PUT', 'Admin\KaraVersionController@update', [$id], [
+        $this->action('PUT', 'Admin\AppVersionController@update', [$id], [
                 '_token' => csrf_token(),
             ] + $karaVersion->toArray());
         $this->assertResponseStatus(302);
@@ -75,7 +75,7 @@ class KaraVersionControllerTest extends TestCase
 
         $id = $karaVersion->id;
 
-        $this->action('DELETE', 'Admin\KaraVersionController@destroy', [$id], [
+        $this->action('DELETE', 'Admin\AppVersionController@destroy', [$id], [
                 '_token' => csrf_token(),
             ]);
         $this->assertResponseStatus(302);

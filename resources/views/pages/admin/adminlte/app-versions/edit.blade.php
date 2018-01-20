@@ -29,7 +29,7 @@
 @stop
 
 @section('breadcrumb')
-    <li><a href="{!! action('Admin\KaraVersionController@index') !!}"><i class="fa fa-files-o"></i> KaraVersions</a></li>
+    <li><a href="{!! action('Admin\AppVersionController@index') !!}"><i class="fa fa-files-o"></i> KaraVersions</a></li>
     @if( $isNew )
         <li class="active">New</li>
     @else
@@ -49,14 +49,14 @@
         </div>
     @endif
 
-    <form action="@if($isNew) {!! action('Admin\KaraVersionController@store') !!} @else {!! action('Admin\KaraVersionController@update', [$karaVersion->id]) !!} @endif" method="POST" enctype="multipart/form-data">
+    <form action="@if($isNew) {!! action('Admin\AppVersionController@store') !!} @else {!! action('Admin\AppVersionController@update', [$karaVersion->id]) !!} @endif" method="POST" enctype="multipart/form-data">
         @if( !$isNew ) <input type="hidden" name="_method" value="PUT"> @endif
         {!! csrf_field() !!}
 
         <div class="box box-primary">
             <div class="box-header with-border">
                 <h3 class="box-title">
-                    <a href="{!! URL::action('Admin\KaraVersionController@index') !!}" class="btn btn-block btn-default btn-sm" style="width: 125px;">@lang('admin.pages.common.buttons.back')</a>
+                    <a href="{!! URL::action('Admin\AppVersionController@index') !!}" class="btn btn-block btn-default btn-sm" style="width: 125px;">@lang('admin.pages.common.buttons.back')</a>
                 </h3>
             </div>
             <div class="box-body">

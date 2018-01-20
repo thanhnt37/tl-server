@@ -29,7 +29,7 @@ KaraVersions
             <div class="col-sm-6">
                 <h3 class="box-title">
                     <p class="text-right">
-                        <a href="{!! action('Admin\KaraVersionController@create') !!}" class="btn btn-block btn-primary btn-sm" style="width: 125px;">@lang('admin.pages.common.buttons.create')</a>
+                        <a href="{!! action('Admin\AppVersionController@create') !!}" class="btn btn-block btn-primary btn-sm" style="width: 125px;">@lang('admin.pages.common.buttons.create')</a>
                     </p>
                 </h3>
                 <br>
@@ -60,10 +60,10 @@ KaraVersions
                     <td>{{ isset($karaVersion->apkPackage->url) ? $karaVersion->apkPackage->url : 'Unknown' }}</td>
 
                     <td>
-                        <a href="{!! action('Admin\KaraVersionController@show', $karaVersion->id) !!}"
+                        <a href="{!! action('Admin\AppVersionController@show', $karaVersion->id) !!}"
                            class="btn btn-block btn-primary btn-xs">@lang('admin.pages.common.buttons.edit')</a>
                         <a href="#" class="btn btn-block btn-danger btn-xs delete-button"
-                           data-delete-url="{!! action('Admin\KaraVersionController@destroy', $karaVersion->id) !!}">@lang('admin.pages.common.buttons.delete')</a>
+                           data-delete-url="{!! action('Admin\AppVersionController@destroy', $karaVersion->id) !!}">@lang('admin.pages.common.buttons.delete')</a>
                     </td>
                 </tr>
             @endforeach
