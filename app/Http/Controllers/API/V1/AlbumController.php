@@ -46,6 +46,6 @@ class AlbumController extends Controller
         unset($album['deleted_at']);
 
         $album['songs'] = $songs;
-        return Response::response(200, $album);
+        return Response::response(200, $album->toAPIArray());
     }
 }
