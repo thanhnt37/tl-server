@@ -13,8 +13,24 @@
     <script>
         $('.datetime-field').datetimepicker({'format': 'YYYY-MM-DD HH:mm:ss', 'defaultDate': new Date()});
 
+        Boilerplate.appVersionSelectedId = <?php echo isset($karaOta->karaVersion->id) ? $karaOta->karaVersion->id : 0; ?>;
+        Boilerplate.appVersions = {!! $karaVersions !!};
+
         $(document).ready(function () {
-            
+            $('#application_id').on('change', function () {
+                let applicationId = $('#application_id').find(":selected").val();
+
+                $('#kara_version_id').html('');
+                Boilerplate.appVersions.forEach(function (item, index) {
+                    if( item.application_id == applicationId ) {
+                        let selected = ( item.id == Boilerplate.appVersionSelectedId ) ? 'selected' : '';
+                        let option = '<option value="' + item.id + '" ' + selected + '>' + item.version + ' | ' + item.name + '</option>';
+
+                        $('#kara_version_id').append(option);
+                    }
+                });
+                console.log(applicationId);
+            });
         });
     </script>
 @stop
@@ -59,7 +75,7 @@
             </div>
             <div class="box-body">
                 <div class="row">
-                    <div class="col-md-6">
+                    <div class="col-md-4">
                         <div class="form-group @if ($errors->has('os_version_id')) has-error @endif">
                             <label for="os_version_id">@lang('admin.pages.kara-ota.columns.os_version')</label>
                             <select class="form-control" name="os_version_id" id="os_version_id" required>
@@ -72,7 +88,7 @@
                         </div>
                     </div>
 
-                    <div class="col-md-6">
+                    <div class="col-md-4">
                         <div class="form-group @if ($errors->has('sdk_version_id')) has-error @endif">
                             <label for="sdk_version_id">@lang('admin.pages.kara-ota.columns.sdk_version')</label>
                             <select class="form-control" name="sdk_version_id" id="sdk_version_id" required>
@@ -84,10 +100,8 @@
                             </select>
                         </div>
                     </div>
-                </div>
 
-                <div class="row">
-                    <div class="col-md-6">
+                    <div class="col-md-4">
                         <div class="form-group @if ($errors->has('box_version_id')) has-error @endif">
                             <label for="box_version_id">@lang('admin.pages.kara-ota.columns.box_version_id')</label>
                             <select class="form-control" name="box_version_id" id="box_version_id" required>
@@ -99,15 +113,33 @@
                             </select>
                         </div>
                     </div>
+                </div>
+
+                <div class="row">
+                    <div class="col-md-6">
+                        <div class="form-group @if ($errors->has('application_id')) has-error @endif">
+                            <label for="application_id">Application</label>
+
+                            <select class="form-control" name="application_id" id="application_id" required>
+                                @foreach( $applications as $application )
+                                    <option value="{!! $application->id !!}" @if( (old('application_id') && old('application_id') == $application->id) || ( isset($karaOta->karaVersion->application->id) && ($karaOta->karaVersion->application->id == $application->id)) ) selected @endif >
+                                        {{ $application->name }}
+                                    </option>
+                                @endforeach
+                            </select>
+                        </div>
+                    </div>
 
                     <div class="col-md-6">
                         <div class="form-group @if ($errors->has('kara_version_id')) has-error @endif">
-                            <label for="kara_version_id">@lang('admin.pages.kara-ota.columns.kara_version_id')</label>
+                            <label for="kara_version_id">App Version</label>
                             <select class="form-control" name="kara_version_id" id="kara_version_id" required>
                                 @foreach( $karaVersions as $karaVersion )
-                                    <option value="{!! $karaVersion->id !!}" @if( (old('kara_version_id') && old('kara_version_id') == $karaVersion->id) || ( $karaOta->kara_version_id == $karaVersion->id) ) selected @endif >
-                                        {{ $karaVersion->version }}
-                                    </option>
+                                    @if( isset($karaOta->karaVersion->application->id) && ($karaOta->karaVersion->application->id == $karaVersion->application_id))
+                                        <option value="{!! $karaVersion->id !!}" @if( (old('kara_version_id') && old('kara_version_id') == $karaVersion->id) || ( $karaOta->kara_version_id == $karaVersion->id) ) selected @endif >
+                                            {{ $karaVersion->version . ' | ' . $karaVersion->name }}
+                                        </option>
+                                    @endif
                                 @endforeach
                             </select>
                         </div>

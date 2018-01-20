@@ -10,6 +10,7 @@ use App\Repositories\KaraVersionRepositoryInterface;
 use App\Repositories\OsVersionRepositoryInterface;
 use App\Repositories\SdkVersionRepositoryInterface;
 use App\Repositories\BoxVersionRepositoryInterface;
+use App\Repositories\ApplicationRepositoryInterface;
 
 class AppOtaController extends Controller
 {
@@ -29,12 +30,16 @@ class AppOtaController extends Controller
     /** @var \App\Repositories\BoxVersionRepositoryInterface */
     protected $boxVersionRepository;
 
+    /** @var \App\Repositories\ApplicationRepositoryInterface */
+    protected $applicationRepository;
+
     public function __construct(
         KaraOtaRepositoryInterface      $karaOtaRepository,
         KaraVersionRepositoryInterface  $karaVersionRepository,
         OsVersionRepositoryInterface    $osVersionRepository,
         SdkVersionRepositoryInterface   $sdkVersionRepository,
-        BoxVersionRepositoryInterface   $boxVersionRepository
+        BoxVersionRepositoryInterface   $boxVersionRepository,
+        ApplicationRepositoryInterface  $applicationRepository
     )
     {
         $this->karaOtaRepository        = $karaOtaRepository;
@@ -42,6 +47,7 @@ class AppOtaController extends Controller
         $this->osVersionRepository      = $osVersionRepository;
         $this->sdkVersionRepository     = $sdkVersionRepository;
         $this->boxVersionRepository     = $boxVersionRepository;
+        $this->applicationRepository    = $applicationRepository;
     }
 
     /**
@@ -87,6 +93,7 @@ class AppOtaController extends Controller
                 'osVersions'   => $this->osVersionRepository->all(),
                 'sdkVersions'  => $this->sdkVersionRepository->all(),
                 'boxVersions'  => $this->boxVersionRepository->all(),
+                'applications' => $this->applicationRepository->all()
             ]
         );
     }
@@ -133,6 +140,7 @@ class AppOtaController extends Controller
                 'osVersions'   => $this->osVersionRepository->all(),
                 'sdkVersions'  => $this->sdkVersionRepository->all(),
                 'boxVersions'  => $this->boxVersionRepository->all(),
+                'applications' => $this->applicationRepository->all()
             ]
         );
     }

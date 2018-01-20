@@ -63,7 +63,7 @@
                 <div class="row">
                     <div class="col-md-4">
                         <div class="form-group @if ($errors->has('application_id')) has-error @endif">
-                            <label for="version">Application</label>
+                            <label for="application_id">Application</label>
 
                             <select class="form-control" name="application_id" id="application_id" required>
                                 @foreach( $applications as $application )
