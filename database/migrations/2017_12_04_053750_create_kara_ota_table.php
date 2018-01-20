@@ -19,6 +19,7 @@ class CreatekaraOtaTable extends Migration
             $table->unsignedBigInteger('sdk_version_id');
             $table->unsignedBigInteger('box_version_id');
             $table->unsignedBigInteger('kara_version_id');
+            $table->unsignedBigInteger('application_id');
 
             $table->timestamps();
             $table->softDeletes();
