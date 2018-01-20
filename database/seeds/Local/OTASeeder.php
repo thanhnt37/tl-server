@@ -33,7 +33,6 @@ class OTASeeder extends Seeder
                     'sdk_version_id'  => rand(1, 20),
                     'box_version_id'  => rand(1, 50),
                     'kara_version_id' => rand(1, 50),
-                    'application_id'  => rand(1, 5),
                 ]
             );
         }
