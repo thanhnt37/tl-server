@@ -13,12 +13,20 @@ return [
         'message'        => 'Sorry, No data matching !!!',
         'httpStatusCode' => 200
     ],
+    20005 => [
+        'message'        => 'Sorry, APK package not exist !!!',
+        'httpStatusCode' => 200
+    ],
     40001 => [
         'message'        => 'Error, Parameter is invalid !!!',
         'httpStatusCode' => 400
     ],
     40002 => [
         'message'        => 'Error, This email is already used !!!',
+        'httpStatusCode' => 400
+    ],
+    40003 => [
+        'message'        => 'Error, Application Key is Invalid !!!',
         'httpStatusCode' => 400
     ],
     40101 => [

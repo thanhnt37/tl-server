@@ -62,6 +62,7 @@ class KaraVersion extends Base
     public function toAPIArray()
     {
         return [
+            'id'          => $this->id,
             'application' => !empty($this->application) ? $this->application->name : 'Unknown',
             'version'     => $this->version,
             'name'        => $this->name,
