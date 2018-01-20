@@ -18,6 +18,7 @@ class KaraVersion extends Base
      * @var array
      */
     protected $fillable = [
+        'application_id',
         'version',
         'name',
         'description',
@@ -42,6 +43,11 @@ class KaraVersion extends Base
     }
 
     // Relations
+    public function application()
+    {
+        return $this->hasOne(\App\Models\Application::class, 'id', 'application_id');
+    }
+
     public function apkPackage()
     {
         return $this->hasOne(\App\Models\File::class, 'id', 'apk_package_id');
@@ -56,6 +62,7 @@ class KaraVersion extends Base
     public function toAPIArray()
     {
         return [
+            'application' => !empty($this->application) ? $this->application->name : 'Unknown',
             'version'     => $this->version,
             'name'        => $this->name,
             'description' => $this->description,

@@ -7,6 +7,7 @@ use App\Repositories\KaraVersionRepositoryInterface;
 use App\Http\Requests\Admin\KaraVersionRequest;
 use App\Http\Requests\PaginationRequest;
 use App\Services\FileUploadServiceInterface;
+use App\Repositories\ApplicationRepositoryInterface;
 
 class AppVersionController extends Controller
 {
@@ -17,13 +18,18 @@ class AppVersionController extends Controller
     /** @var FileUploadServiceInterface $fileUploadService */
     protected $fileUploadService;
 
+    /** @var \App\Repositories\ApplicationRepositoryInterface */
+    protected $applicationRepository;
+
     public function __construct(
         KaraVersionRepositoryInterface  $karaVersionRepository,
-        FileUploadServiceInterface      $fileUploadService
+        FileUploadServiceInterface      $fileUploadService,
+        ApplicationRepositoryInterface  $applicationRepository
     )
     {
         $this->karaVersionRepository    = $karaVersionRepository;
         $this->fileUploadService        = $fileUploadService;
+        $this->applicationRepository    = $applicationRepository;
     }
 
     /**
@@ -63,8 +69,9 @@ class AppVersionController extends Controller
         return view(
             'pages.admin.' . config('view.admin') . '.app-versions.edit',
             [
-                'isNew'       => true,
-                'karaVersion' => $this->karaVersionRepository->getBlankModel(),
+                'isNew'        => true,
+                'karaVersion'  => $this->karaVersionRepository->getBlankModel(),
+                'applications' => $this->applicationRepository->all()
             ]
         );
     }
@@ -78,6 +85,7 @@ class AppVersionController extends Controller
     public function store(KaraVersionRequest $request)
     {
         $input = $request->only(['version','name','description']);
+        $input['application_id'] = $request->get('application_id', 0);
 
         $karaVersion = $this->karaVersionRepository->create($input);
 
@@ -123,8 +131,9 @@ class AppVersionController extends Controller
         return view(
             'pages.admin.' . config('view.admin') . '.app-versions.edit',
             [
-                'isNew'       => false,
-                'karaVersion' => $karaVersion,
+                'isNew'        => false,
+                'karaVersion'  => $karaVersion,
+                'applications' => $this->applicationRepository->all()
             ]
         );
     }
@@ -155,6 +164,7 @@ class AppVersionController extends Controller
             abort(404);
         }
         $input = $request->only(['version','name','description']);
+        $input['application_id'] = $request->get('application_id', 0);
 
         $this->karaVersionRepository->update($karaVersion, $input);
 

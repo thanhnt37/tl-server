@@ -25,11 +25,11 @@
 @stop
 
 @section('header')
-    KaraVersions
+    App Versions
 @stop
 
 @section('breadcrumb')
-    <li><a href="{!! action('Admin\AppVersionController@index') !!}"><i class="fa fa-files-o"></i> KaraVersions</a></li>
+    <li><a href="{!! action('Admin\AppVersionController@index') !!}"><i class="fa fa-files-o"></i> App Versions</a></li>
     @if( $isNew )
         <li class="active">New</li>
     @else
@@ -61,16 +61,30 @@
             </div>
             <div class="box-body">
                 <div class="row">
-                    <div class="col-md-6">
+                    <div class="col-md-4">
+                        <div class="form-group @if ($errors->has('application_id')) has-error @endif">
+                            <label for="version">Application</label>
+
+                            <select class="form-control" name="application_id" id="application_id" required>
+                                @foreach( $applications as $application )
+                                    <option value="{!! $application->id !!}" @if( (old('application_id') && old('application_id') == $application->id) || ( $karaVersion->application_id == $application->id) ) selected @endif >
+                                        {{ $application->name }}
+                                    </option>
+                                @endforeach
+                            </select>
+                        </div>
+                    </div>
+
+                    <div class="col-md-4">
                         <div class="form-group @if ($errors->has('version')) has-error @endif">
-                            <label for="version">@lang('admin.pages.kara-versions.columns.version')</label>
+                            <label for="version">Version Code</label>
                             <input type="text" class="form-control" id="version" name="version" required value="{{ old('version') ? old('version') : $karaVersion->version }}">
                         </div>
                     </div>
 
-                    <div class="col-md-6">
+                    <div class="col-md-4">
                         <div class="form-group @if ($errors->has('name')) has-error @endif">
-                            <label for="name">@lang('admin.pages.kara-versions.columns.name')</label>
+                            <label for="name">Version Name</label>
                             <input type="text" class="form-control" id="name" name="name" required value="{{ old('name') ? old('name') : $karaVersion->name }}">
                         </div>
                     </div>

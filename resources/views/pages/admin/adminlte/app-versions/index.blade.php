@@ -14,11 +14,11 @@
 @stop
 
 @section('header')
-KaraVersions
+App Versions
 @stop
 
 @section('breadcrumb')
-<li class="active">KaraVersions</li>
+<li class="active">App Versions</li>
 @stop
 
 @section('content')
@@ -46,6 +46,7 @@ KaraVersions
         <table class="table table-bordered">
             <tr>
                 <th style="width: 10px">{!! \PaginationHelper::sort('id', 'ID') !!}</th>
+                <th>{!! \PaginationHelper::sort('application_id', 'Application') !!}</th>
                 <th>{!! \PaginationHelper::sort('version', trans('admin.pages.kara-versions.columns.version')) !!}</th>
                 <th>{!! \PaginationHelper::sort('name', trans('admin.pages.kara-versions.columns.name')) !!}</th>
                 <th>{!! \PaginationHelper::sort('apk_url', trans('admin.pages.kara-versions.columns.apk_url')) !!}</th>
@@ -55,6 +56,7 @@ KaraVersions
             @foreach( $karaVersions as $karaVersion )
                 <tr>
                     <td>{{ $karaVersion->id }}</td>
+                    <td>{{ !empty($karaVersion->application) ? $karaVersion->application->name : 'Unknown' }}</td>
                     <td>{{ $karaVersion->version }}</td>
                     <td>{{ $karaVersion->name }}</td>
                     <td>{{ isset($karaVersion->apkPackage->url) ? $karaVersion->apkPackage->url : 'Unknown' }}</td>

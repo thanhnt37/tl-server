@@ -172,6 +172,7 @@ $factory->define(App\Models\Box::class, function (Faker\Generator $faker)
 $factory->define(App\Models\KaraVersion::class, function (Faker\Generator $faker)
 {
     return [
+        'application_id' => 0,
         'version'        => $faker->unique()->regexify("^(\d+\.)?(\d+\.)?(\d+)$"),
         'name'           => $faker->word,
         'description'    => $faker->sentences(5, true),

@@ -18,7 +18,11 @@ class OTASeeder extends Seeder
 
         foreach (range(1, 60, 1) as $numberVersion)
         {
-            factory(KaraVersion::class)->create();
+            factory(KaraVersion::class)->create(
+                [
+                    'application_id'  => rand(1, 5),
+                ]
+            );
         }
 
         foreach (range(1, 50, 1) as $numberOTA)

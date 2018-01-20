@@ -15,6 +15,7 @@ class CreatekaraVersionsTable extends Migration
         Schema::create('kara_versions', function (Blueprint $table) {
             $table->bigIncrements('id');
 
+            $table->unsignedBigInteger('application_id')->default(0);
             $table->string('version')->unique();
             $table->string('name');
 
