@@ -322,4 +322,13 @@ $factory->define(App\Models\Sale::class, function (Faker\Generator $faker)
     ];
 });
 
+$factory->define(App\Models\Application::class, function (Faker\Generator $faker)
+{
+    return [
+        'name'       => $faker->sentence,
+        'app_key'    => $faker->md5,
+        'is_blocked' => false,
+    ];
+});
+
 /* NEW MODEL FACTORY */
