@@ -6,6 +6,7 @@ use App\Http\Controllers\Controller;
 use App\Repositories\ApplicationRepositoryInterface;
 use App\Http\Requests\Admin\ApplicationRequest;
 use App\Http\Requests\PaginationRequest;
+use Illuminate\Support\Facades\Hash;
 
 class ApplicationController extends Controller
 {
@@ -72,8 +73,10 @@ class ApplicationController extends Controller
      */
     public function store(ApplicationRequest $request)
     {
-        $input = $request->only(['name','app_key']);
+        $input = $request->only(['name']);
         $input['is_blocked'] = $request->get('is_blocked', 0);
+
+        $input['app_key'] = Hash::make($input['name']);
 
         $application = $this->applicationRepository->create($input);
 

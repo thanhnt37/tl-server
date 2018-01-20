@@ -62,20 +62,22 @@
                 <div class="row">
                     <div class="col-md-12">
                         <div class="form-group @if ($errors->has('name')) has-error @endif">
-                            <label for="name">@lang('admin.pages.applications.columns.name')</label>
+                            <label for="name">Application Name</label>
                             <input type="text" class="form-control" id="name" name="name" required value="{{ old('name') ? old('name') : $application->name }}">
                         </div>
                     </div>
                 </div>
 
-                <div class="row">
-                    <div class="col-md-12">
-                        <div class="form-group @if ($errors->has('app_key')) has-error @endif">
-                            <label for="app_key">@lang('admin.pages.applications.columns.app_key')</label>
-                            <textarea name="app_key" class="form-control" rows="5" required placeholder="@lang('admin.pages.applications.columns.app_key')">{{ old('app_key') ? old('app_key') : $application->app_key }}</textarea>
+                @if( !$isNew )
+                    <div class="row">
+                        <div class="col-md-12">
+                            <div class="form-group @if ($errors->has('app_key')) has-error @endif">
+                                <label for="app_key">@lang('admin.pages.applications.columns.app_key')</label>
+                                <textarea name="app_key" class="form-control" rows="5" required placeholder="@lang('admin.pages.applications.columns.app_key')">{{ old('app_key') ? old('app_key') : $application->app_key }}</textarea>
+                            </div>
                         </div>
                     </div>
-                </div>
+                @endif
 
             </div>
             <div class="box-footer">
