@@ -121,6 +121,8 @@
                             <label for="application_id">Application</label>
 
                             <select class="form-control" name="application_id" id="application_id" required>
+                                <option>Select a Application</option>
+
                                 @foreach( $applications as $application )
                                     <option value="{!! $application->id !!}" @if( (old('application_id') && old('application_id') == $application->id) || ( isset($karaOta->karaVersion->application->id) && ($karaOta->karaVersion->application->id == $application->id)) ) selected @endif >
                                         {{ $application->name }}
@@ -134,6 +136,8 @@
                         <div class="form-group @if ($errors->has('kara_version_id')) has-error @endif">
                             <label for="kara_version_id">App Version</label>
                             <select class="form-control" name="kara_version_id" id="kara_version_id" required>
+                                <option>Select a App Versions</option>
+
                                 @foreach( $karaVersions as $karaVersion )
                                     @if( isset($karaOta->karaVersion->application->id) && ($karaOta->karaVersion->application->id == $karaVersion->application_id))
                                         <option value="{!! $karaVersion->id !!}" @if( (old('kara_version_id') && old('kara_version_id') == $karaVersion->id) || ( $karaOta->kara_version_id == $karaVersion->id) ) selected @endif >
