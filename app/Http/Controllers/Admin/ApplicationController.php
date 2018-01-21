@@ -32,8 +32,8 @@ class ApplicationController extends Controller
     {
         $paginate['offset']     = $request->offset();
         $paginate['limit']      = $request->limit();
-        $paginate['order']      = $request->order();
-        $paginate['direction']  = $request->direction();
+        $paginate['order']      = $request->order('id');
+        $paginate['direction']  = $request->direction('asc');
         $paginate['baseUrl']    = action( 'Admin\ApplicationController@index' );
 
         $count = $this->applicationRepository->count();

@@ -4,6 +4,11 @@
 @stop
 
 @section('styles')
+    <style>
+        #box-version-index tr td {
+            text-align: center;
+        }
+    </style>
 @stop
 
 @section('scripts')
@@ -14,11 +19,11 @@
 @stop
 
 @section('header')
-BoxVersions
+    Box Type
 @stop
 
 @section('breadcrumb')
-<li class="active">BoxVersions</li>
+<li class="active">Box Type</li>
 @stop
 
 @section('content')
@@ -43,7 +48,7 @@ BoxVersions
         </div>
     </div>
     <div class="box-body" style=" overflow-x: scroll; ">
-        <table class="table table-bordered">
+        <table class="table table-bordered" id="box-version-index">
             <tr>
                 <th style="width: 10px">{!! \PaginationHelper::sort('id', 'ID') !!}</th>
                 <th>{!! \PaginationHelper::sort('name', trans('admin.pages.box-versions.columns.name')) !!}</th>

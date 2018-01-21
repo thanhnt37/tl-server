@@ -23,11 +23,11 @@
 @stop
 
 @section('header')
-    BoxVersions
+    Box Type
 @stop
 
 @section('breadcrumb')
-    <li><a href="{!! action('Admin\BoxVersionController@index') !!}"><i class="fa fa-files-o"></i> BoxVersions</a></li>
+    <li><a href="{!! action('Admin\BoxVersionController@index') !!}"><i class="fa fa-files-o"></i> Box Type</a></li>
     @if( $isNew )
         <li class="active">New</li>
     @else
