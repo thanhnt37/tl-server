@@ -70,9 +70,10 @@ class AppOtaController extends Controller
         return view(
             'pages.admin.' . config('view.admin') . '.app-ota.index',
             [
-                'karaOtas' => $karaOtas,
-                'count'    => $count,
-                'paginate' => $paginate,
+                'karaOtas'     => $karaOtas,
+                'count'        => $count,
+                'paginate'     => $paginate,
+                'applications' => $this->applicationRepository->all()
             ]
         );
     }
