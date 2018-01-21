@@ -55,6 +55,7 @@ class AppVersionController extends Controller
                 'karaVersions' => $karaVersions,
                 'count'        => $count,
                 'paginate'     => $paginate,
+                'applications' => $this->applicationRepository->all()
             ]
         );
     }
