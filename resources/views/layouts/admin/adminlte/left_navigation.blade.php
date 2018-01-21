@@ -43,8 +43,8 @@
 
 
                 <li class="header">Sales Management</li>
-                <li @if( $menu=='sales') class="active" @endif ><a href="{!! \URL::action('Admin\SaleController@index') !!}"><i class="fa fa-money"></i> <span>Sales</span></a></li>
                 <li @if( $menu=='customers') class="active" @endif ><a href="{!! \URL::action('Admin\CustomerController@index') !!}"><i class="fa fa-users"></i> <span>Customers</span></a></li>
+                <li @if( $menu=='sales') class="active" @endif ><a href="{!! \URL::action('Admin\SaleController@index') !!}"><i class="fa fa-money"></i> <span>Sales</span></a></li>
 
                 <li class="header">Media Data</li>
                 <li @if( $menu=='songs') class="active" @endif ><a href="{!! \URL::action('Admin\SongController@index') !!}"><i class="fa fa-music"></i> <span>Songs</span></a></li>

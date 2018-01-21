@@ -4,6 +4,11 @@
 @stop
 
 @section('styles')
+    <style>
+        #app-version-index tr td {
+            text-align: center;
+        }
+    </style>
 @stop
 
 @section('scripts')
@@ -44,14 +49,14 @@ App Versions
     </div>
     <div class="box-body" style=" overflow-x: scroll; ">
         @foreach( $applications as $application )
-            <table class="table table-bordered" style="margin-bottom: 30px;">
+            <table class="table table-bordered" style="margin-bottom: 30px;" id="app-version-index">
                 <tr>
                     <th colspan="6" style="background: #88d8cb7d;">{{$application->name}}</th>
                 </tr>
                 <tr>
                     <th style="width: 10px">{!! \PaginationHelper::sort('id', 'ID') !!}</th>
                     <th>{!! \PaginationHelper::sort('application_id', 'Application') !!}</th>
-                    <th>{!! \PaginationHelper::sort('version', trans('admin.pages.kara-versions.columns.version')) !!}</th>
+                    <th>{!! \PaginationHelper::sort('version', 'Version Code') !!}</th>
                     <th>{!! \PaginationHelper::sort('name', trans('admin.pages.kara-versions.columns.name')) !!}</th>
                     <th>{!! \PaginationHelper::sort('apk_url', trans('admin.pages.kara-versions.columns.apk_url')) !!}</th>
 
@@ -64,7 +69,9 @@ App Versions
                             <td>{{ !empty($karaVersion->application) ? $karaVersion->application->name : 'Unknown' }}</td>
                             <td>{{ $karaVersion->version }}</td>
                             <td>{{ $karaVersion->name }}</td>
-                            <td>{{ isset($karaVersion->apkPackage->url) ? $karaVersion->apkPackage->url : 'Unknown' }}</td>
+                            <td>
+                                {{ isset($karaVersion->apkPackage->url) ? (\URLHelper::asset(config('file.categories.kara_apk.local_path') . $karaVersion->apkPackage->url, config('file.categories.kara_apk.local_type'))) : 'Unknown' }}
+                            </td>
 
                             <td>
                                 <a href="{!! action('Admin\AppVersionController@show', $karaVersion->id) !!}"
