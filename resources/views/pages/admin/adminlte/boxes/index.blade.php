@@ -5,7 +5,7 @@
 
 @section('styles')
     <style>
-        #box-index tr td:nth-of-type(6) {
+        #box-index tr td {
             text-align: center;
         }
     </style>
@@ -59,7 +59,7 @@ Boxes
                 <th style="width: 10px">{!! \PaginationHelper::sort('id', 'ID') !!}</th>
                 <th>{!! \PaginationHelper::sort('imei', trans('admin.pages.boxes.columns.imei')) !!}</th>
                 <th>{!! \PaginationHelper::sort('serial', trans('admin.pages.boxes.columns.serial')) !!}</th>
-                <th>{!! \PaginationHelper::sort('model', trans('admin.pages.boxes.columns.box_version_id')) !!}</th>
+                <th>{!! \PaginationHelper::sort('model', 'Box Type') !!}</th>
                 <th>{!! \PaginationHelper::sort('os_version', trans('admin.pages.boxes.columns.os_version_id')) !!}</th>
                 <th width="85px">{!! \PaginationHelper::sort('is_activated', trans('admin.pages.boxes.columns.is_activated')) !!}</th>
 

@@ -47,8 +47,8 @@ class BoxController extends Controller
     {
         $paginate['offset']     = $request->offset();
         $paginate['limit']      = $request->limit();
-        $paginate['order']      = $request->order();
-        $paginate['direction']  = $request->direction();
+        $paginate['order']      = $request->order('id');
+        $paginate['direction']  = $request->direction('asc');
         $paginate['baseUrl']    = action( 'Admin\BoxController@index' );
 
         $count = $this->boxRepository->count();

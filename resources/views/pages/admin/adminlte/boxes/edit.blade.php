@@ -87,7 +87,7 @@
                     
                     <div class="col-md-4">
                         <div class="form-group @if ($errors->has('box_version_id')) has-error @endif">
-                            <label for="box_version_id">@lang('admin.pages.boxes.columns.box_version_id')</label>
+                            <label for="box_version_id">Box Type</label>
                             <select class="form-control" name="box_version_id" id="box_version_id" required>
                                 @foreach( $boxVersions as $boxVersion )
                                     <option value="{!! $boxVersion->id !!}" @if( (old('box_version_id') && old('box_version_id') == $boxVersion->id) || ( $box->box_version_id == $boxVersion->id) || ($boxVersion->id == \Session::get('box_version_id')) ) selected @endif >
