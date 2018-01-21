@@ -4,6 +4,11 @@
 @stop
 
 @section('styles')
+    <style>
+        #singers-index tr td {
+            text-align: center;
+        }
+    </style>
 @stop
 
 @section('scripts')
@@ -43,7 +48,7 @@ Singers
         </div>
     </div>
     <div class="box-body" style=" overflow-x: scroll; ">
-        <table class="table table-bordered">
+        <table class="table table-bordered" id="singers-index">
             <tr>
                 <th style="width: 10px">{!! \PaginationHelper::sort('id', 'ID') !!}</th>
                 <th>{!! \PaginationHelper::sort('wildcard', 'Wildcard') !!}</th>

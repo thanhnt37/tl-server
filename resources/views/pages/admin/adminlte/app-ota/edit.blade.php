@@ -39,11 +39,11 @@
 @stop
 
 @section('header')
-    KaraOta
+    App OTA
 @stop
 
 @section('breadcrumb')
-    <li><a href="{!! action('Admin\AppOtaController@index') !!}"><i class="fa fa-files-o"></i> KaraOta</a></li>
+    <li><a href="{!! action('Admin\AppOtaController@index') !!}"><i class="fa fa-files-o"></i> App OTA</a></li>
     @if( $isNew )
         <li class="active">New</li>
     @else
@@ -103,7 +103,7 @@
 
                     <div class="col-md-4">
                         <div class="form-group @if ($errors->has('box_version_id')) has-error @endif">
-                            <label for="box_version_id">@lang('admin.pages.kara-ota.columns.box_version_id')</label>
+                            <label for="box_version_id">Box Type</label>
                             <select class="form-control" name="box_version_id" id="box_version_id" required>
                                 @foreach( $boxVersions as $boxVersion )
                                     <option value="{!! $boxVersion->id !!}" @if( (old('box_version_id') && old('box_version_id') == $boxVersion->id) || ( $karaOta->box_version_id == $boxVersion->id) ) selected @endif >

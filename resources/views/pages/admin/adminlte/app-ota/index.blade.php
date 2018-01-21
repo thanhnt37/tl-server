@@ -4,6 +4,11 @@
 @stop
 
 @section('styles')
+    <style>
+        #app-ota-index tr td {
+            text-align: center;
+        }
+    </style>
 @stop
 
 @section('scripts')
@@ -14,11 +19,11 @@
 @stop
 
 @section('header')
-KaraOta
+    App OTA
 @stop
 
 @section('breadcrumb')
-<li class="active">KaraOta</li>
+<li class="active">App OTA</li>
 @stop
 
 @section('content')
@@ -42,7 +47,7 @@ KaraOta
             </div>
         </div>
     </div>
-    <div class="box-body" style=" overflow-x: scroll; ">
+    <div class="box-body" style=" overflow-x: scroll; " id="app-ota-index">
         @foreach( $applications as $application )
             <table class="table table-bordered" style="margin-bottom: 30px;">
                 <tr>
@@ -50,10 +55,10 @@ KaraOta
                 </tr>
                 <tr>
                     <th style="width: 10px">{!! \PaginationHelper::sort('id', 'ID') !!}</th>
-                    <th>{!! \PaginationHelper::sort('os_version', trans('admin.pages.kara-ota.columns.box_version_id')) !!}</th>
+                    <th>{!! \PaginationHelper::sort('os_version', 'Box Type') !!}</th>
                     <th>{!! \PaginationHelper::sort('os_version', trans('admin.pages.kara-ota.columns.os_version')) !!}</th>
                     <th>{!! \PaginationHelper::sort('sdk_version', trans('admin.pages.kara-ota.columns.sdk_version')) !!}</th>
-                    <th>{!! trans('admin.pages.kara-ota.columns.kara_version_id') !!}</th>
+                    <th>App Versions</th>
 
                     <th style="width: 40px">@lang('admin.pages.common.label.actions')</th>
                 </tr>

@@ -4,6 +4,11 @@
 @stop
 
 @section('styles')
+    <style>
+        #songs-index tr td {
+            text-align: center;
+        }
+    </style>
 @stop
 
 @section('scripts')
@@ -42,7 +47,7 @@ Songs
             </div>
         </div>
     </div>
-    <div class="box-body" style=" overflow-x: scroll; ">
+    <div class="box-body" style=" overflow-x: scroll; " id="songs-index">
         <table class="table table-bordered">
             <tr>
                 <th style="width: 10px">{!! \PaginationHelper::sort('id', 'ID') !!}</th>
