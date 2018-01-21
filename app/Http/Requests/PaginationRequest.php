@@ -52,9 +52,9 @@ class PaginationRequest extends BaseRequest
      *
      * @return int
      */
-    public function limit()
+    public function limit($default = 50)
     {
-        $this->limit = $this->get('limit', $this->limit);
+        $this->limit = $this->get('limit', $default);
 
         return $this->limit;
     }

@@ -22,8 +22,8 @@ class SongController extends Controller
     public function all(PaginationRequest $request)
     {
         $page                   = intval($request->get('page', 1));
+        $paginate['limit']      = $request->limit(100);
         $paginate['offset']     = $request->offset();
-        $paginate['limit']      = 100;
         $paginate['order']      = $request->order();
         $paginate['direction']  = $request->direction();
         $paginate['baseUrl']    = action( 'Admin\BoxController@index' );
