@@ -23,7 +23,7 @@ class SongController extends Controller
     {
         $page                   = intval($request->get('page', 1));
         $paginate['offset']     = $request->offset();
-        $paginate['limit']      = $request->limit();
+        $paginate['limit']      = 100;
         $paginate['order']      = $request->order();
         $paginate['direction']  = $request->direction();
         $paginate['baseUrl']    = action( 'Admin\BoxController@index' );
