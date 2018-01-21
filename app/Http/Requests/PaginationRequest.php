@@ -10,7 +10,7 @@ class PaginationRequest extends BaseRequest
 
     public $order = 'id';
 
-    public $direction = 'desc';
+    public $direction = 'asc';
     /**
      * Determine if the user is authorized to make this request.
      *
