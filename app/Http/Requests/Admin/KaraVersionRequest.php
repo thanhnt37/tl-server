@@ -31,11 +31,10 @@ class KaraVersionRequest extends BaseRequest
      */
     public function rules()
     {
-        $id = ($this->method() == 'PUT') ? $this->route('app_version') : 0;
-
         $rules = [
-            'version' => 'required|string|unique:kara_versions,version,' . $id,
-            'name'    => 'required|string'
+            'application_id' => 'required',
+            'version'        => 'required|string',
+            'name'           => 'required|string'
         ];
 
         return $rules;

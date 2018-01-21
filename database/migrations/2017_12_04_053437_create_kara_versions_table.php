@@ -16,7 +16,7 @@ class CreatekaraVersionsTable extends Migration
             $table->bigIncrements('id');
 
             $table->unsignedBigInteger('application_id')->default(0);
-            $table->string('version')->unique();
+            $table->string('version');
             $table->string('name');
 
             $table->text('description')->nullable()->default('');
