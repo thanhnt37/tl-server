@@ -46,7 +46,8 @@
                 <li @if( $menu=='customers') class="active" @endif ><a href="{!! \URL::action('Admin\CustomerController@index') !!}"><i class="fa fa-users"></i> <span>Customers</span></a></li>
                 <li @if( $menu=='sales') class="active" @endif ><a href="{!! \URL::action('Admin\SaleController@index') !!}"><i class="fa fa-money"></i> <span>Sales</span></a></li>
 
-                <li class="header">Media Data</li>
+                <li class="header">TL Launcher</li>
+                <li class="header">TL Karaoke</li>
                 <li @if( $menu=='songs') class="active" @endif ><a href="{!! \URL::action('Admin\SongController@index') !!}"><i class="fa fa-music"></i> <span>Songs</span></a></li>
                 <li @if( $menu=='albums') class="active" @endif ><a href="{!! \URL::action('Admin\AlbumController@index') !!}"><i class="fa fa-braille"></i> <span>Albums</span></a></li>
                 <li @if( $menu=='genres') class="active" @endif ><a href="{!! \URL::action('Admin\GenreController@index') !!}"><i class="fa fa-transgender-alt"></i> <span>Genres</span></a></li>
@@ -55,6 +56,7 @@
             @endif
 
             @if( $authUser->hasRole(\App\Models\AdminUserRole::ROLE_SUPER_USER) )
+                <li class="header">TL Store</li>
                 <li class="header">Backend</li>
                 <li @if( $menu=='oauth_clients') class="active" @endif ><a href="{!! \URL::action('Admin\OauthClientController@index') !!}"><i class="fa fa-key"></i> <span>Oauth Clients</span></a></li>
                 <li @if( $menu=='admin_users') class="active" @endif ><a href="{!! \URL::action('Admin\AdminUserController@index') !!}"><i class="fa fa-user-secret"></i> <span>@lang('admin.menu.admin_users')</span></a></li>

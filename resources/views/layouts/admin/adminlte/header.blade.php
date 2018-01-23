@@ -2,7 +2,7 @@
     <!-- Logo -->
     <a href="index2.html" class="logo">
         <!-- mini logo for sidebar mini 50x50 pixels -->
-        <span class="logo-mini"><b>TLK</b></span>
+        <span class="logo-mini"><b>TL</b></span>
         <!-- logo for regular state and mobile devices -->
         <span class="logo-lg">
             <img src="{{\URLHelper::asset('img/tl-logo.png', 'common')}}" alt="" style="width: 90%;">

@@ -45,7 +45,7 @@
             <div class="col-sm-10 col-sm-offset-1 col-md-8 col-md-offset-2">
                 <div class="panel panel-default">
                     <div class="panel-heading text-center">
-                        <strong style="font-size: 20px;">Laravel Boilerplate </strong>Admin
+                        <strong style="font-size: 20px;">Truong Lam </strong>Jsc
                     </div>
                     <div class="panel-body" style="padding: 30px 60px;">
                         <form action="{!! action('Admin\AuthController@postSignIn') !!}" method="post">
@@ -53,7 +53,7 @@
                             <fieldset>
                                 <div class="row" style="margin-bottom: 30px;">
                                     <div class="center-block text-center">
-                                        <img width="150" src="{{ \URLHelper::asset('img/user_avatar.png', 'common') }}" class="profile-img" alt="">
+                                        <img width="150" src="{{ \URLHelper::asset('img/truonglam-building.jpg', 'common') }}" class="profile-img" alt="">
                                     </div>
                                 </div>
                                 <div class="row">
@@ -80,15 +80,6 @@
                                         </div>
                                         <div class="row text-center">
                                             <input type="submit" class="btn  btn-primary" value="Sign in" style="width: 150px;">
-                                        </div>
-
-                                        <div class="form-group">
-                                            <div class="col-md-12 control" style="padding: 0; margin-top: 15px;">
-                                                <div style="border-top: 1px solid#888; padding-top:10px; font-size:12px;" >
-                                                    Forgot your password!
-                                                    <a href="{!! action('Admin\PasswordController@getForgotPassword') !!}">Click here</a><br>
-                                                </div>
-                                            </div>
                                         </div>
                                     </div>
                                 </div>
