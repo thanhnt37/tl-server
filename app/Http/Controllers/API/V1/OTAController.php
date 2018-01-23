@@ -45,47 +45,60 @@ class OTAController extends Controller
 
     public function updateOTA(OTARequest $request)
     {
+        // apk_version_id = version code, sdk_version_id = sdk name
+        // lấy các thông số box, application, sdk,
+        // từ app_key -> application_id, cộng với apk_version_id -> app_version_id hiện tại của client
+        // từ imei -> box_id, cộng với sdk_id từ sdk_version_id (value) để tìm đc các app_version_id setup trên sv, tìm đến app tương ứng rồi so sánh
+        // nếu apk_version_id của client thấp hơn sv thì trả về apk_version_id theo sv
+
         $data = $request->only(
             ['imei', 'sdk_version_id', 'apk_version_id', 'app_key']
         );
 
         // check box is activated and not blocked
-        $box = $this->boxRepository->findByImei($data['imei']);
-        if( empty($box) ) {
+        $clientBox = $this->boxRepository->findByImei($data['imei']);
+        if( empty($clientBox) ) {
             return Response::response(20004);
         }
+        $clientSdk = $this->sdkVersionRepository->findByName($data['sdk_version_id']);
+        if( empty($clientSdk) ) {
+            return Response::response(20004);
+        }
+        $clientApp = $this->applicationRepository->findByAppKey($data['app_key']);
+        if( empty($clientApp) ) {
+            return Response::response(40003);
+        }
 
-        $sdkVersion = $this->sdkVersionRepository->findByName($data['sdk_version_id']);
-        if( empty($sdkVersion) ) {
+        // get current app version
+        $clientAppVersion = $this->karaVersionRepository->findByVersionAndApplicationId($data['apk_version_id'], $clientApp->id);
+        if( empty($clientAppVersion) ) {
             return Response::response(20004);
         }
 
         // get OTA info by box_version_id and sdk_version_id
-        $ota = $this->karaOtaRepository->findByBoxVersionIdAndSdkVersionId($box->box_version_id, $sdkVersion->id);
-        if( empty($ota) || !isset($ota->karaVersion) || empty($ota->karaVersion) ) {
+        $serverOTAs = $this->karaOtaRepository->getByBoxVersionIdAndSdkVersionId($clientBox->box_version_id, $clientSdk->id);
+        if( empty($serverOTAs) ) {
             return Response::response(20004);
         }
+        foreach ( $serverOTAs as $ota ) {
+            if( isset($ota->karaVersion->application_id) && ($ota->karaVersion->application_id == $clientApp->id) ) {
+                $serverOTA = $ota;
 
-        // get current app version
-        $karaVersion = $this->karaVersionRepository->findByVersion($data['apk_version_id']);
-        if( empty($karaVersion) || !isset($karaVersion->application->id) ) {
+                break;
+            }
+        }
+        if( !isset($serverOTA) || empty($serverOTA) ) {
             return Response::response(20004);
         }
-
-        // check application get by app_key is match with application in db
-        $clientApp = $this->applicationRepository->findByAppKey($data['app_key']);
-        if( empty($clientApp) || ($clientApp->id != $karaVersion->application->id) ) {
-            return Response::response(40003);
-        }
-
+        
         // if current app version is up to date -> response
-        if( $karaVersion->id >= $ota->kara_version_id ) {
+        if( $clientAppVersion->id >= $serverOTA->kara_version_id ) {
             return Response::response(20001);
         }
 
         // return new app version if current app version is out date
-        $version  = $ota->karaVersion;
-        $response = $ota->karaVersion->toAPIArray();
+        $version  = $serverOTA->karaVersion;
+        $response = $serverOTA->karaVersion->toAPIArray();
         if( empty($version->apkPackage) ) {
             return Response::response(20005);
         }
