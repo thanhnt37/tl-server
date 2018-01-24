@@ -33,20 +33,20 @@
                 <li @if( $menu=='os_versions') class="active" @endif ><a href="{!! \URL::action('Admin\OsVersionController@index') !!}"><i class="fa fa-android"></i> <span>OS Versions</span></a></li>
                 <li @if( $menu=='sdk_versions') class="active" @endif ><a href="{!! \URL::action('Admin\SdkVersionController@index') !!}"><i class="fa fa-wrench"></i> <span>SDK Versions</span></a></li>
                 <li @if( $menu=='box_versions') class="active" @endif ><a href="{!! \URL::action('Admin\BoxVersionController@index') !!}"><i class="fa fa-archive"></i> <span>Box Type</span></a></li>
-            @endif
 
-            @if( $authUser->hasRole(\App\Models\AdminUserRole::ROLE_ADMIN) )
                 <li class="header">App Management</li>
                 <li @if( $menu=='applications') class="active" @endif ><a href="{!! \URL::action('Admin\ApplicationController@index') !!}"><i class="fa fa-microchip"></i> <span>Applications</span></a></li>
                 <li @if( $menu=='app_versions') class="active" @endif ><a href="{!! \URL::action('Admin\AppVersionController@index') !!}"><i class="fa fa-code-fork"></i> <span>App Versions</span></a></li>
                 <li @if( $menu=='app_ota') class="active" @endif ><a href="{!! \URL::action('Admin\AppOtaController@index') !!}"><i class="fa fa-object-ungroup"></i> <span>OTA Manager</span></a></li>
-
 
                 <li class="header">Sales Management</li>
                 <li @if( $menu=='customers') class="active" @endif ><a href="{!! \URL::action('Admin\CustomerController@index') !!}"><i class="fa fa-users"></i> <span>Customers</span></a></li>
                 <li @if( $menu=='sales') class="active" @endif ><a href="{!! \URL::action('Admin\SaleController@index') !!}"><i class="fa fa-money"></i> <span>Sales</span></a></li>
 
                 <li class="header">TL Launcher</li>
+            @endif
+
+            @if( $authUser->hasRole(\App\Models\AdminUserRole::ROLE_ADMIN) )
                 <li class="header">TL Karaoke</li>
                 <li @if( $menu=='songs') class="active" @endif ><a href="{!! \URL::action('Admin\SongController@index') !!}"><i class="fa fa-music"></i> <span>Songs</span></a></li>
                 <li @if( $menu=='albums') class="active" @endif ><a href="{!! \URL::action('Admin\AlbumController@index') !!}"><i class="fa fa-braille"></i> <span>Albums</span></a></li>

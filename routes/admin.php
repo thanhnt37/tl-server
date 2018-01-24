@@ -27,16 +27,16 @@
             \Route::resource('oauth-clients', 'Admin\OauthClientController');
             \Route::resource('logs', 'Admin\LogController');
 
+            \Route::resource('applications', 'Admin\ApplicationController');
+            \Route::resource('os-versions', 'Admin\OsVersionController');
+            \Route::resource('sdk-versions', 'Admin\SdkVersionController');
+            \Route::resource('box-versions', 'Admin\BoxVersionController');
+
         });
 
         \Route::group(['middleware' => ['admin.has_role.admin']], function () {
             
             \Route::get('load-notification/{offset}', 'Admin\AdminUserNotificationController@loadNotification');
-
-            \Route::resource('applications', 'Admin\ApplicationController');
-            \Route::resource('os-versions', 'Admin\OsVersionController');
-            \Route::resource('sdk-versions', 'Admin\SdkVersionController');
-            \Route::resource('box-versions', 'Admin\BoxVersionController');
 
             \Route::resource('authors', 'Admin\AuthorController');
             \Route::get('songs/search', 'Admin\SongController@search');
