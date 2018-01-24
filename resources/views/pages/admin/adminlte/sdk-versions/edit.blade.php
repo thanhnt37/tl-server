@@ -62,7 +62,7 @@
                     <div class="col-md-12">
                         <div class="form-group @if ($errors->has('name')) has-error @endif">
                             <label for="name">@lang('admin.pages.sdk-versions.columns.name')</label>
-                            <input type="text" class="form-control" id="name" name="name" required
+                            <input type="number" min="0" class="form-control" id="name" name="name" required
                                    value="{{ old('name') ? old('name') : $sdkVersion->name }}">
                         </div>
                     </div>

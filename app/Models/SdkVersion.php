@@ -50,7 +50,7 @@ class SdkVersion extends Base
     public function toAPIArray()
     {
         return [
-            'name' => $this->name,
+            'name' => intval($this->name),
         ];
     }
 

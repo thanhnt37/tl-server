@@ -33,7 +33,7 @@ class KaraVersionRequest extends BaseRequest
     {
         $rules = [
             'application_id' => 'required',
-            'version'        => 'required|string',
+            'version'        => 'required|numeric|min:0',
             'name'           => 'required|string'
         ];
 

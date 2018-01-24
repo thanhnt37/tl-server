@@ -22,8 +22,8 @@ class OTARequest extends Request
     {
         $rules = [
             'imei'           => 'required|string',
-            'sdk_version_id' => 'required|string',
-            'apk_version_id' => 'required|string',
+            'sdk_version_id' => 'required|numeric|min:0',
+            'apk_version_id' => 'required|numeric|min:0',
             'app_key'        => 'required|string'
         ];
 

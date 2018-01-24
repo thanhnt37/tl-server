@@ -31,7 +31,11 @@ class SdkVersionRequest extends BaseRequest
      */
     public function rules()
     {
-        return $this->sdkVersionRepository->rules();
+        $rules = [
+            'name' => 'required|numeric|min:0'
+        ];
+
+        return $rules;
     }
 
     public function messages()

@@ -78,7 +78,7 @@
                     <div class="col-md-4">
                         <div class="form-group @if ($errors->has('version')) has-error @endif">
                             <label for="version">Version Code</label>
-                            <input type="text" class="form-control" id="version" name="version" required value="{{ old('version') ? old('version') : $karaVersion->version }}">
+                            <input type="number" min="0" class="form-control" id="version" name="version" required value="{{ old('version') ? old('version') : $karaVersion->version }}">
                         </div>
                     </div>
 

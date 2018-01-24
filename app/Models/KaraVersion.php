@@ -64,7 +64,7 @@ class KaraVersion extends Base
         return [
             'id'          => $this->id,
             'application' => !empty($this->application) ? $this->application->name : 'Unknown',
-            'version'     => $this->version,
+            'version'     => intval($this->version),
             'name'        => $this->name,
             'description' => $this->description,
         ];
