@@ -120,22 +120,6 @@
                                 </tr>
                             @endif
 
-                            <tr class="@if ($errors->has('locale')) has-error @endif">
-                                <td>
-                                    <label for="locale">@lang('admin.pages.admin-users.columns.locale')</label>
-                                </td>
-                                <td>
-                                    <select class="form-control" name="locale" id="locale" style="margin-bottom: 15px;" required>
-                                        <option value="">@lang('admin.pages.common.label.select_locale')</option>
-                                        @foreach( config('locale.languages') as $code => $locale )
-                                            <option value="{!! $code !!}" @if( (old('locale') && old('locale') == $code) || ( $adminUser->locale === $code) ) selected @endif >
-                                                {{ trans($locale['name']) }}
-                                            </option>
-                                        @endforeach
-                                    </select>
-                                </td>
-                            </tr>
-
                             <tr>
                                 <td>
                                     <label for="role">@lang('admin.pages.admin-users.columns.permissions')</label>

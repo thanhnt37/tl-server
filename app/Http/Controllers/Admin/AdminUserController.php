@@ -49,8 +49,8 @@ class AdminUserController extends Controller
     {
         $paginate['offset']     = $request->offset();
         $paginate['limit']      = $request->limit();
-        $paginate['order']      = $request->order();
-        $paginate['direction']  = $request->direction();
+        $paginate['order']      = $request->order('id');
+        $paginate['direction']  = $request->direction('asc');
         $paginate['baseUrl']    = action('Admin\AdminUserController@index');
 
         $count = $this->adminUserRepository->count();
@@ -102,7 +102,6 @@ class AdminUserController extends Controller
                 'email',
                 'password',
                 're_password',
-                'locale',
             ]
         );
         $exist = $this->adminUserRepository->findByEmail($input['email']);
@@ -206,7 +205,6 @@ class AdminUserController extends Controller
             [
                 'name',
                 'email',
-                'locale',
             ]
         );
 

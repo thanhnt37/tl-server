@@ -4,6 +4,11 @@
 @stop
 
 @section('styles')
+    <style>
+        #admin-users-index tr td {
+            text-align: center;
+        }
+    </style>
 @stop
 
 @section('scripts')
@@ -43,13 +48,12 @@
             </div>
         </div>
         <div class="box-body" style=" overflow-x: scroll; ">
-            <table class="table table-bordered">
+            <table class="table table-bordered" id="admin-users-index">
                 <tr>
                     <th style="width: 10px">ID</th>
                     <th>@lang('admin.pages.admin-users.columns.name')</th>
                     <th>@lang('admin.pages.admin-users.columns.email')</th>
                     <th>@lang('admin.pages.admin-users.columns.role')</th>
-                    <th>@lang('admin.pages.admin-users.columns.locale')</th>
 
                     <th style="width: 40px">@lang('admin.pages.common.label.actions')</th>
                 </tr>
@@ -59,7 +63,6 @@
                         <td>{{ $adminUser->name }}</td>
                         <td>{{ $adminUser->email }}</td>
                         <td>@if( count($adminUser->roles) ) {{ $adminUser->roles[0]->getRoleName() }} @endif</td>
-                        <td>{{ trans('config.locale.languages.' . $adminUser->locale . '.name') }}</td>
 
                         <td>
                             <a href="{!! URL::action('Admin\AdminUserController@show', $adminUser->id) !!}" class="btn btn-block btn-primary btn-xs">@lang('admin.pages.common.buttons.edit')</a>
