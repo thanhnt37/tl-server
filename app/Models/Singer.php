@@ -68,7 +68,7 @@ class Singer extends Base
             'wildcard'    => $this->wildcard,
             'name'        => $this->name,
             'description' => $this->description,
-            'cover_image' => !empty($this->coverImage) ? $this->coverImage->present()->url : 'http://placehold.it/640x480?text=No%20Image',
+            'cover_image' => !empty($this->coverImage) ? $this->coverImage->present()->url : null,
         ];
     }
 

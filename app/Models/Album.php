@@ -73,8 +73,8 @@ class Album extends Base
             'id'               => $this->id,
             'name'             => $this->name,
             'description'      => $this->description,
-            'background_image' => !empty($this->backgroundImage) ? $this->backgroundImage->present()->url : 'http://placehold.it/640x480?text=No%20Image',
-            'cover_image'      => !empty($this->coverImage) ? $this->coverImage->present()->url : 'http://placehold.it/640x480?text=No%20Image',
+            'background_image' => !empty($this->backgroundImage) ? $this->backgroundImage->present()->url : null,
+            'cover_image'      => !empty($this->coverImage) ? $this->coverImage->present()->url : null,
             'vote'             => intval($this->vote),
             'publish_at'       => date_format($this->publish_at, 'Y-m-d H:i:s'),
         ];
