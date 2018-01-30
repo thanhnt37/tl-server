@@ -11,7 +11,7 @@ class KaraOta extends Base
      *
      * @var string
      */
-    protected $table = 'kara_ota';
+    protected $table = 'app_ota';
 
     /**
      * The attributes that are mass assignable.

@@ -3,7 +3,7 @@
 use Illuminate\Database\Schema\Blueprint;
 use \App\Database\Migration;
 
-class CreatekaraVersionsTable extends Migration
+class CreateAppVersionsTable extends Migration
 {
     /**
      * Run the migrations.
@@ -12,7 +12,7 @@ class CreatekaraVersionsTable extends Migration
      */
     public function up()
     {
-        Schema::create('kara_versions', function (Blueprint $table) {
+        Schema::create('app_versions', function (Blueprint $table) {
             $table->bigIncrements('id');
 
             $table->unsignedBigInteger('application_id')->default(0);
@@ -25,7 +25,7 @@ class CreatekaraVersionsTable extends Migration
             $table->timestamps();
         });
 
-        $this->updateTimestampDefaultValue('kara_versions', ['updated_at'], ['created_at']);
+        $this->updateTimestampDefaultValue('app_versions', ['updated_at'], ['created_at']);
     }
 
     /**
@@ -35,6 +35,6 @@ class CreatekaraVersionsTable extends Migration
      */
     public function down()
     {
-        Schema::dropIfExists('kara_versions');
+        Schema::dropIfExists('app_versions');
     }
 }

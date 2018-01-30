@@ -10,7 +10,7 @@ class KaraVersion extends Base
      *
      * @var string
      */
-    protected $table = 'kara_versions';
+    protected $table = 'app_versions';
 
     /**
      * The attributes that are mass assignable.

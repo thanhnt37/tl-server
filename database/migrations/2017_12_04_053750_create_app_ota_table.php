@@ -3,7 +3,7 @@
 use Illuminate\Database\Schema\Blueprint;
 use \App\Database\Migration;
 
-class CreatekaraOtaTable extends Migration
+class CreateAppOtaTable extends Migration
 {
     /**
      * Run the migrations.
@@ -12,7 +12,7 @@ class CreatekaraOtaTable extends Migration
      */
     public function up()
     {
-        Schema::create('kara_ota', function (Blueprint $table) {
+        Schema::create('app_ota', function (Blueprint $table) {
             $table->bigIncrements('id');
 
             $table->unsignedBigInteger('os_version_id');
@@ -24,7 +24,7 @@ class CreatekaraOtaTable extends Migration
             $table->softDeletes();
         });
 
-        $this->updateTimestampDefaultValue('kara_ota', ['updated_at'], ['created_at']);
+        $this->updateTimestampDefaultValue('app_ota', ['updated_at'], ['created_at']);
     }
 
     /**
@@ -34,6 +34,6 @@ class CreatekaraOtaTable extends Migration
      */
     public function down()
     {
-        Schema::dropIfExists('kara_ota');
+        Schema::dropIfExists('app_ota');
     }
 }
