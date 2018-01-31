@@ -159,7 +159,7 @@ class AppVersionController extends Controller
      */
     public function update($id, KaraVersionRequest $request)
     {
-        /** @var \App\Models\KaraVersion $karaVersion */
+        /** @var \App\Models\AppVersion $karaVersion */
         $karaVersion = $this->karaVersionRepository->find($id);
         if (empty( $karaVersion )) {
             abort(404);
@@ -204,7 +204,7 @@ class AppVersionController extends Controller
      */
     public function destroy($id)
     {
-        /** @var \App\Models\KaraVersion $karaVersion */
+        /** @var \App\Models\AppVersion $karaVersion */
         $karaVersion = $this->karaVersionRepository->find($id);
         if (empty( $karaVersion )) {
             abort(404);

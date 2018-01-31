@@ -1,6 +1,6 @@
 <?php namespace Tests\Models;
 
-use App\Models\KaraVersion;
+use App\Models\AppVersion;
 use Tests\TestCase;
 
 class KaraVersionTest extends TestCase
@@ -10,23 +10,23 @@ class KaraVersionTest extends TestCase
 
     public function testGetInstance()
     {
-        /** @var  \App\Models\KaraVersion $karaVersion */
-        $karaVersion = new KaraVersion();
+        /** @var  \App\Models\AppVersion $karaVersion */
+        $karaVersion = new AppVersion();
         $this->assertNotNull($karaVersion);
     }
 
     public function testStoreNew()
     {
-        /** @var  \App\Models\KaraVersion $karaVersion */
-        $karaVersionModel = new KaraVersion();
+        /** @var  \App\Models\AppVersion $karaVersion */
+        $karaVersionModel = new AppVersion();
 
-        $karaVersionData = factory(KaraVersion::class)->make();
+        $karaVersionData = factory(AppVersion::class)->make();
         foreach( $karaVersionData->toFillableArray() as $key => $value ) {
             $karaVersionModel->$key = $value;
         }
         $karaVersionModel->save();
 
-        $this->assertNotNull(KaraVersion::find($karaVersionModel->id));
+        $this->assertNotNull(AppVersion::find($karaVersionModel->id));
     }
 
 }

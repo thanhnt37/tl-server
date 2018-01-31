@@ -1,14 +1,14 @@
 <?php namespace App\Repositories\Eloquent;
 
 use \App\Repositories\KaraVersionRepositoryInterface;
-use \App\Models\KaraVersion;
+use \App\Models\AppVersion;
 
 class KaraVersionRepository extends SingleKeyModelRepository implements KaraVersionRepositoryInterface
 {
 
     public function getBlankModel()
     {
-        return new KaraVersion();
+        return new AppVersion();
     }
 
     public function rules()

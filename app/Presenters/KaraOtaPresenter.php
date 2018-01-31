@@ -3,7 +3,7 @@
 namespace App\Presenters;
 
 use Illuminate\Support\Facades\Redis;
-use App\Models\KaraVersion;
+use App\Models\AppVersion;
 
 class KaraOtaPresenter extends BasePresenter
 {
@@ -12,14 +12,14 @@ class KaraOtaPresenter extends BasePresenter
     protected $imageFields = [];
 
     /**
-    * @return \App\Models\KaraVersion
+    * @return \App\Models\AppVersion
     * */
     public function karaVersion()
     {
         if( \CacheHelper::cacheRedisEnabled() ) {
             $cached = Redis::hget(\CacheHelper::generateCacheKey('hash_kara_versions'), $this->entity->kara_version_id);
             if( $cached ) {
-                $karaVersion = new KaraVersion(json_decode($cached, true));
+                $karaVersion = new AppVersion(json_decode($cached, true));
                 $karaVersion['id'] = json_decode($cached, true)['id'];
                 return $karaVersion;
             } else {

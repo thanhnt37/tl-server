@@ -53,7 +53,7 @@ class KaraOta extends Base
     }
     public function karaVersion()
     {
-        return $this->belongsTo(\App\Models\KaraVersion::class, 'kara_version_id', 'id');
+        return $this->belongsTo(\App\Models\AppVersion::class, 'kara_version_id', 'id');
     }
     public function boxVersion()
     {

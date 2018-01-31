@@ -1,6 +1,6 @@
 <?php namespace Tests\Repositories;
 
-use App\Models\KaraVersion;
+use App\Models\AppVersion;
 use Tests\TestCase;
 
 class KaraVersionRepositoryTest extends TestCase
@@ -16,7 +16,7 @@ class KaraVersionRepositoryTest extends TestCase
 
     public function testGetList()
     {
-        $karaVersions = factory(KaraVersion::class, 3)->create();
+        $karaVersions = factory(AppVersion::class, 3)->create();
         $karaVersionIds = $karaVersions->pluck('id')->toArray();
 
         /** @var  \App\Repositories\KaraVersionRepositoryInterface $repository */
@@ -24,7 +24,7 @@ class KaraVersionRepositoryTest extends TestCase
         $this->assertNotNull($repository);
 
         $karaVersionsCheck = $repository->get('id', 'asc', 0, 1);
-        $this->assertInstanceOf(KaraVersion::class, $karaVersionsCheck[0]);
+        $this->assertInstanceOf(AppVersion::class, $karaVersionsCheck[0]);
 
         $karaVersionsCheck = $repository->getByIds($karaVersionIds);
         $this->assertEquals(3, count($karaVersionsCheck));
@@ -32,7 +32,7 @@ class KaraVersionRepositoryTest extends TestCase
 
     public function testFind()
     {
-        $karaVersions = factory(KaraVersion::class, 3)->create();
+        $karaVersions = factory(AppVersion::class, 3)->create();
         $karaVersionIds = $karaVersions->pluck('id')->toArray();
 
         /** @var  \App\Repositories\KaraVersionRepositoryInterface $repository */
@@ -45,7 +45,7 @@ class KaraVersionRepositoryTest extends TestCase
 
     public function testCreate()
     {
-        $karaVersionData = factory(KaraVersion::class)->make();
+        $karaVersionData = factory(AppVersion::class)->make();
 
         /** @var  \App\Repositories\KaraVersionRepositoryInterface $repository */
         $repository = \App::make(\App\Repositories\KaraVersionRepositoryInterface::class);
@@ -57,7 +57,7 @@ class KaraVersionRepositoryTest extends TestCase
 
     public function testUpdate()
     {
-        $karaVersionData = factory(KaraVersion::class)->create();
+        $karaVersionData = factory(AppVersion::class)->create();
 
         /** @var  \App\Repositories\KaraVersionRepositoryInterface $repository */
         $repository = \App::make(\App\Repositories\KaraVersionRepositoryInterface::class);
@@ -69,7 +69,7 @@ class KaraVersionRepositoryTest extends TestCase
 
     public function testDelete()
     {
-        $karaVersionData = factory(KaraVersion::class)->create();
+        $karaVersionData = factory(AppVersion::class)->create();
 
         /** @var  \App\Repositories\KaraVersionRepositoryInterface $repository */
         $repository = \App::make(\App\Repositories\KaraVersionRepositoryInterface::class);

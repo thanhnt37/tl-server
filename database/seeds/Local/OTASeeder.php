@@ -4,7 +4,7 @@ namespace Seeds\Local;
 
 use App\Models\Application;
 use App\Models\KaraOta;
-use App\Models\KaraVersion;
+use App\Models\AppVersion;
 use Illuminate\Database\Seeder;
 
 class OTASeeder extends Seeder
@@ -18,7 +18,7 @@ class OTASeeder extends Seeder
 
         foreach (range(1, 60, 1) as $numberVersion)
         {
-            factory(KaraVersion::class)->create(
+            factory(AppVersion::class)->create(
                 [
                     'application_id'  => rand(1, 5),
                 ]

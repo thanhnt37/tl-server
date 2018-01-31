@@ -35,7 +35,7 @@ class AppVersionControllerTest extends TestCase
 
     public function testStoreModel()
     {
-        $karaVersion = factory(\App\Models\KaraVersion::class)->make();
+        $karaVersion = factory(\App\Models\AppVersion::class)->make();
         $this->action('POST', 'Admin\AppVersionController@store', [
                 '_token' => csrf_token(),
             ] + $karaVersion->toArray());
@@ -44,7 +44,7 @@ class AppVersionControllerTest extends TestCase
 
     public function testEditModel()
     {
-        $karaVersion = factory(\App\Models\KaraVersion::class)->create();
+        $karaVersion = factory(\App\Models\AppVersion::class)->create();
         $this->action('GET', 'Admin\AppVersionController@show', [$karaVersion->id]);
         $this->assertResponseOk();
     }
@@ -53,7 +53,7 @@ class AppVersionControllerTest extends TestCase
     {
         $faker = \Faker\Factory::create();
 
-        $karaVersion = factory(\App\Models\KaraVersion::class)->create();
+        $karaVersion = factory(\App\Models\AppVersion::class)->create();
 
         $name = $faker->name;
         $id = $karaVersion->id;
@@ -65,13 +65,13 @@ class AppVersionControllerTest extends TestCase
             ] + $karaVersion->toArray());
         $this->assertResponseStatus(302);
 
-        $newKaraVersion = \App\Models\KaraVersion::find($id);
+        $newKaraVersion = \App\Models\AppVersion::find($id);
         $this->assertEquals($name, $newKaraVersion->name);
     }
 
     public function testDeleteModel()
     {
-        $karaVersion = factory(\App\Models\KaraVersion::class)->create();
+        $karaVersion = factory(\App\Models\AppVersion::class)->create();
 
         $id = $karaVersion->id;
 
@@ -80,7 +80,7 @@ class AppVersionControllerTest extends TestCase
             ]);
         $this->assertResponseStatus(302);
 
-        $checkKaraVersion = \App\Models\KaraVersion::find($id);
+        $checkKaraVersion = \App\Models\AppVersion::find($id);
         $this->assertNull($checkKaraVersion);
     }
 

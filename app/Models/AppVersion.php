@@ -1,7 +1,7 @@
 <?php namespace App\Models;
 
 
-class KaraVersion extends Base
+class AppVersion extends Base
 {
 
 
