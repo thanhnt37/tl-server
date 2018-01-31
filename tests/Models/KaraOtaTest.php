@@ -1,6 +1,6 @@
 <?php namespace Tests\Models;
 
-use App\Models\KaraOta;
+use App\Models\AppOta;
 use Tests\TestCase;
 
 class KaraOtaTest extends TestCase
@@ -10,23 +10,23 @@ class KaraOtaTest extends TestCase
 
     public function testGetInstance()
     {
-        /** @var  \App\Models\KaraOta $karaOta */
-        $karaOta = new KaraOta();
+        /** @var  \App\Models\AppOta $karaOta */
+        $karaOta = new AppOta();
         $this->assertNotNull($karaOta);
     }
 
     public function testStoreNew()
     {
-        /** @var  \App\Models\KaraOta $karaOta */
-        $karaOtaModel = new KaraOta();
+        /** @var  \App\Models\AppOta $karaOta */
+        $karaOtaModel = new AppOta();
 
-        $karaOtaData = factory(KaraOta::class)->make();
+        $karaOtaData = factory(AppOta::class)->make();
         foreach( $karaOtaData->toFillableArray() as $key => $value ) {
             $karaOtaModel->$key = $value;
         }
         $karaOtaModel->save();
 
-        $this->assertNotNull(KaraOta::find($karaOtaModel->id));
+        $this->assertNotNull(AppOta::find($karaOtaModel->id));
     }
 
 }

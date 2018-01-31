@@ -180,7 +180,7 @@ $factory->define(App\Models\AppVersion::class, function (Faker\Generator $faker)
     ];
 });
 
-$factory->define(App\Models\KaraOta::class, function (Faker\Generator $faker)
+$factory->define(App\Models\AppOta::class, function (Faker\Generator $faker)
 {
     return [
         'os_version_id'   => 0,

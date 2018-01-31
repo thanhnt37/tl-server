@@ -2,7 +2,7 @@
 
 use Illuminate\Database\Eloquent\SoftDeletes;
 
-class KaraOta extends Base
+class AppOta extends Base
 {
     use SoftDeletes;
 

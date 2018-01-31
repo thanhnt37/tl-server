@@ -1,14 +1,14 @@
 <?php namespace App\Repositories\Eloquent;
 
 use \App\Repositories\KaraOtaRepositoryInterface;
-use \App\Models\KaraOta;
+use \App\Models\AppOta;
 
 class KaraOtaRepository extends SingleKeyModelRepository implements KaraOtaRepositoryInterface
 {
 
     public function getBlankModel()
     {
-        return new KaraOta();
+        return new AppOta();
     }
 
     public function rules()

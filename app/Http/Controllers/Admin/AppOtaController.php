@@ -166,7 +166,7 @@ class AppOtaController extends Controller
      */
     public function update($id, KaraOtaRequest $request)
     {
-        /** @var \App\Models\KaraOta $karaOta */
+        /** @var \App\Models\AppOta $karaOta */
         $karaOta = $this->karaOtaRepository->find($id);
         if (empty( $karaOta )) {
             abort(404);
@@ -187,7 +187,7 @@ class AppOtaController extends Controller
      */
     public function destroy($id)
     {
-        /** @var \App\Models\KaraOta $karaOta */
+        /** @var \App\Models\AppOta $karaOta */
         $karaOta = $this->karaOtaRepository->find($id);
         if (empty( $karaOta )) {
             abort(404);

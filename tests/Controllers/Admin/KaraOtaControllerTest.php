@@ -35,7 +35,7 @@ class AppOtaControllerTest extends TestCase
 
     public function testStoreModel()
     {
-        $karaOta = factory(\App\Models\KaraOta::class)->make();
+        $karaOta = factory(\App\Models\AppOta::class)->make();
         $this->action('POST', 'Admin\AppOtaController@store', [
                 '_token' => csrf_token(),
             ] + $karaOta->toArray());
@@ -44,7 +44,7 @@ class AppOtaControllerTest extends TestCase
 
     public function testEditModel()
     {
-        $karaOta = factory(\App\Models\KaraOta::class)->create();
+        $karaOta = factory(\App\Models\AppOta::class)->create();
         $this->action('GET', 'Admin\AppOtaController@show', [$karaOta->id]);
         $this->assertResponseOk();
     }
@@ -53,7 +53,7 @@ class AppOtaControllerTest extends TestCase
     {
         $faker = \Faker\Factory::create();
 
-        $karaOta = factory(\App\Models\KaraOta::class)->create();
+        $karaOta = factory(\App\Models\AppOta::class)->create();
 
         $name = $faker->name;
         $id = $karaOta->id;
@@ -65,13 +65,13 @@ class AppOtaControllerTest extends TestCase
             ] + $karaOta->toArray());
         $this->assertResponseStatus(302);
 
-        $newKaraOta = \App\Models\KaraOta::find($id);
+        $newKaraOta = \App\Models\AppOta::find($id);
         $this->assertEquals($name, $newKaraOta->name);
     }
 
     public function testDeleteModel()
     {
-        $karaOta = factory(\App\Models\KaraOta::class)->create();
+        $karaOta = factory(\App\Models\AppOta::class)->create();
 
         $id = $karaOta->id;
 
@@ -80,7 +80,7 @@ class AppOtaControllerTest extends TestCase
             ]);
         $this->assertResponseStatus(302);
 
-        $checkKaraOta = \App\Models\KaraOta::find($id);
+        $checkKaraOta = \App\Models\AppOta::find($id);
         $this->assertNull($checkKaraOta);
     }
 

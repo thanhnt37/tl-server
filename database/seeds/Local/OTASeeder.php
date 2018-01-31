@@ -3,7 +3,7 @@
 namespace Seeds\Local;
 
 use App\Models\Application;
-use App\Models\KaraOta;
+use App\Models\AppOta;
 use App\Models\AppVersion;
 use Illuminate\Database\Seeder;
 

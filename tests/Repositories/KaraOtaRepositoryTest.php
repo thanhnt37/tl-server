@@ -1,6 +1,6 @@
 <?php namespace Tests\Repositories;
 
-use App\Models\KaraOta;
+use App\Models\AppOta;
 use Tests\TestCase;
 
 class KaraOtaRepositoryTest extends TestCase
@@ -16,7 +16,7 @@ class KaraOtaRepositoryTest extends TestCase
 
     public function testGetList()
     {
-        $karaOta = factory(KaraOta::class, 3)->create();
+        $karaOta = factory(AppOta::class, 3)->create();
         $karaOtaIds = $karaOta->pluck('id')->toArray();
 
         /** @var  \App\Repositories\KaraOtaRepositoryInterface $repository */
@@ -24,7 +24,7 @@ class KaraOtaRepositoryTest extends TestCase
         $this->assertNotNull($repository);
 
         $karaOtaCheck = $repository->get('id', 'asc', 0, 1);
-        $this->assertInstanceOf(KaraOta::class, $karaOtaCheck[0]);
+        $this->assertInstanceOf(AppOta::class, $karaOtaCheck[0]);
 
         $karaOtaCheck = $repository->getByIds($karaOtaIds);
         $this->assertEquals(3, count($karaOtaCheck));
@@ -32,7 +32,7 @@ class KaraOtaRepositoryTest extends TestCase
 
     public function testFind()
     {
-        $karaOta = factory(KaraOta::class, 3)->create();
+        $karaOta = factory(AppOta::class, 3)->create();
         $karaOtaIds = $karaOta->pluck('id')->toArray();
 
         /** @var  \App\Repositories\KaraOtaRepositoryInterface $repository */
@@ -45,7 +45,7 @@ class KaraOtaRepositoryTest extends TestCase
 
     public function testCreate()
     {
-        $karaOtaData = factory(KaraOta::class)->make();
+        $karaOtaData = factory(AppOta::class)->make();
 
         /** @var  \App\Repositories\KaraOtaRepositoryInterface $repository */
         $repository = \App::make(\App\Repositories\KaraOtaRepositoryInterface::class);
@@ -57,7 +57,7 @@ class KaraOtaRepositoryTest extends TestCase
 
     public function testUpdate()
     {
-        $karaOtaData = factory(KaraOta::class)->create();
+        $karaOtaData = factory(AppOta::class)->create();
 
         /** @var  \App\Repositories\KaraOtaRepositoryInterface $repository */
         $repository = \App::make(\App\Repositories\KaraOtaRepositoryInterface::class);
@@ -69,7 +69,7 @@ class KaraOtaRepositoryTest extends TestCase
 
     public function testDelete()
     {
-        $karaOtaData = factory(KaraOta::class)->create();
+        $karaOtaData = factory(AppOta::class)->create();
 
         /** @var  \App\Repositories\KaraOtaRepositoryInterface $repository */
         $repository = \App::make(\App\Repositories\KaraOtaRepositoryInterface::class);
