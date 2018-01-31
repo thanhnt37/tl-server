@@ -332,4 +332,14 @@ $factory->define(App\Models\Application::class, function (Faker\Generator $faker
     ];
 });
 
+$factory->define(App\Models\Category::class, function (Faker\Generator $faker)
+{
+    return [
+        'name'           => $faker->sentence,
+        'description'    => $faker->sentences(10, true),
+        'type'           => 0,
+        'cover_image_id' => 0,
+    ];
+});
+
 /* NEW MODEL FACTORY */
