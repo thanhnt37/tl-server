@@ -349,4 +349,22 @@ $factory->define(App\Models\Developer::class, function (Faker\Generator $faker)
     ];
 });
 
+$factory->define(App\Models\StoreApplication::class, function (Faker\Generator $faker)
+{
+    return [
+        'name'                => $faker->sentence,
+        'version_name'        => $faker->sentence,
+        'version_code'        => $faker->postcode,
+        'package_name'        => $faker->sentence,
+        'description'         => $faker->sentences(10, true),
+        'icon_image_id'       => 0,
+        'background_image_id' => 0,
+        'hit'                 => $faker->randomNumber(),
+        'apk_package_id'      => 0,
+        'category_id'         => 0,
+        'developer_id'        => 0,
+        'publish_started_at'  => $faker->dateTime(),
+    ];
+});
+
 /* NEW MODEL FACTORY */
