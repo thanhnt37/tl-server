@@ -342,4 +342,11 @@ $factory->define(App\Models\Category::class, function (Faker\Generator $faker)
     ];
 });
 
+$factory->define(App\Models\Developer::class, function (Faker\Generator $faker)
+{
+    return [
+        'name' => $faker->sentence,
+    ];
+});
+
 /* NEW MODEL FACTORY */
