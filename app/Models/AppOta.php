@@ -22,7 +22,7 @@ class AppOta extends Base
         'os_version_id',
         'sdk_version_id',
         'box_version_id',
-        'kara_version_id',
+        'app_version_id',
     ];
 
     /**
@@ -53,7 +53,7 @@ class AppOta extends Base
     }
     public function karaVersion()
     {
-        return $this->belongsTo(\App\Models\AppVersion::class, 'kara_version_id', 'id');
+        return $this->belongsTo(\App\Models\AppVersion::class, 'app_version_id', 'id');
     }
     public function boxVersion()
     {
@@ -70,10 +70,10 @@ class AppOta extends Base
     public function toAPIArray()
     {
         return [
-            'os_version_id'   => $this->os_version_id,
-            'sdk_version_id'  => $this->sdk_version_id,
-            'box_version_id'  => $this->box_version_id,
-            'kara_version_id' => $this->kara_version_id,
+            'os_version_id'  => $this->os_version_id,
+            'sdk_version_id' => $this->sdk_version_id,
+            'box_version_id' => $this->box_version_id,
+            'app_version_id' => $this->app_version_id,
         ];
     }
 

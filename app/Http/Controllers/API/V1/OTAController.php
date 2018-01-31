@@ -92,7 +92,7 @@ class OTAController extends Controller
         }
         
         // if current app version is up to date -> response
-        if( $clientAppVersion->id >= $serverOTA->kara_version_id ) {
+        if( $clientAppVersion->id >= $serverOTA->app_version_id ) {
             return Response::response(20001);
         }
 

@@ -18,7 +18,7 @@ class CreateAppOtaTable extends Migration
             $table->unsignedBigInteger('os_version_id');
             $table->unsignedBigInteger('sdk_version_id');
             $table->unsignedBigInteger('box_version_id');
-            $table->unsignedBigInteger('kara_version_id');
+            $table->unsignedBigInteger('app_version_id');
 
             $table->timestamps();
             $table->softDeletes();

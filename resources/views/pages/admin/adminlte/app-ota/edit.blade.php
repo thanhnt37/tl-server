@@ -20,13 +20,13 @@
             $('#application_id').on('change', function () {
                 let applicationId = $('#application_id').find(":selected").val();
 
-                $('#kara_version_id').html('');
+                $('#app_version_id').html('');
                 Boilerplate.appVersions.forEach(function (item, index) {
                     if( item.application_id == applicationId ) {
                         let selected = ( item.id == Boilerplate.appVersionSelectedId ) ? 'selected' : '';
                         let option = '<option value="' + item.id + '" ' + selected + '>' + item.version + ' | ' + item.name + '</option>';
 
-                        $('#kara_version_id').append(option);
+                        $('#app_version_id').append(option);
                     }
                 });
                 console.log(applicationId);
@@ -133,14 +133,14 @@
                     </div>
 
                     <div class="col-md-6">
-                        <div class="form-group @if ($errors->has('kara_version_id')) has-error @endif">
-                            <label for="kara_version_id">App Version</label>
-                            <select class="form-control" name="kara_version_id" id="kara_version_id" required>
+                        <div class="form-group @if ($errors->has('app_version_id')) has-error @endif">
+                            <label for="app_version_id">App Version</label>
+                            <select class="form-control" name="app_version_id" id="app_version_id" required>
                                 <option>Select a App Versions</option>
 
                                 @foreach( $karaVersions as $karaVersion )
                                     @if( isset($karaOta->karaVersion->application->id) && ($karaOta->karaVersion->application->id == $karaVersion->application_id))
-                                        <option value="{!! $karaVersion->id !!}" @if( (old('kara_version_id') && old('kara_version_id') == $karaVersion->id) || ( $karaOta->kara_version_id == $karaVersion->id) ) selected @endif >
+                                        <option value="{!! $karaVersion->id !!}" @if( (old('app_version_id') && old('app_version_id') == $karaVersion->id) || ( $karaOta->app_version_id == $karaVersion->id) ) selected @endif >
                                             {{ $karaVersion->version . ' | ' . $karaVersion->name }}
                                         </option>
                                     @endif

@@ -234,10 +234,10 @@ return [
         ],
         'kara-ota'                 => [
             'columns' => [
-                'os_version'      => 'OS Version',
-                'sdk_version'     => 'SDK Version',
-                'box_version_id'  => 'Box Version',
-                'kara_version_id' => 'Kara Version',
+                'os_version'     => 'OS Version',
+                'sdk_version'    => 'SDK Version',
+                'box_version_id' => 'Box Version',
+                'app_version_id' => 'App Version',
             ],
         ],
         'os-versions'              => [

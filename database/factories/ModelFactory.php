@@ -183,10 +183,10 @@ $factory->define(App\Models\AppVersion::class, function (Faker\Generator $faker)
 $factory->define(App\Models\AppOta::class, function (Faker\Generator $faker)
 {
     return [
-        'os_version_id'   => 0,
-        'sdk_version_id'  => 0,
-        'box_version_id'  => 0,
-        'kara_version_id' => 0,
+        'os_version_id'  => 0,
+        'sdk_version_id' => 0,
+        'box_version_id' => 0,
+        'app_version_id' => 0,
     ];
 });
 
