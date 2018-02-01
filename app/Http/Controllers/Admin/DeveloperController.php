@@ -30,7 +30,7 @@ class DeveloperController extends Controller
         $paginate['offset']     = $request->offset();
         $paginate['limit']      = $request->limit();
         $paginate['order']      = $request->order();
-        $paginate['direction']  = $request->direction();
+        $paginate['direction']  = $request->direction('asc');
         $paginate['baseUrl']    = action( 'Admin\DeveloperController@index' );
 
         $count = $this->developerRepository->count();
