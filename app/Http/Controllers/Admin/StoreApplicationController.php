@@ -116,6 +116,70 @@ class StoreApplicationController extends Controller
             return redirect()->back()->withErrors(trans('admin.errors.general.save_failed'));
         }
 
+        if ($request->hasFile('background_image')) {
+            $file = $request->file('background_image');
+
+            $newImage = $this->fileUploadService->upload(
+                'store-app_background_image',
+                $file,
+                [
+                    'entity_type' => 'store-app_background_image',
+                    'entity_id'   => $storeApplication->id,
+                    'title'       => $storeApplication->name,
+                ]
+            );
+
+            if (!empty($newImage)) {
+                $this->storeApplicationRepository->update($storeApplication, ['background_image_id' => $newImage->id]);
+            }
+        } else {
+            $imageUrl = $request->get('background_image_url', '');
+            if( $imageUrl != '' ) {
+                $newImage = $this->imageRepository->create(
+                    [
+                        'url'      => $imageUrl,
+                        'is_local' => false
+                    ]
+                );
+
+                if (!empty($newImage)) {
+                    $this->storeApplicationRepository->update($storeApplication, ['background_image_id' => $newImage->id]);
+                }
+            }
+        }
+
+        if ($request->hasFile('icon_image')) {
+            $file = $request->file('icon_image');
+
+            $newImage = $this->fileUploadService->upload(
+                'store-app_icon_image',
+                $file,
+                [
+                    'entity_type' => 'store-app_icon_image',
+                    'entity_id'   => $storeApplication->id,
+                    'title'       => $storeApplication->name,
+                ]
+            );
+
+            if (!empty($newImage)) {
+                $this->storeApplicationRepository->update($storeApplication, ['icon_image_id' => $newImage->id]);
+            }
+        } else {
+            $imageUrl = $request->get('icon_image_url', '');
+            if( $imageUrl != '' ) {
+                $newImage = $this->imageRepository->create(
+                    [
+                        'url'      => $imageUrl,
+                        'is_local' => false
+                    ]
+                );
+
+                if (!empty($newImage)) {
+                    $this->storeApplicationRepository->update($storeApplication, ['icon_image_id' => $newImage->id]);
+                }
+            }
+        }
+
         return redirect()->action('Admin\StoreApplicationController@index')
             ->with('message-success', trans('admin.messages.general.create_success'));
     }
