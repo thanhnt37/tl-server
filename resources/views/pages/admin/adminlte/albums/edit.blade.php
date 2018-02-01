@@ -105,9 +105,9 @@
 
                         <div class="form-group text-center">
                             @if( !empty($album->coverImage) )
-                                <img id="cover-image-preview" style="max-width: 500px; width: 100%;" src="{!! $album->coverImage->present()->url !!}" alt="" class="margin"/>
+                                <img id="cover-image-preview" style="max-width: 500px; width: 100%;" src="{!! $album->coverImage->present()->url !!}" alt="" />
                             @else
-                                <img id="cover-image-preview" style="max-width: 500px; width: 100%;" src="{!! \URLHelper::asset('img/no_image.jpg', 'common') !!}" alt="" class="margin"/>
+                                <img id="cover-image-preview" style="max-width: 500px; width: 100%;" src="{!! \URLHelper::asset('img/no_image.jpg', 'common') !!}" alt="" />
                             @endif
 
                             <input type="file" style="display: none;" id="cover-image" name="cover_image">
@@ -130,9 +130,9 @@
 
                         <div class="form-group text-center">
                             @if( !empty($album->backgroundImage) )
-                                <img id="background-image-preview" style="max-width: 500px; width: 100%;" src="{!! $album->backgroundImage->present()->url !!}" alt="" class="margin"/>
+                                <img id="background-image-preview" style="max-width: 500px; width: 100%;" src="{!! $album->backgroundImage->present()->url !!}" alt=""/>
                             @else
-                                <img id="background-image-preview" style="max-width: 500px; width: 100%;" src="{!! \URLHelper::asset('img/no_image.jpg', 'common') !!}" alt="" class="margin"/>
+                                <img id="background-image-preview" style="max-width: 500px; width: 100%;" src="{!! \URLHelper::asset('img/no_image.jpg', 'common') !!}" alt=""/>
                             @endif
 
                             <input type="file" style="display: none;" id="background-image" name="background_image">

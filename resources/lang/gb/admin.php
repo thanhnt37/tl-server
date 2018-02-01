@@ -336,9 +336,25 @@ return [
                 'is_blocked' => 'Is Blocked',
             ],
         ],
-        'developers'   => [
-            'columns'  => [
+        'developers'               => [
+            'columns' => [
                 'name' => 'Name',
+            ],
+        ],
+        'store-applications'       => [
+            'columns' => [
+                'name'                => 'Name',
+                'version_name'        => 'Version Name',
+                'version_code'        => 'Version Code',
+                'package_name'        => 'Package Name',
+                'description'         => 'Description',
+                'icon_image_id'       => 'Icon Image',
+                'background_image_id' => 'Background Image',
+                'hit'                 => 'Hit',
+                'apk_package_id'      => 'APK Package',
+                'category_id'         => 'Category',
+                'developer_id'        => 'Developer',
+                'publish_started_at'  => 'Publish Started At',
             ],
         ],
         /* NEW PAGE STRINGS */

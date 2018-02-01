@@ -57,6 +57,7 @@
 
             @if( $authUser->hasRole(\App\Models\AdminUserRole::ROLE_SUPER_USER) )
                 <li class="header">TL Store</li>
+                <li @if( $menu=='store_applications') class="active" @endif ><a href="{!! \URL::action('Admin\StoreApplicationController@index') !!}"><i class="fa fa-microchip"></i> <span>Applications</span></a></li>
                 <li @if( $menu=='developers') class="active" @endif ><a href="{!! \URL::action('Admin\DeveloperController@index') !!}"><i class="fa fa-user-md"></i> <span>Developers</span></a></li>
 
                 <li class="header">Backend</li>

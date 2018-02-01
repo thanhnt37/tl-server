@@ -31,7 +31,8 @@
             \Route::resource('os-versions', 'Admin\OsVersionController');
             \Route::resource('sdk-versions', 'Admin\SdkVersionController');
             \Route::resource('box-versions', 'Admin\BoxVersionController');
-            
+
+            \Route::resource('store-applications', 'Admin\StoreApplicationController');
             \Route::resource('developers', 'Admin\DeveloperController');
         });
 
