@@ -57,6 +57,8 @@
 
             @if( $authUser->hasRole(\App\Models\AdminUserRole::ROLE_SUPER_USER) )
                 <li class="header">TL Store</li>
+                <li @if( $menu=='developers') class="active" @endif ><a href="{!! \URL::action('Admin\DeveloperController@index') !!}"><i class="fa fa-user-md"></i> <span>Developers</span></a></li>
+
                 <li class="header">Backend</li>
                 <li @if( $menu=='oauth_clients') class="active" @endif ><a href="{!! \URL::action('Admin\OauthClientController@index') !!}"><i class="fa fa-key"></i> <span>Oauth Clients</span></a></li>
                 <li @if( $menu=='admin_users') class="active" @endif ><a href="{!! \URL::action('Admin\AdminUserController@index') !!}"><i class="fa fa-user-secret"></i> <span>@lang('admin.menu.admin_users')</span></a></li>

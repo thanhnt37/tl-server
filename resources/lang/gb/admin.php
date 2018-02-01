@@ -336,6 +336,11 @@ return [
                 'is_blocked' => 'Is Blocked',
             ],
         ],
+        'developers'   => [
+            'columns'  => [
+                'name' => 'Name',
+            ],
+        ],
         /* NEW PAGE STRINGS */
     ],
     'roles'      => [
