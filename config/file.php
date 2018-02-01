@@ -169,5 +169,33 @@ return [
             'local_type'  => 'common',
             'local_path'  => 'img/singers/'
         ],
+        'store-app_background_image' => [
+            'name'        => 'store-app_background_image',
+            'type'        => 'image',
+            'region'      => env('AWS_IMAGE_REGION'),
+            'buckets'     => [
+                env('AWS_IMAGE_BUCKET'),
+            ],
+            'size'        => [640, 480],
+            'thumbnails'  => [],
+            'seed_prefix' => 'store-app_background_image',
+            'format'      => 'png',
+            'local_type'  => 'common',
+            'local_path'  => 'img/store-app/'
+        ],
+        'store-app_icon_image' => [
+            'name'        => 'store-app_icon_image',
+            'type'        => 'image',
+            'region'      => env('AWS_IMAGE_REGION'),
+            'buckets'     => [
+                env('AWS_IMAGE_BUCKET'),
+            ],
+            'size'        => [640, 480],
+            'thumbnails'  => [],
+            'seed_prefix' => 'store-app_icon_image',
+            'format'      => 'png',
+            'local_type'  => 'common',
+            'local_path'  => 'img/store-app/'
+        ],
     ],
 ];

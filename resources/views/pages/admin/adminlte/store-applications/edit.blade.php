@@ -68,7 +68,7 @@
                     <div class="col-lg-6">
                         <div class="form-group @if ($errors->has('icon_image_url')) has-error @endif">
                             <label for="icon_image_url">Icon Image URL</label>
-                            <input type="text" class="form-control" id="icon_image_url" name="icon_image_url" value="{{ old('icon_image_url') ? old('icon_image_url') : (!empty($storeApplication->iconImage) ? $album->iconImage->present()->url : '') }}">
+                            <input type="text" class="form-control" id="icon_image_url" name="icon_image_url" value="{{ old('icon_image_url') ? old('icon_image_url') : (!empty($storeApplication->iconImage) ? $storeApplication->iconImage->present()->url : '') }}">
                         </div>
 
                         <div class="form-group text-center">
@@ -89,7 +89,7 @@
                     <div class="col-lg-6">
                         <div class="form-group @if ($errors->has('background_image_url')) has-error @endif">
                             <label for="background_image_url">Background Image URL</label>
-                            <input type="text" class="form-control" id="background_image_url" name="background_image_url" value="{{ old('background_image_url') ? old('background_image_url') : (!empty($album->backgroundImage) ? $album->backgroundImage->present()->url : '') }}">
+                            <input type="text" class="form-control" id="background_image_url" name="background_image_url" value="{{ old('background_image_url') ? old('background_image_url') : (!empty($storeApplication->backgroundImage) ? $storeApplication->backgroundImage->present()->url : '') }}">
                         </div>
 
                         <div class="form-group text-center">

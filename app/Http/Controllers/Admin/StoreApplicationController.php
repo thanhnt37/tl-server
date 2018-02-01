@@ -7,17 +7,34 @@ use App\Http\Controllers\Controller;
 use App\Repositories\StoreApplicationRepositoryInterface;
 use App\Http\Requests\Admin\StoreApplicationRequest;
 use App\Http\Requests\PaginationRequest;
+use App\Services\FileUploadServiceInterface;
+use App\Services\ImageServiceInterface;
+use App\Repositories\ImageRepositoryInterface;
 
 class StoreApplicationController extends Controller
 {
     /** @var \App\Repositories\StoreApplicationRepositoryInterface */
     protected $storeApplicationRepository;
 
+    /** @var \App\Services\FileUploadServiceInterface */
+    protected $fileUploadService;
+
+    /** @var  \App\Services\ImageServiceInterface */
+    protected $imageService;
+
+    /** @var  \App\Repositories\ImageRepositoryInterface */
+    protected $imageRepository;
 
     public function __construct(
-        StoreApplicationRepositoryInterface $storeApplicationRepository
+        StoreApplicationRepositoryInterface $storeApplicationRepository,
+        FileUploadServiceInterface          $fileUploadService,
+        ImageServiceInterface               $imageService,
+        ImageRepositoryInterface            $imageRepository
     ) {
-        $this->storeApplicationRepository = $storeApplicationRepository;
+        $this->storeApplicationRepository   = $storeApplicationRepository;
+        $this->fileUploadService            = $fileUploadService;
+        $this->imageService                 = $imageService;
+        $this->imageRepository              = $imageRepository;
     }
 
     /**
@@ -130,7 +147,104 @@ class StoreApplicationController extends Controller
         if (empty( $storeApplication )) {
             abort(404);
         }
-        $input = $request->only(['name','version_name','version_code','package_name','description','hit','publish_started_at']);
+
+        $input = $request->only(
+            [
+                'name', 'version_name', 'version_code',
+                'package_name', 'description',
+                'hit', 'publish_started_at'
+            ]
+        );
+
+        if ($request->hasFile('background_image')) {
+            $currentImage = $storeApplication->backgroundImage;
+            $file = $request->file('background_image');
+
+            $newImage = $this->fileUploadService->upload(
+                'store-app_background_image',
+                $file,
+                [
+                    'entity_type' => 'store-app_background_image',
+                    'entity_id'   => $storeApplication->id,
+                    'title'       => $storeApplication->name,
+                ]
+            );
+
+            if (!empty($newImage)) {
+                $input['background_image_id'] = $newImage->id;
+
+                if (!empty($currentImage)) {
+                    $this->fileUploadService->delete($currentImage);
+                }
+            }
+        } else {
+            $imageUrl = $request->get('background_image_url', '');
+            if( $imageUrl != '' ) {
+                $currentImage = $storeApplication->backgroundImage;
+                if( !empty($currentImage) ) {
+                    $this->imageRepository->update(
+                        $currentImage,
+                        [
+                            'url'      => $imageUrl,
+                            'is_local' => false
+                        ]
+                    );
+                } else {
+                    $image = $this->imageRepository->create(
+                        [
+                            'url'      => $imageUrl,
+                            'is_local' => false
+                        ]
+                    );
+                    $input['background_image_id'] = $image->id;
+                }
+            }
+        }
+
+        if ($request->hasFile('icon_image')) {
+            $currentImage = $storeApplication->iconImage;
+            $file = $request->file('icon_image');
+
+            $newImage = $this->fileUploadService->upload(
+                'store-app_icon_image',
+                $file,
+                [
+                    'entity_type' => 'store-app_icon_image',
+                    'entity_id'   => $storeApplication->id,
+                    'title'       => $storeApplication->name,
+                ]
+            );
+
+            if (!empty($newImage)) {
+                $input['icon_image_id'] = $newImage->id;
+
+                if (!empty($currentImage)) {
+                    $this->fileUploadService->delete($currentImage);
+                }
+            }
+        } else {
+            $imageUrl = $request->get('icon_image_url', '');
+            if( $imageUrl != '' ) {
+                $currentImage = $storeApplication->iconImage;
+                if( !empty($currentImage) ) {
+                    $this->imageRepository->update(
+                        $currentImage,
+                        [
+                            'url'      => $imageUrl,
+                            'is_local' => false
+                        ]
+                    );
+                } else {
+                    $image = $this->imageRepository->create(
+                        [
+                            'url'      => $imageUrl,
+                            'is_local' => false
+                        ]
+                    );
+                    $input['icon_image_id'] = $image->id;
+                }
+            }
+        }
 
         $this->storeApplicationRepository->update($storeApplication, $input);
 
