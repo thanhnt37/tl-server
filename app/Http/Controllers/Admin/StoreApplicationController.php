@@ -180,6 +180,24 @@ class StoreApplicationController extends Controller
             }
         }
 
+        if ($request->hasFile('apk_package')) {
+            $file = $request->file('apk_package');
+
+            $apk = $this->fileUploadService->upload(
+                'store-app_apk',
+                $file,
+                [
+                    'entity_type' => 'store-app_apk',
+                    'entity_id'   => $storeApplication->id,
+                    'title'       => $storeApplication->name,
+                ]
+            );
+
+            if (!empty($apk)) {
+                $this->storeApplicationRepository->update($storeApplication, ['apk_package_id' => $apk->id]);
+            }
+        }
+
         return redirect()->action('Admin\StoreApplicationController@index')
             ->with('message-success', trans('admin.messages.general.create_success'));
     }
@@ -328,6 +346,29 @@ class StoreApplicationController extends Controller
                         ]
                     );
                     $input['icon_image_id'] = $image->id;
+                }
+            }
+        }
+
+        if ($request->hasFile('apk_package')) {
+            $currentApk = $storeApplication->apkPackage;
+            $file = $request->file('apk_package');
+
+            $newApk = $this->fileUploadService->upload(
+                'store-app_apk',
+                $file,
+                [
+                    'entity_type' => 'store-app_apk',
+                    'entity_id'   => $storeApplication->id,
+                    'title'       => $storeApplication->name,
+                ]
+            );
+
+            if (!empty($newApk)) {
+                $this->storeApplicationRepository->update($storeApplication, ['apk_package_id' => $newApk->id]);
+
+                if (!empty($currentApk)) {
+                    $this->fileUploadService->delete($currentApk);
                 }
             }
         }

@@ -16,7 +16,7 @@ return [
         ],
     ],
     'categories' => [
-        'article_cover_image'    => [
+        'article_cover_image'        => [
             'name'        => 'article_cover_image',
             'type'        => 'image',
             'region'      => env('AWS_IMAGE_REGION'),
@@ -38,7 +38,7 @@ return [
             'local_type'  => 'common',
             'local_path'  => 'img/articles/'
         ],
-        'article_image'          => [
+        'article_image'              => [
             'name'        => 'article_image',
             'type'        => 'image',
             'region'      => env('AWS_IMAGE_REGION'),
@@ -54,7 +54,7 @@ return [
             'local_type'  => 'common',
             'local_path'  => 'img/articles/'
         ],
-        'user_profile_image'     => [
+        'user_profile_image'         => [
             'name'        => 'user_profile_image',
             'type'        => 'image',
             'region'      => env('AWS_IMAGE_REGION'),
@@ -71,7 +71,7 @@ return [
             'local_type'  => 'common',
             'local_path'  => 'img/users/'
         ],
-        'ogp_image'              => [
+        'ogp_image'                  => [
             'name'        => 'ogp_image',
             'type'        => 'image',
             'region'      => env('AWS_IMAGE_REGION'),
@@ -86,7 +86,7 @@ return [
             'local_type'  => 'common',
             'local_path'  => 'img/ogp/'
         ],
-        'twitter_card_image'     => [
+        'twitter_card_image'         => [
             'name'        => 'twitter_card_image',
             'type'        => 'image',
             'region'      => env('AWS_IMAGE_REGION'),
@@ -101,7 +101,7 @@ return [
             'local_type'  => 'common',
             'local_path'  => 'img/ogp/'
         ],
-        'kara_apk'               => [
+        'kara_apk'                   => [
             'name'        => 'kara_apk',
             'type'        => 'file',
             'region'      => env('AWS_IMAGE_REGION'),
@@ -113,7 +113,19 @@ return [
             'local_type'  => 'common',
             'local_path'  => 'apk/'
         ],
-        'song_cover_image'       => [
+        'store-app_apk'              => [
+            'name'        => 'store-app_apk',
+            'type'        => 'file',
+            'region'      => env('AWS_IMAGE_REGION'),
+            'buckets'     => [
+                env('AWS_IMAGE_BUCKET'),
+            ],
+            'seed_prefix' => 'store-app_apk',
+            'format'      => 'apk',
+            'local_type'  => 'common',
+            'local_path'  => 'apk/store-app/'
+        ],
+        'song_cover_image'           => [
             'name'        => 'song_cover_image',
             'type'        => 'image',
             'region'      => env('AWS_IMAGE_REGION'),
@@ -127,7 +139,7 @@ return [
             'local_type'  => 'common',
             'local_path'  => 'img/songs/'
         ],
-        'album_cover_image'      => [
+        'album_cover_image'          => [
             'name'        => 'album_cover_image',
             'type'        => 'image',
             'region'      => env('AWS_IMAGE_REGION'),
@@ -141,7 +153,7 @@ return [
             'local_type'  => 'common',
             'local_path'  => 'img/albums/'
         ],
-        'album_background_image' => [
+        'album_background_image'     => [
             'name'        => 'album_background_image',
             'type'        => 'image',
             'region'      => env('AWS_IMAGE_REGION'),
@@ -155,7 +167,7 @@ return [
             'local_type'  => 'common',
             'local_path'  => 'img/albums/'
         ],
-        'singer_cover_image'       => [
+        'singer_cover_image'         => [
             'name'        => 'singer_cover_image',
             'type'        => 'image',
             'region'      => env('AWS_IMAGE_REGION'),
@@ -183,7 +195,7 @@ return [
             'local_type'  => 'common',
             'local_path'  => 'img/store-app/'
         ],
-        'store-app_icon_image' => [
+        'store-app_icon_image'       => [
             'name'        => 'store-app_icon_image',
             'type'        => 'image',
             'region'      => env('AWS_IMAGE_REGION'),

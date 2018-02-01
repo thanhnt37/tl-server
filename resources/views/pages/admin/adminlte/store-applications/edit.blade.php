@@ -20,6 +20,9 @@
             $("#background-image").change(function (event) {
                 $("#background-image-preview").attr("src", URL.createObjectURL(event.target.files[0]));
             });
+            $('#apk_package').change(function (event) {
+                $('#apk_url').val(event.target.files[0].name);
+            });
         });
     </script>
 @stop
@@ -199,6 +202,18 @@
                         <div class="form-group @if ($errors->has('description')) has-error @endif">
                             <label for="description">@lang('admin.pages.store-applications.columns.description')</label>
                             <textarea name="description" class="form-control" rows="5" required placeholder="@lang('admin.pages.store-applications.columns.description')">{{ old('description') ? old('description') : $storeApplication->description }}</textarea>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="row">
+                    <div class="col-md-11">
+                        <div class="form-group @if ($errors->has('apk_url')) has-error @endif">
+                            <label for="apk_url" class="help-block">APK Package</label>
+                            <input type="text" class="form-control" id="apk_url" name="apk_url" value="{{ isset($storeApplication->apkPackage->url) ? $storeApplication->apkPackage->url : '' }}" disabled style="display: inline-block; width: 90%;">
+
+                            <label for="apk_package" style="font-weight: 100; color: #549cca; margin-left: 10px; cursor: pointer;">Upload</label>
+                            <input type="file" style="display: none;" id="apk_package" name="apk_package">
                         </div>
                     </div>
                 </div>
