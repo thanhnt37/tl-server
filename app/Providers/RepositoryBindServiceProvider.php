@@ -190,6 +190,11 @@ class RepositoryBindServiceProvider extends ServiceProvider {
             \App\Repositories\Eloquent\DeveloperRepository::class
         );
 
+        $this->app->singleton(
+            \App\Repositories\StoreApplicationRepositoryInterface::class,
+            \App\Repositories\Eloquent\StoreApplicationRepository::class
+        );
+
         /* NEW BINDING */
     }
 }
