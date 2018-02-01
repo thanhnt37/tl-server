@@ -27,7 +27,7 @@ class OTASeeder extends Seeder
 
         foreach (range(1, 50, 1) as $numberOTA)
         {
-            factory(KaraOta::class)->create(
+            factory(AppOta::class)->create(
                 [
                     'os_version_id'   => rand(1, 20),
                     'sdk_version_id'  => rand(1, 20),
