@@ -10,6 +10,8 @@ use App\Http\Requests\PaginationRequest;
 use App\Services\FileUploadServiceInterface;
 use App\Services\ImageServiceInterface;
 use App\Repositories\ImageRepositoryInterface;
+use App\Repositories\CategoryRepositoryInterface;
+use App\Repositories\DeveloperRepositoryInterface;
 
 class StoreApplicationController extends Controller
 {
@@ -25,16 +27,26 @@ class StoreApplicationController extends Controller
     /** @var  \App\Repositories\ImageRepositoryInterface */
     protected $imageRepository;
 
+    /** @var  \App\Repositories\CategoryRepositoryInterface */
+    protected $categoryRepository;
+
+    /** @var  \App\Repositories\DeveloperRepositoryInterface */
+    protected $developerRepository;
+
     public function __construct(
         StoreApplicationRepositoryInterface $storeApplicationRepository,
         FileUploadServiceInterface          $fileUploadService,
         ImageServiceInterface               $imageService,
-        ImageRepositoryInterface            $imageRepository
+        ImageRepositoryInterface            $imageRepository,
+        CategoryRepositoryInterface         $categoryRepository,
+        DeveloperRepositoryInterface        $developerRepository
     ) {
         $this->storeApplicationRepository   = $storeApplicationRepository;
         $this->fileUploadService            = $fileUploadService;
         $this->imageService                 = $imageService;
         $this->imageRepository              = $imageRepository;
+        $this->categoryRepository           = $categoryRepository;
+        $this->developerRepository          = $developerRepository;
     }
 
     /**
@@ -76,6 +88,8 @@ class StoreApplicationController extends Controller
             [
                 'isNew'            => true,
                 'storeApplication' => $this->storeApplicationRepository->getBlankModel(),
+                'categories'       => $this->categoryRepository->all(),
+                'developers'       => $this->developerRepository->all()
             ]
         );
     }
@@ -88,7 +102,13 @@ class StoreApplicationController extends Controller
      */
     public function store(StoreApplicationRequest $request)
     {
-        $input = $request->only(['name', 'version_name', 'version_code', 'package_name', 'description', 'hit', 'publish_started_at']);
+        $input = $request->only(
+            [
+                'name', 'version_name', 'version_code',
+                'package_name', 'description', 'hit',
+                'publish_started_at', 'category_id', 'developer_id'
+            ]
+        );
 
         $storeApplication = $this->storeApplicationRepository->create($input);
 
@@ -118,6 +138,8 @@ class StoreApplicationController extends Controller
             [
                 'isNew'            => false,
                 'storeApplication' => $storeApplication,
+                'categories'       => $this->categoryRepository->all(),
+                'developers'       => $this->developerRepository->all()
             ]
         );
     }
@@ -151,8 +173,8 @@ class StoreApplicationController extends Controller
         $input = $request->only(
             [
                 'name', 'version_name', 'version_code',
-                'package_name', 'description',
-                'hit', 'publish_started_at'
+                'package_name', 'description', 'hit',
+                'publish_started_at', 'category_id', 'developer_id'
             ]
         );
 

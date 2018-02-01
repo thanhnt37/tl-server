@@ -144,6 +144,36 @@
 
                 <div class="row">
                     <div class="col-md-6">
+                        <div class="form-group @if ($errors->has('category_id')) has-error @endif">
+                            <label for="hit">@lang('admin.pages.store-applications.columns.category_id')</label>
+
+                            <select class="form-control" name="category_id" id="category_id" required style="margin-bottom: 15px;">
+                                @foreach( $categories as $category )
+                                    <option value="{!! $category->id !!}" @if( (old('category_id') && old('category_id') == $category->id) || ( $storeApplication->category_id == $category->id) ) selected @endif >
+                                        {{ $category->name }}
+                                    </option>
+                                @endforeach
+                            </select>
+                        </div>
+                    </div>
+
+                    <div class="col-md-6">
+                        <div class="form-group @if ($errors->has('developer_id')) has-error @endif">
+                            <label for="hit">@lang('admin.pages.store-applications.columns.developer_id')</label>
+
+                            <select class="form-control" name="developer_id" id="developer_id" required style="margin-bottom: 15px;">
+                                @foreach( $developers as $developer )
+                                    <option value="{!! $developer->id !!}" @if( (old('developer_id') && old('developer_id') == $developer->id) || ( $storeApplication->developer_id == $developer->id) ) selected @endif >
+                                        {{ $developer->name }}
+                                    </option>
+                                @endforeach
+                            </select>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="row">
+                    <div class="col-md-6">
                         <div class="form-group @if ($errors->has('hit')) has-error @endif">
                             <label for="hit">@lang('admin.pages.store-applications.columns.hit')</label>
                             <input type="number" min="0" class="form-control" id="hit" name="hit" required value="{{ old('hit') ? old('hit') : $storeApplication->hit }}">
