@@ -45,7 +45,10 @@ class Category extends Base
         return $this->hasOne(\App\Models\Image::class, 'id', 'cover_image_id');
     }
 
-    
+    public function storeApplication()
+    {
+        return $this->hasMany('App\Models\StoreApplication', 'category_id', 'id');
+    }
 
     // Utility Functions
 

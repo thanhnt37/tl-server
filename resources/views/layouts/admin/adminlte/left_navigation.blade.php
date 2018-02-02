@@ -65,6 +65,7 @@
                 <li @if( $menu=='admin_users') class="active" @endif ><a href="{!! \URL::action('Admin\AdminUserController@index') !!}"><i class="fa fa-user-secret"></i> <span>@lang('admin.menu.admin_users')</span></a></li>
                 <li @if( $menu=='logs') class="active" @endif ><a href="{!! \URL::action('Admin\LogController@index') !!}"><i class="fa fa-sticky-note-o"></i> <span>@lang('admin.menu.log_system')</span></a></li>
             @endif
+            <li @if( $menu=='categorys') class="active" @endif ><a href="{!! \URL::action('Admin\CategoryController@index') !!}"><i class="fa fa-users"></i> <span>Categories</span></a></li>
             <!-- %%SIDEMENU%% -->
         </ul>
     </section>
