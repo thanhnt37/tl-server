@@ -3,6 +3,9 @@ namespace App\Models;
 
 class Category extends Base
 {
+    const CATEGORY_TYPE_APP  = 0;
+    const CATEGORY_TYPE_GAME = 1;
+    
     /**
      * The database table used by the model.
      *

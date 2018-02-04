@@ -357,11 +357,11 @@ return [
                 'publish_started_at'  => 'Publish Started At',
             ],
         ],
-        'categories'                => [
+        'categories'               => [
             'columns' => [
-                'name' => 'Name',
-                'description' => 'Description',
-                'type' => 'Type',
+                'name'           => 'Name',
+                'description'    => 'Description',
+                'type'           => 'Type',
                 'cover_image_id' => 'Cover_image_id',
             ],
         ],

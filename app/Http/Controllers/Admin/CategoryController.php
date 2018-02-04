@@ -20,16 +20,16 @@ class CategoryController extends Controller
     protected $storeApplicationRepository;
 
     public function __construct(
-        CategoryRepositoryInterface $categoryRepository,
-        FileUploadServiceInterface $fileUploadService,
-        ImageRepositoryInterface $imageRepository,
+        CategoryRepositoryInterface         $categoryRepository,
+        FileUploadServiceInterface          $fileUploadService,
+        ImageRepositoryInterface            $imageRepository,
         StoreApplicationRepositoryInterface $storeApplicationRepository
     )
     {
-        $this->categoryRepository = $categoryRepository;
-        $this->fileUploadService = $fileUploadService;
-        $this->imageRepository = $imageRepository;
-        $this->storeApplicationRepository = $storeApplicationRepository;
+        $this->categoryRepository           = $categoryRepository;
+        $this->fileUploadService            = $fileUploadService;
+        $this->imageRepository              = $imageRepository;
+        $this->storeApplicationRepository   = $storeApplicationRepository;
     }
 
     /**
@@ -84,7 +84,7 @@ class CategoryController extends Controller
     public function store(CategoryRequest $request)
     {
         $input = $request->only(['name','description']);
-                $input['type'] = $request->get('type', 0);
+        $input['type'] = $request->get('type', 0);
 
         $category = $this->categoryRepository->create($input);
 
@@ -136,16 +136,17 @@ class CategoryController extends Controller
     public function show($id)
     {
         $category = $this->categoryRepository->find($id);
-        $storeApps = $this->storeApplicationRepository->getStoreAppWithOutCategory($id);
         if (empty( $category )) {
             abort(404);
         }
 
+        $storeApps = $this->storeApplicationRepository->getBlankModel()->where('category_id', '!=', $id)->get();
+
         return view(
             'pages.admin.' . config('view.admin') . '.categories.edit',
             [
-                'isNew' => false,
-                'category' => $category,
+                'isNew'     => false,
+                'category'  => $category,
                 'storeApps' => $storeApps,
             ]
         );

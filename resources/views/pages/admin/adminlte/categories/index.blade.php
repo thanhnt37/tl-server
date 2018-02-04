@@ -58,7 +58,7 @@ Categories
                 <tr>
                     <td>{{ $category->id }}</td>
                     <td>{{ $category->name }}</td>
-                    <td>{{ $category->type }}</td>
+                    <td>@if($category->type) Games @else Applications @endif</td>
                     <td>
                         <a href="{!! action('Admin\CategoryController@show', $category->id) !!}" class="btn btn-block btn-primary btn-xs">@lang('admin.pages.common.buttons.edit')</a>
                         <a href="#" class="btn btn-block btn-danger btn-xs delete-button" data-delete-url="{!! action('Admin\CategoryController@destroy', $category->id) !!}">@lang('admin.pages.common.buttons.delete')</a>
