@@ -22,11 +22,4 @@ class StoreApplicationRepository extends SingleKeyModelRepository implements Sto
         return [
         ];
     }
-
-    public function getStoreAppWithOutCategory($catId)
-    {
-        $appStore = $this->all()->where('category_id', '!=', $catId);
-
-        return $appStore;
-    }
 }
