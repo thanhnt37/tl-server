@@ -43,17 +43,20 @@ class CategoryController extends Controller
         $paginate['offset']     = $request->offset();
         $paginate['limit']      = $request->limit();
         $paginate['order']      = $request->order();
-        $paginate['direction']  = $request->direction();
+        $paginate['direction']  = $request->direction('asc');
         $paginate['baseUrl']    = action( 'Admin\CategoryController@index' );
 
         $count = $this->categoryRepository->count();
         $categorys = $this->categoryRepository->get( $paginate['order'], $paginate['direction'], $paginate['offset'], $paginate['limit'] );
 
-        return view('pages.admin.' . config('view.admin') . '.categories.index', [
-            'categorys'    => $categorys,
-            'count'         => $count,
-            'paginate'      => $paginate,
-        ]);
+        return view(
+            'pages.admin.' . config('view.admin') . '.categories.index',
+            [
+                'categorys'    => $categorys,
+                'count'         => $count,
+                'paginate'      => $paginate,
+            ]
+        );
     }
 
     /**
@@ -63,10 +66,13 @@ class CategoryController extends Controller
      */
     public function create()
     {
-        return view('pages.admin.' . config('view.admin') . '.categories.edit', [
-            'isNew'     => true,
-            'category' => $this->categoryRepository->getBlankModel(),
-        ]);
+        return view(
+            'pages.admin.' . config('view.admin') . '.categories.edit',
+            [
+                'isNew'     => true,
+                'category' => $this->categoryRepository->getBlankModel(),
+            ]
+        );
     }
 
     /**
@@ -130,16 +136,19 @@ class CategoryController extends Controller
     public function show($id)
     {
         $category = $this->categoryRepository->find($id);
-        $storeApps = $this->storeApplicationRepository->all();
+        $storeApps = $this->storeApplicationRepository->getStoreAppWithOutCategory($id);
         if (empty( $category )) {
             abort(404);
         }
 
-        return view('pages.admin.' . config('view.admin') . '.categories.edit', [
-            'isNew' => false,
-            'category' => $category,
-            'storeApps' => $storeApps,
-        ]);
+        return view(
+            'pages.admin.' . config('view.admin') . '.categories.edit',
+            [
+                'isNew' => false,
+                'category' => $category,
+                'storeApps' => $storeApps,
+            ]
+        );
     }
 
     /**
@@ -240,9 +249,9 @@ class CategoryController extends Controller
                     ->with('message-success', trans('admin.messages.general.delete_success'));
     }
 
-    public function deleteStoreApp($catId, $storeAppId)
+    public function deleteStoreApp($id, $appId)
     {
-        $storeApp = $this->storeApplicationRepository->findByCategoryIdAndId($catId, $storeAppId);
+        $storeApp = $this->storeApplicationRepository->findByCategoryIdAndId($id, $appId);
         if (empty($storeApp)) {
             abort(404);
         }
@@ -252,22 +261,22 @@ class CategoryController extends Controller
         return redirect()->back()->with('message-success', trans('admin.messages.general.delete_success'));
     }
 
-    public function addStoreApp($catId, CategoryRequest $request)
+    public function addStoreApp($id, CategoryRequest $request)
     {
-        $category = $this->categoryRepository->find($catId);
+        $category = $this->categoryRepository->find($id);
         if (empty( $category )) {
             abort(404);
         }
 
         $storeApps = $request->get('new-storeApp', []);
-        foreach( $storeApps as $storeAppId ) {
-            $check = $this->storeApplicationRepository->findByCategoryIdAndId($category->id, $storeAppId);
+        foreach( $storeApps as $appId ) {
+            $check = $this->storeApplicationRepository->findByCategoryIdAndId($category->id, $appId);
             if( empty($check) ) {
-                $storeApp = $this->storeApplicationRepository->find($storeAppId);
-                $this->storeApplicationRepository->update($storeApp, ['category_id' => $catId]);
+                $storeApp = $this->storeApplicationRepository->find($appId);
+                $this->storeApplicationRepository->update($storeApp, ['category_id' => $id]);
             }
         }
 
-        return redirect()->action('Admin\CategoryController@show', [$catId])->with('message-success', trans('admin.messages.general.update_success'));
+        return redirect()->action('Admin\CategoryController@show', [$id])->with('message-success', trans('admin.messages.general.update_success'));
     }
 }

@@ -357,8 +357,8 @@ return [
                 'publish_started_at'  => 'Publish Started At',
             ],
         ],
-        'categories'   => [
-            'columns'  => [
+        'categories'                => [
+            'columns' => [
                 'name' => 'Name',
                 'description' => 'Description',
                 'type' => 'Type',

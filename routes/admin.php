@@ -33,7 +33,6 @@
             \Route::resource('box-versions', 'Admin\BoxVersionController');
 
             \Route::resource('store-applications', 'Admin\StoreApplicationController');
-            \Route::get('store-applications/search', 'Admin\StoreApplicationController@search');
             \Route::resource('developers', 'Admin\DeveloperController');
         });
 
@@ -62,8 +61,8 @@
             \Route::post('genre-songs/{genre_id}', 'Admin\GenreController@addNewSong');
 
             \Route::resource('categories', 'Admin\CategoryController');
-            \Route::get('category-storeApplication/{category_id}/{storeApplication_id}', 'Admin\CategoryController@deleteStoreApp');
-            \Route::post('category-storeApplication/{category_id}', 'Admin\CategoryController@addStoreApp');
+            \Route::get('categories{category_id}/store-app/{app_id}', 'Admin\CategoryController@deleteStoreApp');
+            \Route::post('categores/{category_id}/store-app', 'Admin\CategoryController@addStoreApp');
         });
 
         \Route::get('/', 'Admin\IndexController@index');

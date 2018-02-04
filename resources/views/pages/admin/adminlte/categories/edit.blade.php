@@ -69,12 +69,37 @@
                 </h3>
             </div>
             <div class="box-body">
-                
                     <div class="row">
                         <div class="col-md-12">
                             <div class="form-group @if ($errors->has('name')) has-error @endif">
                                 <label for="name">@lang('admin.pages.categories.columns.name')</label>
                                 <input type="text" class="form-control" id="name" name="name" required value="{{ old('name') ? old('name') : $category->name }}">
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="row">
+                        <div class="col-md-12">
+                            <div class="form-group @if ($errors->has('image_url')) has-error @endif">
+                                <label for="image_url">Image URL</label>
+                                <input type="text" class="form-control" id="image_url" name="image_url" value="{{ old('image_url') ? old('image_url') : (!empty($category->coverImage) ? $category->coverImage->present()->url : '') }}">
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="row">
+                        <div class="col-md-12">
+                            <div class="form-group">
+                                <div class="checkbox">
+                                    <label>
+                                        @lang('admin.pages.categories.columns.type')
+                                    </label>
+                                    <div class="switch">
+                                        <input id="is_activated" name="type" value="1" @if( $category->type == 1) checked
+                                               @endif class="cmn-toggle cmn-toggle-round-flat" type="checkbox">
+                                        <label for="is_activated"></label>
+                                    </div>
+                                </div>
                             </div>
                         </div>
                     </div>
@@ -87,28 +112,7 @@
                             </div>
                         </div>
                     </div>
-
-                    <div class="row">
-                        <div class="col-md-12">
-                            <div class="form-group">
-                                <div class="checkbox">
-                                    <label>
-                                        <input type="checkbox" name="type" required value="1"
-                                        @if( $category->type) checked @endif >
-                                        @lang('admin.pages.categories.columns.type')
-                                   </label>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                    <div class="row">
-                        <div class="col-md-12">
-                            <div class="form-group @if ($errors->has('image_url')) has-error @endif">
-                                <label for="image_url">Image URL</label>
-                                <input type="text" class="form-control" id="image_url" name="image_url" value="{{ old('image_url') ? old('image_url') : (!empty($category->coverImage) ? $category->coverImage->present()->url : '') }}">
-                            </div>
-                        </div>
-                    </div>
+    
                     <div class="row">
                         <div class="col-md-12">
                             <div class="form-group text-center">

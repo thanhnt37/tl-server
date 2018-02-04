@@ -4,6 +4,11 @@
 @stop
 
 @section('styles')
+<style>
+    .table-bordered tr td {
+        text-align: center;
+    }        
+</style>
 @stop
 
 @section('scripts')
@@ -24,7 +29,6 @@ Categories
 @section('content')
 <div class="box box-primary">
     <div class="box-header with-border">
-
         <div class="row">
             <div class="col-sm-6">
                 <h3 class="box-title">
@@ -47,7 +51,6 @@ Categories
             <tr>
                 <th style="width: 10px">{!! \PaginationHelper::sort('id', 'ID') !!}</th>
                 <th>{!! \PaginationHelper::sort('name', trans('admin.pages.categories.columns.name')) !!}</th>
-                <th>{!! \PaginationHelper::sort('description', trans('admin.pages.categories.columns.description')) !!}</th>
                 <th>{!! \PaginationHelper::sort('type', trans('admin.pages.categories.columns.type')) !!}</th>
                 <th style="width: 40px">@lang('admin.pages.common.label.actions')</th>
             </tr>
@@ -55,7 +58,6 @@ Categories
                 <tr>
                     <td>{{ $category->id }}</td>
                     <td>{{ $category->name }}</td>
-                    <td>{{ $category->description }}</td>
                     <td>{{ $category->type }}</td>
                     <td>
                         <a href="{!! action('Admin\CategoryController@show', $category->id) !!}" class="btn btn-block btn-primary btn-xs">@lang('admin.pages.common.buttons.edit')</a>
