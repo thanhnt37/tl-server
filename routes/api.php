@@ -2,7 +2,6 @@
 
 Route::group(['prefix' => 'api', 'namespace' => 'API'], function () {
     Route::group(['prefix' => 'v1', 'namespace' => 'V1'], function () {
-
         Route::group(['middleware' => []], function () {
             // Authentication
             Route::post('signin', 'AuthController@signIn');
@@ -22,6 +21,10 @@ Route::group(['prefix' => 'api', 'namespace' => 'API'], function () {
             Route::get('song/detail/{id}', 'SongController@detail');
 
             Route::post('signout', 'AuthController@postSignOut');
+
+            Route::get('category/lists', 'CategoryController@lists');
+
+            Route::get('store-application/{id}', 'StoreApplicationController@getAppInfo');
         });
     });
 });
