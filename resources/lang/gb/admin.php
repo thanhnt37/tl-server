@@ -357,6 +357,14 @@ return [
                 'publish_started_at'  => 'Publish Started At',
             ],
         ],
+        'categories'               => [
+            'columns' => [
+                'name'           => 'Name',
+                'description'    => 'Description',
+                'type'           => 'Type',
+                'cover_image_id' => 'Cover_image_id',
+            ],
+        ],
         /* NEW PAGE STRINGS */
     ],
     'roles'      => [

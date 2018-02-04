@@ -209,5 +209,19 @@ return [
             'local_type'  => 'common',
             'local_path'  => 'img/store-app/'
         ],
+        'category_cover_image'           => [
+            'name'        => 'category_cover_image',
+            'type'        => 'image',
+            'region'      => env('AWS_IMAGE_REGION'),
+            'buckets'     => [
+                env('AWS_IMAGE_BUCKET'),
+            ],
+            'size'        => [640, 480],
+            'thumbnails'  => [],
+            'seed_prefix' => 'categories',
+            'format'      => 'png',
+            'local_type'  => 'common',
+            'local_path'  => 'img/categories/'
+        ],
     ],
 ];

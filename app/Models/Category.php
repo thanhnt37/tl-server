@@ -3,6 +3,9 @@ namespace App\Models;
 
 class Category extends Base
 {
+    const CATEGORY_TYPE_APP  = 0;
+    const CATEGORY_TYPE_GAME = 1;
+    
     /**
      * The database table used by the model.
      *
@@ -45,7 +48,10 @@ class Category extends Base
         return $this->hasOne(\App\Models\Image::class, 'id', 'cover_image_id');
     }
 
-    
+    public function storeApplication()
+    {
+        return $this->hasMany('App\Models\StoreApplication', 'category_id', 'id');
+    }
 
     // Utility Functions
 

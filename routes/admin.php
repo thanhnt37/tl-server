@@ -59,6 +59,10 @@
             \Route::resource('genres', 'Admin\GenreController');
             \Route::get('genre-songs/{genre_id}/{song_id}', 'Admin\GenreController@deleteSong');
             \Route::post('genre-songs/{genre_id}', 'Admin\GenreController@addNewSong');
+
+            \Route::resource('categories', 'Admin\CategoryController');
+            \Route::get('categories{category_id}/store-app/{app_id}', 'Admin\CategoryController@deleteStoreApp');
+            \Route::post('categores/{category_id}/store-app', 'Admin\CategoryController@addStoreApp');
         });
 
         \Route::get('/', 'Admin\IndexController@index');
@@ -68,7 +72,6 @@
         \Route::get('/me/notifications', 'Admin\MeController@notifications');
 
         \Route::post('signout', 'Admin\AuthController@postSignOut');
-
         /* NEW ADMIN RESOURCE ROUTE */
 
     });
