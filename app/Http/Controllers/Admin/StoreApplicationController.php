@@ -106,7 +106,7 @@ class StoreApplicationController extends Controller
         $input = $request->only(
             [
                 'name', 'version_name', 'version_code',
-                'package_name', 'description', 'hit',
+                'package_name', 'description', 'hit', 'tags', 'min_sdk',
                 'publish_started_at', 'category_id', 'developer_id'
             ]
         );
@@ -275,7 +275,7 @@ class StoreApplicationController extends Controller
         $input = $request->only(
             [
                 'name', 'version_name', 'version_code',
-                'package_name', 'description', 'hit',
+                'package_name', 'description', 'hit', 'tags', 'min_sdk',
                 'publish_started_at', 'category_id', 'developer_id'
             ]
         );

@@ -5,11 +5,18 @@
 
 @section('styles')
     <link rel="stylesheet" href="{!! \URLHelper::asset('libs/datetimepicker/css/bootstrap-datetimepicker.min.css', 'admin') !!}">
+    <link rel="stylesheet" href="{!! \URLHelper::asset('libs/plugins/bootstrap-tagsinput/dist/bootstrap-tagsinput.css', 'admin') !!}">
+    <style>
+        .bootstrap-tagsinput {
+            display: block;
+        }
+    </style>
 @stop
 
 @section('scripts')
     <script src="{{ \URLHelper::asset('libs/moment/moment.min.js', 'admin') }}"></script>
     <script src="{{ \URLHelper::asset('libs/datetimepicker/js/bootstrap-datetimepicker.min.js', 'admin') }}"></script>
+    <script src="{{ \URLHelper::asset('libs/plugins/bootstrap-tagsinput/dist/bootstrap-tagsinput.min.js', 'admin') }}"></script>
     <script>
         $('.datetime-field').datetimepicker({'format': 'YYYY-MM-DD HH:mm:ss', 'defaultDate': new Date()});
 
@@ -22,6 +29,16 @@
             });
             $('#apk_package').change(function (event) {
                 $('#apk_url').val(event.target.files[0].name);
+            });
+            $('#tags').tagsinput({
+                tagClass: 'tags-abc'
+            });
+            $('#edit-store_applications').on('keyup keypress', function(e) {
+                var keyCode = e.keyCode || e.which;
+                if (keyCode === 13) {
+                    e.preventDefault();
+                    return false;
+                }
             });
         });
     </script>
@@ -55,7 +72,7 @@
         </div>
     @endif
 
-    <form action="@if($isNew) {!! action('Admin\StoreApplicationController@store') !!} @else {!! action('Admin\StoreApplicationController@update', [$storeApplication->id]) !!} @endif" method="POST" enctype="multipart/form-data">
+    <form action="@if($isNew) {!! action('Admin\StoreApplicationController@store') !!} @else {!! action('Admin\StoreApplicationController@update', [$storeApplication->id]) !!} @endif" method="POST" enctype="multipart/form-data" id="edit-store_applications">
         @if( !$isNew ) <input type="hidden" name="_method" value="PUT"> @endif
         {!! csrf_field() !!}
 
@@ -137,10 +154,16 @@
                 </div>
 
                 <div class="row">
-                    <div class="col-md-12">
+                    <div class="col-md-6">
                         <div class="form-group @if ($errors->has('package_name')) has-error @endif">
                             <label for="package_name">@lang('admin.pages.store-applications.columns.package_name')</label>
                             <input type="text" class="form-control" id="package_name" name="package_name" required value="{{ old('package_name') ? old('package_name') : $storeApplication->package_name }}">
+                        </div>
+                    </div>
+                    <div class="col-md-6">
+                        <div class="form-group @if ($errors->has('min_sdk')) has-error @endif">
+                            <label for="min_sdk">Min SDK</label>
+                            <input type="text" class="form-control" id="min_sdk" name="min_sdk" required value="{{ old('min_sdk') ? old('min_sdk') : $storeApplication->min_sdk }}">
                         </div>
                     </div>
                 </div>
@@ -193,6 +216,15 @@
                                     <span class="glyphicon glyphicon-calendar"></span>
                                 </span>
                             </div>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="row">
+                    <div class="col-md-12">
+                        <div class="form-group @if ($errors->has('tags')) has-error @endif">
+                            <label for="tags">Tags</label>
+                            <input data-role="tagsinput" name="tags" id="tags" class="form-control" value="{{ old('tags') ? old('tags') : $storeApplication->tags }}">
                         </div>
                     </div>
                 </div>
