@@ -1,6 +1,7 @@
 <?php
 namespace App\Http\Controllers\Admin;
 
+use ApkParser\Parser;
 use App\Http\Requests;
 use App\Http\Controllers\Controller;
 
@@ -183,7 +184,24 @@ class StoreApplicationController extends Controller
         if ($request->hasFile('apk_package')) {
             $file = $request->file('apk_package');
 
-            $apk = $this->fileUploadService->upload(
+            $apk = new Parser($file->path());
+            $manifest = $apk->getManifest();
+
+            $params = [];
+            if( $manifest->getVersionName() != '' ) {
+                $params['version_name'] = $manifest->getVersionName();
+            }
+            if( $manifest->getVersionCode() != '' ) {
+                $params['version_code'] = $manifest->getVersionCode();
+            }
+            if( $manifest->getPackageName() != '' ) {
+                $params['package_name'] = $manifest->getPackageName();
+            }
+            if( $manifest->getMinSdkLevel() != '' ) {
+                $params['min_sdk'] = $manifest->getMinSdkLevel();
+            }
+
+            $newAPK = $this->fileUploadService->upload(
                 'store-app_apk',
                 $file,
                 [
@@ -194,7 +212,9 @@ class StoreApplicationController extends Controller
             );
 
             if (!empty($apk)) {
-                $this->storeApplicationRepository->update($storeApplication, ['apk_package_id' => $apk->id]);
+                $params['apk_package_id'] = $newAPK->id;
+
+                $this->storeApplicationRepository->update($storeApplication, $params);
             }
         }
 
@@ -354,6 +374,22 @@ class StoreApplicationController extends Controller
             $currentApk = $storeApplication->apkPackage;
             $file = $request->file('apk_package');
 
+            $apk = new Parser($file->path());
+            $manifest = $apk->getManifest();
+
+            if( $manifest->getVersionName() != '' ) {
+                $input['version_name'] = $manifest->getVersionName();
+            }
+            if( $manifest->getVersionCode() != '' ) {
+                $input['version_code'] = $manifest->getVersionCode();
+            }
+            if( $manifest->getPackageName() != '' ) {
+                $input['package_name'] = $manifest->getPackageName();
+            }
+            if( $manifest->getMinSdkLevel() != '' ) {
+                $input['min_sdk'] = $manifest->getMinSdkLevel();
+            }
+
             $newApk = $this->fileUploadService->upload(
                 'store-app_apk',
                 $file,
@@ -365,7 +401,7 @@ class StoreApplicationController extends Controller
             );
 
             if (!empty($newApk)) {
-                $this->storeApplicationRepository->update($storeApplication, ['apk_package_id' => $newApk->id]);
+                $input['apk_package_id'] = $newApk->id;
 
                 if (!empty($currentApk)) {
                     $this->fileUploadService->delete($currentApk);
