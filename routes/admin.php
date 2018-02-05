@@ -34,6 +34,10 @@
 
             \Route::resource('store-applications', 'Admin\StoreApplicationController');
             \Route::resource('developers', 'Admin\DeveloperController');
+
+            \Route::resource('categories', 'Admin\CategoryController');
+            \Route::get('categories{category_id}/store-app/{app_id}', 'Admin\CategoryController@deleteStoreApp');
+            \Route::post('categories/{category_id}/store-app', 'Admin\CategoryController@addStoreApp');
         });
 
         \Route::group(['middleware' => ['admin.has_role.admin']], function () {
@@ -59,10 +63,6 @@
             \Route::resource('genres', 'Admin\GenreController');
             \Route::get('genre-songs/{genre_id}/{song_id}', 'Admin\GenreController@deleteSong');
             \Route::post('genre-songs/{genre_id}', 'Admin\GenreController@addNewSong');
-
-            \Route::resource('categories', 'Admin\CategoryController');
-            \Route::get('categories{category_id}/store-app/{app_id}', 'Admin\CategoryController@deleteStoreApp');
-            \Route::post('categores/{category_id}/store-app', 'Admin\CategoryController@addStoreApp');
         });
 
         \Route::get('/', 'Admin\IndexController@index');
