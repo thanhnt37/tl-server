@@ -20,10 +20,12 @@ class CreatestoreApplicationsTable extends Migration
             $table->string('version_code')->nullable()->default('');
             $table->string('package_name')->nullable()->default('');
             $table->text('description')->nullable()->default('');
+            $table->text('tags')->nullable()->default('');
 
             $table->unsignedBigInteger('icon_image_id')->nullable()->default(0);
             $table->unsignedBigInteger('background_image_id')->nullable()->default(0);
             $table->unsignedBigInteger('hit')->nullable()->default(0);
+            $table->unsignedBigInteger('min_sdk')->nullable()->default(null);
 
             $table->unsignedBigInteger('apk_package_id')->nullable()->default(0);
             $table->unsignedBigInteger('category_id')->nullable()->default(0);
