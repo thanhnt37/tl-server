@@ -22,7 +22,7 @@ Route::group(['prefix' => 'api', 'namespace' => 'API'], function () {
 
             Route::post('signout', 'AuthController@postSignOut');
 
-            Route::get('category/lists', 'CategoryController@lists');
+            Route::get('categories/all', 'CategoryController@lists');
 
             Route::get('store-application/{id}', 'StoreApplicationController@getAppInfo');
         });
