@@ -64,7 +64,7 @@ class Category extends Base
             'id'          => $this->id,
             'name'        => $this->name,
             'description' => $this->description,
-            'type'        => intval($this->type),
+            'type'        => $this->type ? 'Games' : 'Applications',
             'cover_image' => !empty($this->coverImage) ? $this->coverImage->present()->url : null,
         ];
     }
