@@ -97,7 +97,7 @@ class StoreApplication extends Base
             'min_sdk'            => intval($this->min_sdk),
             'category'           => !empty($this->category) ? $this->category->name : null,
             'developer'          => !empty($this->developer) ? $this->developer->name : null,
-            'publish_started_at' => $this->publish_started_at,
+            'publish_started_at' => $this->publish_started_at->format('Y-m-d H:i:s'),
         ];
     }
 
