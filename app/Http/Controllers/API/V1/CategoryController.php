@@ -22,7 +22,15 @@ class CategoryController extends Controller
     {
         $categories = $this->categoryRepository->all();
         foreach( $categories as $key => $category ) {
-            $categories[$key] = $category->toAPIArray();
+            $storeApps = $category->storeApplication()->get();
+            foreach ( $storeApps as $key2 => $app ) {
+                $storeApps[$key2] = $app->toAPIArray();
+            }
+
+            $category = $category->toAPIArray();
+            $category['app_list'] = $storeApps->toArray();
+            
+            $categories[$key] = $category;
         }
         
         return Response::response(200, $categories);

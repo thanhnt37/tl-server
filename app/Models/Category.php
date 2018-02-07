@@ -50,7 +50,7 @@ class Category extends Base
 
     public function storeApplication()
     {
-        return $this->hasMany('App\Models\StoreApplication', 'category_id', 'id');
+        return $this->hasMany(\App\Models\StoreApplication::class , 'category_id', 'id');
     }
 
     // Utility Functions
