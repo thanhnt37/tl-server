@@ -148,7 +148,7 @@
                     <div class="col-md-6">
                         <div class="form-group @if ($errors->has('version_code')) has-error @endif">
                             <label for="version_code">@lang('admin.pages.store-applications.columns.version_code')</label>
-                            <input type="text" class="form-control" id="version_code" name="version_code" required value="{{ old('version_code') ? old('version_code') : $storeApplication->version_code }}">
+                            <input type="number" min="0" class="form-control" id="version_code" name="version_code" required value="{{ old('version_code') ? old('version_code') : $storeApplication->version_code }}">
                         </div>
                     </div>
                 </div>

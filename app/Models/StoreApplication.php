@@ -86,7 +86,7 @@ class StoreApplication extends Base
             'id'                 => $this->id,
             'name'               => $this->name,
             'version_name'       => $this->version_name,
-            'version_code'       => $this->version_code,
+            'version_code'       => intval($this->version_code),
             'package_name'       => $this->package_name,
             'apk_package_url'    => isset($this->apkPackage->url) ? \URLHelper::asset(config('file.categories.store-app_apk.local_path') . $this->apkPackage->url, config('file.categories.store-app_apk.local_type')) : '',
             'description'        => $this->description,
