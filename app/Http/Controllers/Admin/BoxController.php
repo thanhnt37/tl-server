@@ -45,14 +45,15 @@ class BoxController extends Controller
      */
     public function index(PaginationRequest $request)
     {
-        $paginate['offset']     = $request->offset();
         $paginate['limit']      = $request->limit();
+        $paginate['offset']     = $request->offset();
         $paginate['order']      = $request->order('id');
         $paginate['direction']  = $request->direction('asc');
         $paginate['baseUrl']    = action( 'Admin\BoxController@index' );
+        $keyword = $request->get('keyword', '');
 
-        $count = $this->boxRepository->count();
-        $boxs = $this->boxRepository->get( $paginate['order'], $paginate['direction'], $paginate['offset'], $paginate['limit'] );
+        $count = $this->boxRepository->countWithKeyword($keyword);
+        $boxs = $this->boxRepository->getWithKeyword($keyword, $paginate['offset'], $paginate['limit']);
 
         return view(
             'pages.admin.' . config('view.admin') . '.boxes.index',
@@ -60,6 +61,7 @@ class BoxController extends Controller
                 'boxs'     => $boxs,
                 'count'    => $count,
                 'paginate' => $paginate,
+                'keyword'  => $keyword
             ]
         );
     }

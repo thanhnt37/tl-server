@@ -31,7 +31,8 @@ Boxes
     <div class="box-header with-border">
 
         <div class="row">
-            <div class="col-sm-6">
+            <div class="col-sm-12">
+
                 <h3 class="box-title">
                     <p class="text-right">
                         <a href="{!! action('Admin\BoxController@create') !!}" class="btn btn-primary btn-sm" style="width: 125px;">@lang('admin.pages.common.buttons.create')</a>
@@ -43,12 +44,26 @@ Boxes
                     {{ csrf_field() }}
                     <input type="file" name="file-upload" id="file-upload" style="display: none;" onchange="this.form.submit()">
                 </form>
-                <br>
+            </div>
+            <div class="col-sm-6">
+                <form method="get" accept-charset="utf-8" action="{!! action('Admin\BoxController@index') !!}">
+                    {!! csrf_field() !!}
+                    <div class="row search-input">
+                        <div class="col-md-12" style="margin-bottom: 10px;">
+                            <div class="search-input-text">
+                                <input type="text" name="keyword" class="form-control" placeholder="Search here" id="keyword" value="{{$keyword}}">
+                                <button type="submit" class="btn">
+                                    <i class="fa fa-search"></i>
+                                </button>
+                            </div>
+                        </div>
+                    </div>
+                </form>
                 <p style="display: inline-block;">@lang('admin.pages.common.label.search_results', ['count' => $count])</p>
             </div>
             <div class="col-sm-6 wrap-top-pagination">
-                <div class="heading-page-pagination">
-                    {!! \PaginationHelper::render($paginate['order'], $paginate['direction'], $paginate['offset'], $paginate['limit'], $count, $paginate['baseUrl'], [], $count, 'shared.topPagination') !!}
+                <div class="heading-page-pagination" style="margin-top: 0;">
+                    {!! \PaginationHelper::render($paginate['order'], $paginate['direction'], $paginate['offset'], $paginate['limit'], $count, $paginate['baseUrl'], ['keyword' => $keyword], $count, 'shared.topPagination') !!}
                 </div>
             </div>
         </div>
@@ -102,7 +117,7 @@ Boxes
         </table>
     </div>
     <div class="box-footer">
-        {!! \PaginationHelper::render($paginate['order'], $paginate['direction'], $paginate['offset'], $paginate['limit'], $count, $paginate['baseUrl'], []) !!}
+        {!! \PaginationHelper::render($paginate['order'], $paginate['direction'], $paginate['offset'], $paginate['limit'], $count, $paginate['baseUrl'], ['keyword' => $keyword]) !!}
     </div>
 </div>
 @stop

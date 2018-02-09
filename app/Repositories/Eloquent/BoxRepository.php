@@ -37,4 +37,44 @@ class BoxRepository extends AuthenticatableRepository implements BoxRepositoryIn
         
         return $box->is_activated ? $box : null;
     }
+
+    /**
+     * Get logs with filter conditions
+     *
+     * @params string   $keyword
+     *         int      $offset
+     *         int      $limit
+     * @return array    App\Models\Box
+     * */
+    public function getWithKeyword($keyword, $offset, $limit)
+    {
+        $model = $this->getBlankModel();
+
+        $model = $model->where(function ($subquery) use ($keyword) {
+            $subquery->where('imei', 'like', '%'.$keyword.'%')
+                ->orWhere('serial', 'like', '%'.$keyword.'%');
+        });
+
+        return $model->offset($offset)->limit($limit)->get();
+    }
+
+    /**
+     * Count logs with filter conditions
+     *
+     * @params string   $keyword
+     *         int      $offset
+     *         int      $limit
+     * @return array    App\Models\Box
+     * */
+    public function countWithKeyword($keyword)
+    {
+        $model = $this->getBlankModel();
+
+        $model = $model->where(function ($subquery) use ($keyword) {
+            $subquery->where('imei', 'like', '%'.$keyword.'%')
+                ->orWhere('serial', 'like', '%'.$keyword.'%');
+        });
+
+        return $model->count();
+    }
 }
