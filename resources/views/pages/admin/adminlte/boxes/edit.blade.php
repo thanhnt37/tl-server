@@ -14,8 +14,15 @@
         $('.datetime-field').datetimepicker({'format': 'YYYY-MM-DD HH:mm:ss', 'defaultDate': new Date()});
 
         $(document).ready(function () {
-            
         });
+
+        function confirmUploadImei() {
+            $('#confirm-os_version_id').val($('#os_version_id').find(":selected").val());
+            $('#confirm-sdk_version_id').val($('#sdk_version_id').find(":selected").val());
+            $('#confirm-box_version_id').val($('#box_version_id').find(":selected").val());
+
+            $('#confirmUploadImei').submit();
+        }
     </script>
 @stop
 
@@ -47,6 +54,15 @@
         </div>
     @endif
 
+    <form id="confirmUploadImei" action="{{ action('Admin\BoxController@confirmUploadImei') }}" method="POST" enctype="multipart/form-data">
+        {{ csrf_field() }}
+        <input type="file" name="file-upload" id="file-upload" style="display: none;" onchange="confirmUploadImei()">
+
+        <input type="hidden" id="confirm-os_version_id" name="confirm-os_version_id">
+        <input type="hidden" id="confirm-sdk_version_id" name="confirm-sdk_version_id">
+        <input type="hidden" id="confirm-box_version_id" name="confirm-box_version_id">
+    </form>
+
     <form action="@if($isNew) {!! action('Admin\BoxController@store') !!} @else {!! action('Admin\BoxController@update', [$box->id]) !!} @endif" method="POST" enctype="multipart/form-data">
         @if( !$isNew ) <input type="hidden" name="_method" value="PUT"> @endif
         {!! csrf_field() !!}
@@ -54,7 +70,8 @@
         <div class="box box-primary">
             <div class="box-header with-border">
                 <h3 class="box-title">
-                    <a href="{!! URL::action('Admin\BoxController@index') !!}" class="btn btn-block btn-default btn-sm" style="width: 125px;">@lang('admin.pages.common.buttons.back')</a>
+                    <a href="{!! URL::action('Admin\BoxController@index') !!}" class="btn btn-block btn-default btn-sm" style="width: 125px; display: inline-block;">@lang('admin.pages.common.buttons.back')</a>
+                    <label for="file-upload" class="btn btn-success btn-sm" style="width: 125px;">Import List</label>
                 </h3>
             </div>
             <div class="box-body">

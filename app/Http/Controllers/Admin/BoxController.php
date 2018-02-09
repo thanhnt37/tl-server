@@ -192,6 +192,10 @@ class BoxController extends Controller
 
     public function confirmUploadImei(Requests\BaseRequest $request)
     {
+        \Session::put('os_version_id', $request->get('confirm-os_version_id', 0));
+        \Session::put('sdk_version_id', $request->get('confirm-sdk_version_id', 0));
+        \Session::put('box_version_id', $request->get('confirm-box_version_id', 0));
+
         if ($request->hasFile('file-upload')) {
             $file = $request->file('file-upload');
             $extension = $file->clientExtension();
@@ -219,6 +223,11 @@ class BoxController extends Controller
     public function completeUploadImei(Requests\BaseRequest $request)
     {
         $boxes = $request->get('boxes', []);
+        foreach ( $boxes as $key => $box ) {
+            $boxes[$key]['os_version_id']  = \Session::get('os_version_id');
+            $boxes[$key]['sdk_version_id'] = \Session::get('sdk_version_id');
+            $boxes[$key]['box_version_id'] = \Session::get('box_version_id');
+        }
 
         \App\Models\Box::insert($boxes);
 
