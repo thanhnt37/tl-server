@@ -95,7 +95,7 @@ class StoreApplication extends Base
             'background_image'   => !empty($this->backgroundImage) ? $this->backgroundImage->present()->url : null,
             'hit'                => intval($this->hit),
             'min_sdk'            => intval($this->min_sdk),
-            'category'           => !empty($this->category) ? $this->category->name : null,
+            'category_id'        => intval($this->category_id),
             'type'               => !empty($this->category) ? ($this->category->type ? 'Games' : 'Applications') : null,
             'developer'          => !empty($this->developer) ? $this->developer->name : null,
             'publish_started_at' => $this->publish_started_at->format('Y-m-d H:i:s'),
