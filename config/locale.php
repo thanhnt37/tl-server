@@ -9,5 +9,5 @@ return [
             'name' => 'config.locale.languages.gb.name',
         ],
     ],
-    'default' => 'gb',
+    'default' => 'vn',
 ];

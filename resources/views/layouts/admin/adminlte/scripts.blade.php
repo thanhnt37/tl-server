@@ -17,7 +17,7 @@
 
     $('#language-switcher').flagStrap({
         countries: {
-            "GB": "English",
+//            "GB": "English",
             "VN": "Tiếng Việt"
         },
         buttonSize: "btn-sm",

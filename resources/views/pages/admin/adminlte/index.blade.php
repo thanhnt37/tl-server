@@ -14,7 +14,7 @@
 @stop
 
 @section('header')
-Dashboard
+    Bảng điều khiển
 @stop
 
 @section('content')
