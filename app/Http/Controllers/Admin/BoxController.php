@@ -227,6 +227,7 @@ class BoxController extends Controller
             $boxes[$key]['os_version_id']  = \Session::get('os_version_id');
             $boxes[$key]['sdk_version_id'] = \Session::get('sdk_version_id');
             $boxes[$key]['box_version_id'] = \Session::get('box_version_id');
+            $boxes[$key]['is_activated']   = false;
         }
 
         \App\Models\Box::insert($boxes);
