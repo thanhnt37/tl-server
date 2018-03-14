@@ -3,6 +3,7 @@
 use App\Http\Requests;
 use App\Http\Controllers\Controller;
 
+use App\Models\Song;
 use App\Repositories\SingerRepositoryInterface;
 use App\Http\Requests\Admin\SingerRequest;
 use App\Http\Requests\PaginationRequest;
@@ -243,6 +244,12 @@ class SingerController extends Controller
         }
 
         $this->singerRepository->update($singer, $input);
+
+        Song::whereIn('id', $singer->songs->pluck('id')->toArray())->update(
+            [
+                'updated_at' => date('Y-m-d H:i:s')
+            ]
+        );
 
         return redirect()->action('Admin\SingerController@show', [$id])
                     ->with('message-success', trans('admin.messages.general.update_success'));
