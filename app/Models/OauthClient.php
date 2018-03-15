@@ -34,13 +34,11 @@ class OauthClient extends Base
 
     protected $dates  = [];
 
-//    protected $presenter = \App\Presenters\OauthClientPresenter::class;
-
     // Relations
-        public function user()
-        {
-            return $this->belongsTo(\App\Models\User::class, 'user_id', 'id');
-        }
+    public function user()
+    {
+        return $this->belongsTo(\App\Models\User::class, 'user_id', 'id');
+    }
 
     // Utility Functions
 }

@@ -31,12 +31,10 @@ class OauthRefreshToken extends Base
 
     protected $dates  = ['expires_at'];
 
-//    protected $presenter = \App\Presenters\OauthRefreshTokenPresenter::class;
-
     // Relations
         public function accessToken()
         {
-//            return $this->belongsTo(\App\Models\AccessToken::class, 'access_token_id', 'id');
+            return $this->belongsTo(\App\Models\OauthAccessToken::class, 'access_token_id', 'id');
         }
 
     // Utility Functions

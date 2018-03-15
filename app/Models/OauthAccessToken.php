@@ -34,18 +34,14 @@ class OauthAccessToken extends Base
 
     protected $dates  = ['expires_at'];
 
-//    protected $presenter = \App\Presenters\OauthAccessTokenPresenter::class;
-
     // Relations
-        public function user()
-        {
-            return $this->belongsTo(\App\Models\User::class, 'user_id', 'id');
-        }
+    public function user()
+    {
+        return $this->belongsTo(\App\Models\User::class, 'user_id', 'id');
+    }
 
     public function client()
     {
-//        return $this->belongsTo(\App\Models\Client::class, 'client_id', 'id');
+        return $this->belongsTo(\App\Models\OauthClient::class, 'client_id', 'id');
     }
-
-    // Utility Functions
 }
