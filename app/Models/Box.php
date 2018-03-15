@@ -1,10 +1,12 @@
 <?php namespace App\Models;
 
 use Illuminate\Database\Eloquent\SoftDeletes;
+use Illuminate\Support\Facades\Hash;
 use Laravel\Passport\HasApiTokens;
 
 class Box extends AuthenticatableBase
 {
+    const DEFAULT_PASSWORD = 'truonglam_api';
 
     use SoftDeletes, HasApiTokens;
 
@@ -60,6 +62,12 @@ class Box extends AuthenticatableBase
         return $this->where('imei', $identifier)->first();
     }
 
+    public function getAuthPassword()
+    {
+        return Hash::make(self::DEFAULT_PASSWORD);
+
+    }
+
     // Relations
     public function osVersion()
     {
@@ -76,6 +84,10 @@ class Box extends AuthenticatableBase
         return $this->belongsTo(\App\Models\BoxVersion::class, 'box_version_id', 'id');
     }
 
+    public function accessTokens()
+    {
+        return $this->hasMany(\App\Models\OauthAccessToken::class, 'user_id', 'id');
+    }
 
     // Utility Functions
 

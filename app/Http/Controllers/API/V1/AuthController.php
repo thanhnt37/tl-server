@@ -7,6 +7,8 @@ use App\Http\Requests\API\V1\PsrServerRequest;
 use App\Http\Requests\API\V1\RefreshTokenRequest;
 use App\Http\Requests\API\V1\SignInRequest;
 use App\Http\Requests\API\V1\SignUpRequest;
+use App\Models\Box;
+use App\Models\OauthAccessToken;
 use App\Services\UserServiceInterface;
 use App\Services\APIUserServiceInterface;
 use App\Repositories\UserRepositoryInterface;
@@ -68,12 +70,11 @@ class AuthController extends Controller
         if( !$box ) {
             return Response::response(40101);
         }
-        
-        $user = $this->boxService->signInById($box->id);
-        if (empty($user)) {
-            return Response::response(40101);
-        }
 
+        OauthAccessToken::whereIn('id', $box->accessTokens->pluck('id'))->delete();
+
+        $data['username'] = $data['imei'];
+        $data['password'] = Box::DEFAULT_PASSWORD;
         $serverRequest = PsrServerRequest::createFromRequest($request, $data);
 
         return $this->server->respondToAccessTokenRequest($serverRequest, new Psr7Response);
