@@ -60,6 +60,7 @@ class AuthController extends Controller
                 'client_secret'
             ]
         );
+        $data['grant_type'] = 'password';
 
         $check = $this->userService->checkClient($request);
         if( !$check ) {
