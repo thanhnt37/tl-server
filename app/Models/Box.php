@@ -8,7 +8,7 @@ class Box extends AuthenticatableBase
 {
     const DEFAULT_PASSWORD = 'truonglam_api';
 
-    use SoftDeletes, HasApiTokens;
+    use HasApiTokens;
 
     /**
      * The database table used by the model.
